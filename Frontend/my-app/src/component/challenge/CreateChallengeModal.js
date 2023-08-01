@@ -84,6 +84,7 @@ const CreateChallengeModal = ({ closeModal }) => {
       "requestDto",
       new Blob([JSON.stringify(requestDto)], { type: "application/json" }),
     ); // requestDto를 JSON 형식으로 추가
+    console.log(requestDto);
     api
       .post("http://localhost:8080/challenge/create", formData, {
         headers: {
@@ -92,6 +93,7 @@ const CreateChallengeModal = ({ closeModal }) => {
         },
       })
       .then((res) => {
+        console.log(res);
         closeModal();
         Swal.fire({
           position: "center",

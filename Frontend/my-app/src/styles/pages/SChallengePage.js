@@ -45,20 +45,20 @@ export const STopWrapper = styled.div`
     position: relative;
     font-size: 25px;
     left: 30px;
-    top: -15px;
+    top: -5px;
   }
   #date {
     position: relative;
     top: -65px;
     font-size: 18px;
-    left: 580px;
+    left: 610px;
   }
 
   #dday {
     position: relative;
     top: -75px;
     font-size: 18px;
-    left: 650px;
+    left: 670px;
   }
 `;
 
@@ -81,11 +81,13 @@ export const SMidWrapper = styled.div`
 `;
 
 export const SBotWrapper = styled.div`
+  position: absolute;
+  top: 420px;
   #people {
     position: relative;
     font-size: 18px;
     left: 45px;
-    bottom: -20px;
+    top: -190px;
   }
   #enter {
     position: relative;
