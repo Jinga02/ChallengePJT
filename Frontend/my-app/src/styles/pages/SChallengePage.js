@@ -3,7 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // ChallengPage
 export const SCreateChallengeWrapper = styled.div`
-  width: 85%;
+  width: 1200px;
   display: flex;
   justify-content: flex-end;
   margin: 30px 0px -40px 0px;
@@ -141,12 +141,13 @@ export const SInput = styled.input`
 // CreateChallengeModal
 export const SCreateChallengeModalWrapper = styled.div`
   color: white;
-  margin: 0 5%;
+  margin: -15px 50px 10px 50px;
 `;
 export const STitleChallenge = styled.input`
+  position: relative;
+  top: 30px;
   color: white;
-  width: 48%;
-  height: 50px;
+  width: 480px;
   background: rgba(0, 0, 0, 0);
   border: 0;
   border-bottom: 1px solid white;

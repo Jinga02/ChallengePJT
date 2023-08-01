@@ -42,8 +42,10 @@ const MyChallenge = () => {
   const location = useLocation();
   const navigate = useNavigate();
   // 상세보기 클릭
-  const detailClick = () => {
-    navigate("/ChallengePage/:id");
+  const detailClick = (challengeId) => {
+    if (location.pathname === "/ChallengePage") {
+      navigate(`/ChallengePage/${challengeId}`);
+    }
   };
   // 날짜 형식
   const formatDate = (dateString) => {
@@ -68,7 +70,6 @@ const MyChallenge = () => {
   useEffect(() => {
     getMyChallenge();
   }, []);
-  console.log(myChallenges);
   return (
     <>
       <SSwiper
@@ -81,12 +82,12 @@ const MyChallenge = () => {
         <ul>
           {myChallenges.map((challenge) => {
             const daysInProgress = getDaysInProgress(
-              challenge.challengeStartDate
+              challenge.challengeStartDate,
             );
 
             return (
               <SSwiperSlide>
-                <li>
+                <li key={challenge.challengeId}>
                   <STopWrapper>
                     <p id="name">{challenge.challengeName}</p>
                     <p id="date">
@@ -111,7 +112,10 @@ const MyChallenge = () => {
                   <SBotWrapper>
                     <p id="people">{challenge.challengePeople}명 참여 중</p>
                     <button id="enter">입장하기</button>
-                    <button id="detail" onClick={detailClick}>
+                    <button
+                      id="detail"
+                      onClick={() => detailClick(challenge.challengeId)} // 수정된 부분
+                    >
                       {" "}
                       {location.pathname === "/ChallengePage"
                         ? "상세보기"

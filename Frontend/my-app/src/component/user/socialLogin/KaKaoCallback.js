@@ -25,7 +25,7 @@ const KakaoCallback = () => {
             nickname: res.data.nickname,
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
-          })
+          }),
         );
         persistor.flush(); // 상태를 영구적으로 저장
         Swal.fire({
