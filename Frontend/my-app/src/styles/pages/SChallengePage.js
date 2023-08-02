@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
-import Modal from "react-modal";
 
 // ChallengPage
 export const SCreateChallengeWrapper = styled.div`
@@ -25,14 +24,15 @@ export const SCreateChallengeButton = styled.button`
 // MyChallenge
 
 export const SSwiper = styled(Swiper)`
-  background-color: rgba(22, 22, 22, 0.599);
+  // background-color: rgba(22, 22, 22, 0.599);
   width: 780px;
   height: 300px;
   margin: 100px auto;
   padding: 10px;
-  border: 0.5px solid white;
-  border-radius: 10px;
-  box-shadow: 5px 5px 20px #ff007a;
+  border:none
+  // border: 0.5px solid white;
+  // border-radius: 10px;
+  // box-shadow: 5px 5px 20px #ff007a;
 
   .swiper-button-next::after,
   .swiper-button-prev::after {
@@ -40,63 +40,66 @@ export const SSwiper = styled(Swiper)`
   }
 `;
 
-export const SSwiperSlide = styled(SwiperSlide)``;
+export const SSwiperSlide = styled(SwiperSlide)`
+  background-color: rgba(22, 22, 22, 22);
+  border: 0.5px solid white;
+  border-radius: 10px;
+  box-shadow: 5px 5px 20px #ff007a;
+`;
 
 export const STopWrapper = styled.div`
   #name {
-    position: relative;
-    font-size: 25px;
+    position: absolute;
+    font-size: 30px;
     left: 30px;
     top: -5px;
   }
   #date {
-    position: relative;
-    top: -65px;
-    font-size: 18px;
-    left: 610px;
+    position: absolute;
+    top: 5px;
+    font-size: 22px;
+    right: 20px;
   }
 
   #dday {
-    position: relative;
-    top: -75px;
-    font-size: 18px;
-    left: 670px;
+    position: absolute;
+    top: 40px;
+    font-size: 20px;
+    right: 20px;
   }
 `;
 
 export const SMidWrapper = styled.div`
-  position: relative;
-  top: 80px;
-
   img {
-    position: relative;
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 80px;
     left: 20px;
     bottom: 160px;
   }
   #info {
-    position: relative;
+    position: absolute;
     left: 200px;
-    bottom: 310px;
+    top: 90px;
     font-size: 18px;
     width: 500px;
     white-space: pre-wrap;
+    word-break: break-all;
   }
 `;
 
 export const SBotWrapper = styled.div`
-  position: absolute;
-  top: 420px;
-
   #people {
-    position: relative;
+    position: absolute;
     font-size: 18px;
-    left: 45px;
-    top: -190px;
+    left: 50px;
+    bottom: 5px;
   }
   #enter {
-    position: relative;
+    position: absolute;
     left: 440px;
-    bottom: 240px;
+    bottom: 20px;
     background-color: #0000c5;
     border: none;
     border-radius: 10px;
@@ -108,9 +111,9 @@ export const SBotWrapper = styled.div`
     cursor: pointer;
   }
   #detail {
-    position: relative;
-    left: 460px;
-    bottom: 240px;
+    position: absolute;
+    left: 610px;
+    bottom: 20px;
     background-color: #33ff00;
     border: none;
     border-radius: 10px;
@@ -147,7 +150,7 @@ export const SInput = styled.input`
 `;
 
 export const SSearchSwiper = styled(Swiper)`
-  background-color: rgba(22, 22, 22, 0.599);
+  // background-color: rgba(22, 22, 22, 0.599);
   width: 948px;
   margin: 30px auto 50px;
   height: 600px;
@@ -160,8 +163,18 @@ export const SSearchSwiper = styled(Swiper)`
 `;
 
 export const SSearchSwiperSlide = styled(SwiperSlide)`
-  height: 50%;
-  background-color: red;
+  // background-color: red;
+  text-align: center;
+  height: calc((100% - 30px) / 2) !important;
+  cursor: pointer;
+  img {
+    width: 200px;
+    height: 200px;
+    margin: 25px;
+  }
+  h2 {
+    margin: -10px 0 0 0;
+  }
 `;
 
 // CreateChallengeModal
@@ -393,7 +406,7 @@ export const SCalendarwrapper = styled.div`
   }
   ${"" /*  챌린지 범위 */}
   .selected-range {
-    background-color: gray;
+    background-color: rgb(30, 30, 30);
     color: white;
     border-radius: 2px;
   }
@@ -408,13 +421,13 @@ export const SCalendarwrapper = styled.div`
 
   ${"" /* 선택불가 날짜 색 */}
   .react-calendar__tile:disabled, .react-calendar__navigation button:disabled {
-    background-color: #00000059;
+    background-color: rgb(40, 40, 40);
   }
   .react-calendar__tile--now:enabled:hover {
-    background-color: #00000059;
+    background-color: rgb(40, 40, 40);
   }
   .react-calendar__tile--now:enabled:focus {
-    background-color: #00000059;
+    background-color: rgb(40, 40, 40);
   }
   ${"" /* 연도 월 */}
   .react-calendar__navigation__label__labelText {
@@ -431,13 +444,20 @@ export const SCalendarwrapper = styled.div`
   }
   ${"" /* 현재일 말고 다른 일 눌렀을 때 현재 일 배경색  */}
   .react-calendar__tile.react-calendar__tile--now.react-calendar__month-view__days__day {
-    background-color: #33ff00;
+    color: black;
     border: none;
   }
   ${"" /* 다른 일 눌렀을 때 배경색 */}
   .react-calendar__tile.react-calendar__tile--active.react-calendar__tile--range.react-calendar__tile--rangeStart.react-calendar__tile--rangeEnd.react-calendar__tile--rangeBothEnds.react-calendar__month-view__days__day {
-    background-color: #0000c5;
+    background-color: rgb(30, 30, 30);
     border: none;
+  }
+  ${"" /* hover or focus 했을때 */}
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:focus {
+    background-color: rgb(30, 30, 30);
+    border-radius: ;
+    color: ;
   }
 
   ${"" /* 요일  */}
