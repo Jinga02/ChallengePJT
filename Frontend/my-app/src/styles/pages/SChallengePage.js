@@ -1,14 +1,16 @@
 import styled from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Modal from "react-modal";
 
 // ChallengPage
 export const SCreateChallengeWrapper = styled.div`
   width: 1200px;
   display: flex;
   justify-content: flex-end;
-  margin: 30px 0px -40px 0px;
+  margin: 30px auto -40px auto;
 `;
 export const SCreateChallengeButton = styled.button`
+  font-family: "Pretendard";
   background-color: #ff007a;
   border: none;
   border-radius: 10px;
@@ -77,12 +79,14 @@ export const SMidWrapper = styled.div`
     bottom: 310px;
     font-size: 18px;
     width: 500px;
+    white-space: pre-wrap;
   }
 `;
 
 export const SBotWrapper = styled.div`
   position: absolute;
   top: 420px;
+
   #people {
     position: relative;
     font-size: 18px;
@@ -118,18 +122,20 @@ export const SBotWrapper = styled.div`
     cursor: pointer;
   }
 `;
-//  ChallengeBoard
-export const SChallengeBoardWrapper = styled.div``;
+//  SearchChallenge
+export const SSearchChallengeWrapper = styled.div``;
 export const SInput = styled.input`
   background-color: rgba(22, 22, 22, 0.599);
   color: white;
   width: 780px;
   border: none;
   border-radius: 10px;
-  font-size: 18px;
   padding: 13px;
   margin: 0 auto;
   display: block;
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Pretendard";
 
   & + hr {
     width: 780px;
@@ -140,7 +146,45 @@ export const SInput = styled.input`
   }
 `;
 
+export const SSearchSwiper = styled(Swiper)`
+  background-color: rgba(22, 22, 22, 0.599);
+  width: 948px;
+  margin: 30px auto 50px;
+  height: 600px;
+  padding: 10px;
+  border: none;
+  .swiper-button-next::after,
+  .swiper-button-prev::after {
+    display: none;
+  }
+`;
+
+export const SSearchSwiperSlide = styled(SwiperSlide)`
+  height: 50%;
+  background-color: red;
+`;
+
 // CreateChallengeModal
+export const customModalStyles = {
+  content: {
+    backgroundColor: "rgba(22, 22, 22, 1)",
+    border: "0.5px solid white",
+    borderRadius: "6px",
+    boxShadow: "5px 5px 20px #ff007a",
+    margin: "auto",
+    width: "1100px",
+    height: "600px",
+    padding: "20px",
+    color: "black",
+  },
+  overlay: {
+    background: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: "999",
+  },
+};
 export const SCreateChallengeModalWrapper = styled.div`
   color: white;
   margin: -15px 50px 10px 50px;
@@ -155,7 +199,7 @@ export const STitleChallenge = styled.input`
   border-bottom: 1px solid white;
   font-size: 25px;
   padding: 15px;
-  font-family: Pretendard;
+  font-family: "Pretendard";
   font-weight: 500;
 
   &::placeholder {
@@ -166,16 +210,18 @@ export const STitleChallenge = styled.input`
 export const SChallengeImage = styled.div`
   width: 100px;
   position: relative;
-
+  font-family: "Pretendard";
+  font-weight: 500;
   left: 800px;
   input {
     width: 200px;
+    font-weight: 500;
+    font-family: "Pretendard";
   }
 `;
 
 export const SInfoChallenge = styled.div`
   height: 450px;
-  font-family: Pretendard;
 `;
 
 export const STextArea = styled.textarea`
@@ -192,6 +238,8 @@ export const STextArea = styled.textarea`
   padding: 15px;
   resize: none;
   font-weight: 800;
+  font-family: "Pretendard";
+
   &::placeholder {
     font-weight: 800;
     color: rgb(150, 150, 150);
@@ -199,6 +247,7 @@ export const STextArea = styled.textarea`
 `;
 
 export const SSelectChallengeWrapper = styled.div`
+  font-family: "Pretendard";
   width: 200px;
   height: 140px;
   background-color: rgb(40, 40, 40);
@@ -233,6 +282,7 @@ export const SChallengeTimeWrapper = styled.div`
   padding: 0 20px;
   background-color: rgb(40, 40, 40);
   font-weight: 440;
+  font-family: "Pretendard";
   h4 {
     margin: 10px 0 15px 0;
   }
@@ -252,6 +302,7 @@ export const SChallengeTimeWrapper = styled.div`
 `;
 
 export const SAuthenticationMethodWrapper = styled.div`
+  font-family: "Pretendard";
   position: relative;
   bottom: 302px;
   left: 270px;
@@ -269,7 +320,7 @@ export const SAuthenticationMethodWrapper = styled.div`
   }
   li {
     list-style: none;
-    margin: 20px 0;
+    margin: 20px 0 22px 0;
   }
   input {
     width: 30px;
@@ -278,6 +329,7 @@ export const SAuthenticationMethodWrapper = styled.div`
 `;
 // 인원수 설정
 export const SMemberWrapper = styled.div`
+  font-family: "Pretendard";
   position: relative;
   bottom: 282px;
   left: 270px;
@@ -295,12 +347,13 @@ export const SMemberWrapper = styled.div`
   }
   input {
     width: 200px;
-    height: 15px;
   }
   h4 {
     margin: 10px 0 10px 0;
   }
   select {
+    font-family: "Pretendard";
+    font-weight: 500;
     position: relative;
     left: 135px;
     bottom: -51px;
@@ -324,6 +377,9 @@ export const SCalendarwrapper = styled.div`
   height: 200px;
   text-align: center;
   font-size: 10px;
+  font-family: "Pretendard";
+  z-index: 999;
+
   #date {
     font-weight: 500;
     font-size: 20px;
@@ -340,6 +396,25 @@ export const SCalendarwrapper = styled.div`
     background-color: gray;
     color: white;
     border-radius: 2px;
+  }
+  ${"" /* 월 선택 */}
+  .react-calendar__tile.react-calendar__decade-view__years__year {
+    color: white;
+  }
+  ${"" /* 연도 선택 */}
+  .react-calendar__tile.react-calendar__tile--now.react-calendar__tile--hasActive.react-calendar__century-view__decades__decade {
+    color: white;
+  }
+
+  ${"" /* 선택불가 날짜 색 */}
+  .react-calendar__tile:disabled, .react-calendar__navigation button:disabled {
+    background-color: #00000059;
+  }
+  .react-calendar__tile--now:enabled:hover {
+    background-color: #00000059;
+  }
+  .react-calendar__tile--now:enabled:focus {
+    background-color: #00000059;
   }
   ${"" /* 연도 월 */}
   .react-calendar__navigation__label__labelText {
@@ -393,16 +468,17 @@ export const SCalendarwrapper = styled.div`
 `;
 export const SMoneyWrapper = styled.div`
   position: relative;
-  bottom: 650px;
+  bottom: 655px;
   left: 550px;
   width: 435px;
   text-align: center;
+  font-family: "Pretendard";
   h3 {
-    font-size: 22px;
+    font-size: 25px;
     margin: 10px;
   }
   h4 {
-    font-size: 18px;
+    font-size: 20px;
     margin: 10px;
   }
   select {
@@ -410,13 +486,18 @@ export const SMoneyWrapper = styled.div`
     border: 1px solid #c4c4c4;
     box-sizing: border-box;
     border-radius: 10px;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 450;
+    font-size: 18px;
+    font-family: "Pretendard";
+    option {
+      font-family: "Pretendard";
+      font-weight: 450;
+      font-size: 18px;
+    }
   }
 `;
 export const SButtonWrapper = styled.div`
+  font-family: "Pretendard";
   position: relative;
   bottom: 10px;
   left: 575px;
@@ -432,6 +513,7 @@ export const SCompleteButton = styled.button`
   color: white;
   font-size: 23px;
   font-weight: 700;
+  font-family: "Pretendard";
 `;
 export const SCloseButton = styled.button`
   width: 180px;
@@ -444,4 +526,5 @@ export const SCloseButton = styled.button`
   font-size: 23px;
   font-weight: 700;
   cursor: pointer;
+  font-family: "Pretendard";
 `;
