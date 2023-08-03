@@ -42,9 +42,9 @@ export const SSwiper = styled(Swiper)`
 
 export const SSwiperSlide = styled(SwiperSlide)`
   background-color: rgba(22, 22, 22, 22);
-  border: 0.5px solid white;
+  ${"" /* border: 0.5px solid white; */}
   border-radius: 10px;
-  box-shadow: 5px 5px 20px #ff007a;
+  box-shadow: 0px 0px 15px gray;
 `;
 
 export const STopWrapper = styled.div`
@@ -163,14 +163,14 @@ export const SSearchSwiper = styled(Swiper)`
 `;
 
 export const SSearchSwiperSlide = styled(SwiperSlide)`
-  // background-color: red;
   text-align: center;
   height: calc((100% - 30px) / 2) !important;
   cursor: pointer;
   img {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     margin: 25px;
+    border-radius: 10px;
   }
   h2 {
     margin: -10px 0 0 0;
@@ -181,9 +181,9 @@ export const SSearchSwiperSlide = styled(SwiperSlide)`
 export const customModalStyles = {
   content: {
     backgroundColor: "rgba(22, 22, 22, 1)",
-    border: "0.5px solid white",
-    borderRadius: "6px",
-    boxShadow: "5px 5px 20px #ff007a",
+    border: "0.5px solid rgba(80, 80, 80)",
+    borderRadius: "10px",
+    boxShadow: "0px 0px 15px gray",
     margin: "auto",
     width: "1100px",
     height: "600px",
@@ -239,13 +239,11 @@ export const SInfoChallenge = styled.div`
 
 export const STextArea = styled.textarea`
   background-color: rgb(40, 40, 40);
-  border: none;
-  border-ridus: 10px;
+  border-radius: 10px;
+  border: 0.5px solid gray;
   width: 482px;
   height: 100px;
   font-size: 16px;
-  border: none;
-  border-radius: 10px;
   color: white;
   margin: 30px 0 20px 0;
   padding: 15px;
@@ -264,10 +262,8 @@ export const SSelectChallengeWrapper = styled.div`
   width: 200px;
   height: 140px;
   background-color: rgb(40, 40, 40);
-  border: none;
-  border-ridus: 10px;
-  border: 0.5px solid white;
   border-radius: 10px;
+  border: 0.5px solid gray;
   color: white;
   font-size: 18px;
   padding: 0 20px;
@@ -288,7 +284,7 @@ export const SSelectChallengeWrapper = styled.div`
 export const SChallengeTimeWrapper = styled.div`
   width: 200px;
   height: 140px;
-  border: 0.5px solid white;
+  border: 0.5px solid gray;
   border-radius: 10px;
   color: white;
   font-size: 18px;
@@ -321,7 +317,7 @@ export const SAuthenticationMethodWrapper = styled.div`
   left: 270px;
   width: 200px;
   height: 140px;
-  border: 0.5px solid white;
+  border: 0.5px solid gray;
   border-radius: 10px;
   color: white;
   font-size: 18px;
@@ -348,7 +344,7 @@ export const SMemberWrapper = styled.div`
   left: 270px;
   width: 200px;
   height: 140px;
-  border: 0.5px solid white;
+  border: 0.5px solid gray;
   border-radius: 10px;
   color: white;
   font-size: 18px;
@@ -387,11 +383,13 @@ export const SCalendarwrapper = styled.div`
   bottom: 740px;
   left: 550px;
   width: 435px;
-  height: 200px;
+  height: 255px;
   text-align: center;
   font-size: 10px;
   font-family: "Pretendard";
   z-index: 999;
+  border: 0.5px solid gray;
+  border-radius: 10px;
 
   #date {
     font-weight: 500;
@@ -406,7 +404,21 @@ export const SCalendarwrapper = styled.div`
   }
   ${"" /*  챌린지 범위 */}
   .selected-range {
-    background-color: rgb(30, 30, 30);
+    ${
+      "" /* background: linear-gradient(
+      360deg,
+      rgba(230, 0, 0, 0.5) -58.38%,
+      rgba(230, 0, 0, 0) 206.25%,
+      rgba(230, 0, 0, 0.0470272) 206.25%
+    ); */
+    }
+    ${
+      "" /* background: linear-gradient(
+      360deg,
+       rgba(0, 255, 240, 0.3) 1.48%,
+        rgba(53, 20, 240, 0) 81.57%); */
+    }
+    background-color:rgba(60,60,60);
     color: white;
     border-radius: 2px;
   }
@@ -422,12 +434,15 @@ export const SCalendarwrapper = styled.div`
   ${"" /* 선택불가 날짜 색 */}
   .react-calendar__tile:disabled, .react-calendar__navigation button:disabled {
     background-color: rgb(40, 40, 40);
+    border-radius: 10px;
   }
   .react-calendar__tile--now:enabled:hover {
     background-color: rgb(40, 40, 40);
+    border-radius: 10px;
   }
   .react-calendar__tile--now:enabled:focus {
     background-color: rgb(40, 40, 40);
+    border-radius: 10px;
   }
   ${"" /* 연도 월 */}
   .react-calendar__navigation__label__labelText {
@@ -488,7 +503,7 @@ export const SCalendarwrapper = styled.div`
 `;
 export const SMoneyWrapper = styled.div`
   position: relative;
-  bottom: 655px;
+  bottom: 705px;
   left: 550px;
   width: 435px;
   text-align: center;

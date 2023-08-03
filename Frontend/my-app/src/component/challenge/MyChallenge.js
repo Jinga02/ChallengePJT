@@ -29,6 +29,7 @@ const MyChallenge = () => {
 
   const getMyChallenge = () => {
     api
+      // .get("https://i9d201.p.ssafy.io/api/challenge/list/mine", {
       .get("http://localhost:8080/challenge/list/mine", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
@@ -49,6 +50,13 @@ const MyChallenge = () => {
       });
     }
   };
+  // 입장하기 클릭
+  const EntranceClick = (challenge) => {
+    navigate(`/ChallengePage/${challenge.id}`, {
+      state: { challenge },
+    });
+  };
+
   // 날짜 형식
   const formatDate = (dateString) => {
     const date = new Date(dateString);
