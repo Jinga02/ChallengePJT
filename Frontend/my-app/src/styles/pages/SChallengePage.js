@@ -136,8 +136,14 @@ export const SBotWrapper = styled.div`
 //  SearchChallenge
 export const SSearchChallengeWrapper = styled.div`
   position: absolute;
+<<<<<<< HEAD
   width: 100%;
   top: 650px;
+=======
+  width: 820px;
+  top: 650px;
+  left: 25%;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   margin: 0 auto;
   text-align: center;
 `;
@@ -167,9 +173,21 @@ export const SSearchSwiper = styled(Swiper)`
   height: 600px;
   padding: 10px;
   border: none;
+<<<<<<< HEAD
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
+=======
+  gap: 20px; // 수정: spaceBetween가 아닌 gap으로 변경
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); // 수정: slidesPerView가 아닌 grid-template-columns로 변경
+  grid-template-rows: repeat(
+    2,
+    1fr
+  ); // 수정: slidesPerColumn이 아닌 grid-template-rows로 변경
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   .swiper-button-next::after,
   .swiper-button-prev::after {
     display: none;
@@ -197,6 +215,7 @@ export const SSearchSwiperSlide = styled(SwiperSlide)`
     border-radius: 10px;
   }
   h2 {
+<<<<<<< HEAD
     margin: 15px 0 0 0;
     font-size: 18px;
   }
@@ -213,6 +232,10 @@ export const SSearchSwiperSlide = styled(SwiperSlide)`
     color: white;
     font-size: 16px;
     font-weight: 600;
+=======
+    margin: -10px 0 0 0;
+    font-size: 18px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   }
 `;
 
@@ -265,21 +288,35 @@ export const SChallengeImage = styled.div`
 
   div {
     position: absolute;
+<<<<<<< HEAD
     width: 180px;
     height: 180px;
     top: 95px;
     background: white;
+=======
+    width: 140px;
+    height: 140px;
+    top: 95px;
+    background: #d9d9d9;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
     border-radius: 50px;
   }
   label {
     position: absolute;
+<<<<<<< HEAD
     top: 95px;
     left: 300px;
     font-size: 30px;
+=======
+    top: 90px;
+    left: 300px;
+    font-size: 25px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
     width: 300px;
   }
   img {
     position: absolute;
+<<<<<<< HEAD
     width: 180px;
     height: 180px;
     top: px;
@@ -289,12 +326,32 @@ export const SChallengeImage = styled.div`
     top: 140px;
     left: 300px;
     font-size: 20px;
+=======
+    width: 140px;
+    height: 140px;
+    top: 95px;
+  }
+  input {
+    position: absolute;
+    top: 130px;
+    left: 300px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
     font-weight: 500;
     font-family: "Pretendard";
   }
 `;
 
+<<<<<<< HEAD
 export const SInfoChallenge = styled.div``;
+=======
+export const SInfoChallenge = styled.div`
+  ${
+    "" /* position: absolute;
+  top: 300px;
+  height: 450px; */
+  }
+`;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
 
 export const STextArea = styled.textarea`
   position: absolute;
@@ -304,7 +361,11 @@ export const STextArea = styled.textarea`
   width: 482px;
   height: 120px;
   font-size: 16px;
+<<<<<<< HEAD
   top: 270px;
+=======
+  top: 220px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   color: white;
   margin: 30px 0 20px 0;
   padding: 15px;
@@ -331,7 +392,11 @@ export const SSelectChallengeWrapper = styled.div`
   padding: 0 20px;
   margin: 0 0 20px 0;
   font-weight: 440;
+<<<<<<< HEAD
   top: 460px;
+=======
+  top: 410px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   div {
     margin: 20px 0;
   }
@@ -356,7 +421,11 @@ export const SChallengeTimeWrapper = styled.div`
   background-color: rgb(40, 40, 40);
   font-weight: 440;
   font-family: "Pretendard";
+<<<<<<< HEAD
   top: 615px;
+=======
+  top: 565px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   h4 {
     margin: 10px 0 15px 0;
   }
@@ -406,7 +475,11 @@ export const SAuthenticationMethodWrapper = styled.div`
 export const SMemberWrapper = styled.div`
   font-family: "Pretendard";
   position: absolute;
+<<<<<<< HEAD
   top: 615px;
+=======
+  top: 565px;
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
   left: 332px;
   width: 210px;
   height: 145px;

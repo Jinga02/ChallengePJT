@@ -147,6 +147,7 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
     api
       // .post("https://i9d201.p.ssafy.io/api/challenge/create", formData, {
       .post("http://localhost:8080/challenge/create", formData, {
+        // .post("http://localhost:8080/challenge/create", formData, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
           "Content-Type": `multipart/form-data`,

@@ -49,6 +49,12 @@ const ChallengePage = () => {
   console.log(allChallenge);
   return (
     <>
+<<<<<<< HEAD
+=======
+      {/* <h1>챌린지</h1>
+      <hr /> */}
+
+>>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
       <SCreateChallengeWrapper>
         <SCreateChallengeButton onClick={openModal}>
           챌린지 만들기
