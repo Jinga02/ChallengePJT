@@ -67,10 +67,7 @@ const MainPage = () => {
           >
             {myChallenges.map((challenge) => (
               <SEntranceSlide key={challenge.id}>
-                <img
-                  src="https://github.com/Jinga02/Review/assets/110621233/e8edd4c4-dd18-42d8-904c-4a04c6618018"
-                  alt="예싱이미지"
-                />
+                <img src={challenge.imgPath} alt="예싱이미지" />
                 <h4>{challenge.name}</h4>
                 <p>
                   {challenge.info.length > 30

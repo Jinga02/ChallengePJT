@@ -22,7 +22,7 @@ const SearchChallenge = (props) => {
   const [searchResult, setSearchResult] = useState([]);
   const onSearchChallenge = () => {
     const filterChallenge = allChallenge.filter((challenge) =>
-      challenge.name.includes(title),
+      challenge.name.includes(title)
     );
     setSearchResult(filterChallenge);
   };
@@ -53,11 +53,11 @@ const SearchChallenge = (props) => {
       <hr />
 
       <SSearchSwiper
-        slidesPerView={3}
+        slidesPerView={4}
         grid={{
           rows: 2,
         }}
-        spaceBetween={30}
+        // spaceBetween={0}
         pagination={{
           clickable: true,
         }}

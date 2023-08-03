@@ -8,7 +8,7 @@ export const SEntranceButtonWrapper = styled.div`
 `;
 export const SEntranceButton = styled.button`
   position: absolute;
-  left: 1350px;
+  left: 78%;
   top: 100px;
   background-color: #0000c5;
   border: none;
@@ -25,7 +25,7 @@ export const SEntranceButton = styled.button`
 export const SEntranceSwiper = styled(Swiper)`
   position: absolute;
   width: 400px;
-  left: 1320px;
+  left: 72%;
   top: 200px;
   padding: 0;
   font-family: "Pretendard";
@@ -58,6 +58,8 @@ export const SEntranceSlide = styled(SwiperSlide)`
   }
   img {
     margin: 15px 10px;
+    width: 85px;
+    height: 85px;
   }
 `;
 export const SEntranceLiButton = styled.button`

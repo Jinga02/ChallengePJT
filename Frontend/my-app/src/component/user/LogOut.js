@@ -12,6 +12,7 @@ const LogOut = () => {
     console.log(user);
     axios
       .post("http://localhost:8080/auth/logout", {
+        // .post("http://i9d201.p.ssafy.io/api/auth/logout", {
         accessToken: user.accessToken,
         refreshToken: user.refreshToken,
       })

@@ -54,7 +54,7 @@ const SignUp = () => {
         setSignUpSuccess(false);
         console.log("시발");
         api
-          .post("http://localhost:8080/auth/signup", {
+          .post("http://i9d201.p.ssafy.io/api/auth/signup", {
             id,
             password,
             email,
