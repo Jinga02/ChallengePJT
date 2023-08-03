@@ -22,7 +22,7 @@ const SearchChallenge = (props) => {
   const [searchResult, setSearchResult] = useState([]);
   const onSearchChallenge = () => {
     const filterChallenge = allChallenge.filter((challenge) =>
-      challenge.name.includes(title)
+      challenge.name.includes(title),
     );
     setSearchResult(filterChallenge);
   };
@@ -62,15 +62,20 @@ const SearchChallenge = (props) => {
           clickable: true,
         }}
         modules={[Grid, Pagination]}
+        // modules={[Navigation, Pagination, Scrollbar, A11y]}
+        // spaceBetween={20}
+        // slidesPerView={3}
+        // slidesPerColumn={2} // 세로 방향으로 2줄의 슬라이드가 보여짐
+        // navigation
+        // scrollbar={{ draggable: true }}
       >
         {renderChallenges.map((challenge) => {
           return (
-            <SSearchSwiperSlide
-              key={challenge.id}
-              onClick={() => detailClick(challenge)}
-            >
-              <img src={challenge.imgPath} alt="챌린지 이미지" />
+            <SSearchSwiperSlide key={challenge.id}>
+              {/* <h2>{challenge.}</h2> */}
               <h2>{challenge.name}</h2>
+              <img src={challenge.imgPath} alt="챌린지 이미지" />
+              <button onClick={() => detailClick(challenge)}>상세보기</button>
             </SSearchSwiperSlide>
           );
         })}
