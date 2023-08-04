@@ -29,8 +29,8 @@ const ChallengePage = () => {
   // 모든 챌린지 불러오기
   const getAllChallenge = () => {
     api
-      // .get("https://i9d201.p.ssafy.io/api/challenge/list/all", {
-      .get("http://localhost:8080/challenge/list/all", {
+      .get("https://i9d201.p.ssafy.io/api/challenge/list/all", {
+        // .get("http://localhost:8080/challenge/list/all", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -49,12 +49,6 @@ const ChallengePage = () => {
   console.log(allChallenge);
   return (
     <>
-<<<<<<< HEAD
-=======
-      {/* <h1>챌린지</h1>
-      <hr /> */}
-
->>>>>>> eefece12ef9b8a0f19f9cae4154daf5b92ec8427
       <SCreateChallengeWrapper>
         <SCreateChallengeButton onClick={openModal}>
           챌린지 만들기
