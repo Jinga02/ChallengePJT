@@ -1,6 +1,5 @@
 // swiper
 import { EffectCards } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -21,13 +20,17 @@ import {
 } from "../../styles/pages/SChallengePage";
 import { useSelector } from "react-redux";
 import { SImg } from "./../../styles/pages/SChallengePage";
+import { useDispatch } from "react-redux";
+import { setChallenge } from "../../slice/ChallengeSlice";
 
 const MyChallenge = () => {
   const user = useSelector((state) => state.users);
+  const challenges = useSelector((state) => state.challenges);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  console.log(challenges);
   const [myChallenges, setMyChallenges] = useState([]);
-
   const getMyChallenge = () => {
     api
       .get("https://i9d201.p.ssafy.io/api/challenge/list/mine", {
@@ -37,7 +40,8 @@ const MyChallenge = () => {
         },
       })
       .then((res) => {
-        setMyChallenges(res.data.data);
+        // setMyChallenges(res.data.data);
+        dispatch(setChallenge(res.data.data));
       })
       .catch((err) => {
         console.log(err);
@@ -92,7 +96,14 @@ const MyChallenge = () => {
   return (
     <>
       {sortedMyChallenges.length === 0 ? (
-        <SImg src="https://github.com/Jinga02/ChallengePJT/assets/110621233/8329c57e-d554-4956-803d-68508c07b007" />
+        <SSwiper
+          effect={"cards"}
+          grabCursor={true}
+          modules={[EffectCards]}
+          className="mySwiper"
+        >
+          <SImg src="https://github.com/Jinga02/ChallengePJT/assets/110621233/8329c57e-d554-4956-803d-68508c07b007" />
+        </SSwiper>
       ) : (
         <SSwiper
           effect={"cards"}
