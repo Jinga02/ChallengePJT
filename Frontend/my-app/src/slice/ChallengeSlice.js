@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const challengeSlice = createSlice({
   name: "challenges",
-  initialState: null,
+  initialState: [],
   reducers: {
     setChallenge: (state, action) => {
       return action.payload;
@@ -10,24 +10,25 @@ export const challengeSlice = createSlice({
   },
 });
 
-export const { setChallenge } = challengeSlice.actions;
+export const myChallengeSlice = createSlice({
+  name: "myChallenges",
+  initialState: [],
+  reducers: {
+    setMyChallenge: (state, action) => {
+      return action.payload;
+    },
+  },
+});
+export const onGoingChallengeSlice = createSlice({
+  name: "onGoingChallenges",
+  initialState: [],
+  reducers: {
+    setOnGoingChallenge: (state, action) => {
+      return action.payload;
+    },
+  },
+});
 
-// setChallenge({
-//   category: res.data.data.category,
-//   cert: res.data.data.cert,
-//   classification: res.data.data.classification,
-//   createUserId: res.data.data.createUserId,
-//   curPeople: res.data.data.curPeople,
-//   endDate: res.data.data.endDate,
-//   endTime: res.data.data.endTime,
-//   id: res.data.data.id,
-//   imgPath: res.data.data.imgPath,
-//   info: res.data.data.info,
-//   money: res.data.data.money,
-//   name: res.data.data.name,
-//   people: res.data.data.people,
-//   startDate: res.data.data.startDate,
-//   startTime: res.data.data.startTime,
-//   userList: res.data.data.userList,
-// });
-// setChallenge(res.data.data)
+export const { setChallenge } = challengeSlice.actions;
+export const { setMyChallenge } = myChallengeSlice.actions;
+export const { setOnGoingChallenge } = onGoingChallengeSlice.actions;

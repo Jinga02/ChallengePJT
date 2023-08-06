@@ -21,16 +21,14 @@ import {
 import { useSelector } from "react-redux";
 import { SImg } from "./../../styles/pages/SChallengePage";
 import { useDispatch } from "react-redux";
-import { setChallenge } from "../../slice/ChallengeSlice";
+import { setMyChallenge } from "../../slice/ChallengeSlice";
 
 const MyChallenge = () => {
   const user = useSelector((state) => state.users);
-  const challenges = useSelector((state) => state.challenges);
+  const myChallenges = useSelector((state) => state.myChallenges);
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  console.log(challenges);
-  const [myChallenges, setMyChallenges] = useState([]);
   const getMyChallenge = () => {
     api
       .get("https://i9d201.p.ssafy.io/api/challenge/list/mine", {
@@ -40,21 +38,22 @@ const MyChallenge = () => {
         },
       })
       .then((res) => {
-        // setMyChallenges(res.data.data);
-        dispatch(setChallenge(res.data.data));
+        dispatch(setMyChallenge(res.data.data));
       })
       .catch((err) => {
         console.log(err);
       });
   };
+  console.log(myChallenges);
+
   // 시작일 기준 오름차순 정렬
   const sortByStartDate = (a, b) => {
     const startDateA = new Date(a.startDate);
     const startDateB = new Date(b.startDate);
     return startDateA - startDateB;
   };
-  const sortedMyChallenges = myChallenges.sort(sortByStartDate);
-  console.log(sortedMyChallenges);
+  const sortedMyChallenges = [...myChallenges].sort(sortByStartDate);
+
   // 상세보기 클릭
   const detailClick = (challenge) => {
     if (location.pathname === "/ChallengePage") {
