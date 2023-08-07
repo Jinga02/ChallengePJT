@@ -1,22 +1,32 @@
 import { useSelector } from "react-redux";
 import { api } from "../../../api/api";
 import { useState } from "react";
+import { SLikeBoardButton } from "../../../styles/pages/SDeatilChallengePage";
 
-const LikeBoard = ({ boardId, getBoard }) => {
+const LikeBoard = ({ board, getBoard }) => {
   const user = useSelector((state) => state.users);
-  const [like, setLike] = useState(false);
-  const likeCheck = () => {
-    setLike(!like);
-  };
   const onLikeBoard = () => {
     api
-      .post(`https://i9d201.p.ssafy.io/api/boards/likes/${boardId}`, {
+      .post(`https://i9d201.p.ssafy.io/api/boards/likes/${board.id}`, null, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
       })
       .then((res) => {
-        likeCheck();
+        getBoard();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const onUnLikeBoard = () => {
+    api
+      .delete(`https://i9d201.p.ssafy.io/api/boards/likes/${board.id}`, {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      })
+      .then((res) => {
         getBoard();
       })
       .catch((err) => {
@@ -24,9 +34,16 @@ const LikeBoard = ({ boardId, getBoard }) => {
       });
   };
   return (
-    <button onClick={onLikeBoard}>
-      {like === false ? <h1>좋아요</h1> : <h1>좋아요 취소</h1>}
-    </button>
+    <>
+      {board.liked.includes(user.nickname) === false ? (
+        <SLikeBoardButton onClick={onLikeBoard}> 좋아요</SLikeBoardButton>
+      ) : (
+        <SLikeBoardButton onClick={onUnLikeBoard}>
+          {" "}
+          좋아요 취소
+        </SLikeBoardButton>
+      )}
+    </>
   );
 };
 

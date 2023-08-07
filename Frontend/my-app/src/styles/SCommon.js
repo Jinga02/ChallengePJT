@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 //Nav
 export const SNav = styled.nav`
@@ -30,7 +30,7 @@ export const SMenuWrapper = styled.div`
     }
 
     &.active {
-      color: gray;
+      color: #ff007a;
     }
   }
 `;
@@ -66,4 +66,44 @@ export const Sfont = styled.div`
   font-style: normal;
   font-weight: 500;
   font-display: fallback;
+`;
+
+export const SWrapper = styled.div`
+  max-width: 1200px;
+  height: 100%;
+  padding: 30px;
+  margin: 0 auto;
+  overflow-x: hidden;
+`;
+
+export const SHr = styled.hr`
+  margin: 30px 0px -40px 0px;
+`;
+
+export const SEmpty = styled.div`
+  margin: 120px 0px 0px 0px;
+`;
+
+export const SEmpty2 = styled.div`
+  margin: 60px 0px 0px 0px;
+`;
+
+export const STitle = styled.h1`
+  text-align: center;
+  margin: 20px;
+`;
+
+export const SButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 15px;
+  background: #0000c5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #3333ff;
+  }
 `;

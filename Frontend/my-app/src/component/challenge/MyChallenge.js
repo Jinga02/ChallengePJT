@@ -5,6 +5,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-cards";
+
 // 나머지
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -44,7 +45,6 @@ const MyChallenge = () => {
         console.log(err);
       });
   };
-  console.log(myChallenges);
 
   // 시작일 기준 오름차순 정렬
   const sortByStartDate = (a, b) => {
@@ -52,8 +52,8 @@ const MyChallenge = () => {
     const startDateB = new Date(b.startDate);
     return startDateA - startDateB;
   };
+  console.log(myChallenges);
   const sortedMyChallenges = [...myChallenges].sort(sortByStartDate);
-
   // 상세보기 클릭
   const detailClick = (challenge) => {
     if (location.pathname === "/ChallengePage") {
@@ -110,7 +110,7 @@ const MyChallenge = () => {
           modules={[EffectCards]}
           className="mySwiper"
         >
-          {myChallenges.map((challenge) => {
+          {sortedMyChallenges.map((challenge) => {
             const daysInProgress = getDaysInProgress(challenge.startDate);
 
             return (
