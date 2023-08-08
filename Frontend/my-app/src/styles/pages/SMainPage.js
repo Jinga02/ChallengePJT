@@ -22,15 +22,19 @@ export const SEntranceButton = styled.button`
   cursor: pointer;
   font-family: "Pretendard";
 `;
+
 export const SEntranceSwiper = styled(Swiper)`
   position: absolute;
   width: 400px;
   left: 72%;
   top: 200px;
   padding: 0;
+  border-radius: 10px;
   font-family: "Pretendard";
   box-shadow: 0px 0px 15px gray;
 `;
+SEntranceSwiper.displayName = "SwiperWrapper";
+
 export const SEntranceSlide = styled(SwiperSlide)`
   display: flex;
   width: 390px;
@@ -54,7 +58,7 @@ export const SEntranceSlide = styled(SwiperSlide)`
   }
   h4 {
     position: absolute;
-    width: 200px;
+    width: 220px;
     height: 20px;
     top: 5px;
     right: 70px;
@@ -66,6 +70,8 @@ export const SEntranceSlide = styled(SwiperSlide)`
     height: 85px;
   }
 `;
+SEntranceSlide.displayName = "SwiperSlide";
+
 export const SEntranceLiButton = styled.button`
   position: absolute;
   bottom: 10px;
@@ -152,13 +158,12 @@ export const SShortsCard = styled.div`
   }
 `;
 
-//뤼튼
 export const SShortsContainer = styled.div`
-  padding: 50px;
+  padding: 20px;
   display: flex;
   flex-wrap: nowrap;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 300px;
   overflow-x: auto;
   gap: 10px;
   -webkit-overflow-scrolling: touch;
