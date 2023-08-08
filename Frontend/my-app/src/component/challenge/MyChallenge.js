@@ -20,7 +20,11 @@ import {
   STopWrapper,
   SMidWrapper,
   SBotWrapper,
+<<<<<<< HEAD
   SWebRTCModal,
+=======
+  customModalStyles,
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
 } from "../../styles/pages/SChallengePage";
 import { useSelector } from "react-redux";
 import { SImg } from "./../../styles/pages/SChallengePage";
@@ -35,11 +39,17 @@ const MyChallenge = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [challengeData, setChallengeData] = useState(null); // 모달에 전달할 데이터 state 추가
+<<<<<<< HEAD
   const [selectedSessionId, setSelectedSessionId] = useState(null);
 
   const openModal = (challenge) => {
     setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
     setSelectedSessionId(challenge.id); // 선택한 챌린지의 세션 ID 저장
+=======
+
+  const openModal = (challenge) => {
+    setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     setIsOpen(true);
   };
   const closeModal = () => {
@@ -173,6 +183,7 @@ const MyChallenge = () => {
                 </SMidWrapper>
                 <SBotWrapper>
                   <p id="people">{challenge.userList.length}명 참여 중</p>
+<<<<<<< HEAD
                   {getDaysInProgress(
                     challenge.startDate,
                     challenge.endDate,
@@ -182,6 +193,16 @@ const MyChallenge = () => {
                     </button>
                   )}
                   <button id="detail" onClick={() => detailClick(challenge)}>
+=======
+                  <button id="enter" onClick={() => openModal(challenge)}>
+                    입장하기
+                  </button>
+                  <button
+                    id="detail"
+                    onClick={() => detailClick(challenge)} // 수정된 부분
+                  >
+                    {" "}
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
                     {location.pathname === "/ChallengePage"
                       ? "상세보기"
                       : "참여내역"}
@@ -192,7 +213,15 @@ const MyChallenge = () => {
           })}
         </SSwiper>
       )}
+<<<<<<< HEAD
       <Modal style={SWebRTCModal} isOpen={isOpen} onRequestClose={closeModal}>
+=======
+      <Modal
+        style={customModalStyles}
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+      >
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
         {/* 모달 내부에서 VideoRoomComponent 사용 */}
         <VideoRoomComponent challengeData={challengeData} />
       </Modal>
