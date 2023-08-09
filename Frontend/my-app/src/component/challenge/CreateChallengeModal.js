@@ -162,7 +162,7 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
     formData.append("file", image); // 이미지 파일 첨부
     formData.append(
       "requestDto",
-      new Blob([JSON.stringify(requestDto)], { type: "application/json" })
+      new Blob([JSON.stringify(requestDto)], { type: "application/json" }),
     ); // requestDto를 JSON 형식으로 추가
 
     api

@@ -9,6 +9,18 @@
   min-width: 400px !important;
 }
 
+<<<<<<< HEAD
+.toolbar {
+  min-height: 40px !important;
+}
+
+#titleContent {
+  max-width: 100px;
+  /* background-color: #494949; */
+  margin: 5px 0;
+  padding: 0px 15px;
+  font-size: 20px;
+=======
 .toolbar{
   min-height: 40px !important;
 
@@ -20,10 +32,25 @@
   margin: 5px -18px;
   padding: 0px 15px;
   font-size: 16px;
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+<<<<<<< HEAD
+.buttonsContent {
+  height: 40px !important;
+  text-align: center;
+  margin: auto;
+  min-width: 400px;
+}
+.navButton {
+  height: 40px !important;
+  width: 40px !important;
+}
+
+#navChatButton {
+=======
 .buttonsContent{
 	height: 40px !important;
 	text-align: center;
@@ -36,14 +63,21 @@
 }
 
 #navChatButton{
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   position: absolute;
   right: 0;
 }
 .stream-container {
+<<<<<<< HEAD
+  padding: 0;
+}
+
+=======
     padding: 0;
 }
 
 
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
 .bounds {
   background-color: #494949;
   overflow: hidden;
@@ -57,14 +91,21 @@
   width: inherit;
 }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
 /*!
  * Copyright (c) 2017 TokBox, Inc.
  * Released under the MIT license
  * http://opensource.org/licenses/MIT
  */
 
+<<<<<<< HEAD
+.custom-class {
+=======
  .custom-class {
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   min-height: 0px !important;
 }
 
@@ -102,7 +143,11 @@
   margin-left: auto;
 
   color: #fff;
+<<<<<<< HEAD
+  font-family: "Didact Gothic", sans-serif;
+=======
   font-family: 'Didact Gothic', sans-serif;
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   font-size: 13px;
   line-height: 1.4;
 }
@@ -261,9 +306,15 @@
 .OT_subscriber {
   position: relative;
   min-width: 48px;
+<<<<<<< HEAD
+  min-height: 48px;
+  width: 100%;
+  height: 100%;
+=======
 	min-height: 48px;
 	width: 100%;
 	height: 100%;
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
 }
 
 .OT_publisher .OT_video-element,
@@ -703,7 +754,11 @@
 
 .OT_audio-level-meter:before {
   /* makes the height of the container equals its width */
+<<<<<<< HEAD
+  content: "";
+=======
   content: '';
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   display: block;
   padding-top: 100%;
 }
@@ -733,7 +788,11 @@
 
 .OT_audio-level-meter__audio-only-img:before {
   /* makes the height of the container equals its width */
+<<<<<<< HEAD
+  content: "";
+=======
   content: '';
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   display: block;
   padding-top: 100%;
 }
@@ -741,7 +800,15 @@
 .OT_audio-level-meter__value {
   position: absolute;
   border-radius: 50%;
+<<<<<<< HEAD
+  background-image: radial-gradient(
+    circle,
+    rgba(151, 206, 0, 1) 0%,
+    rgba(151, 206, 0, 0) 100%
+  );
+=======
   background-image: radial-gradient(circle, rgba(151, 206, 0, 1) 0%, rgba(151, 206, 0, 0) 100%);
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
 }
 
 .OT_audio-level-meter.OT_mode-off {
@@ -868,7 +935,11 @@
 
 .OT_video-unsupported-img:before {
   /* makes the height of the container 93% of its width (90/97 px) */
+<<<<<<< HEAD
+  content: "";
+=======
   content: '';
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
   display: block;
   padding-top: 93%;
 }
@@ -887,4 +958,7 @@
   height: 100%;
   margin-top: 40px;
 }
+<<<<<<< HEAD
+=======
   
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f

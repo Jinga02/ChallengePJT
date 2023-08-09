@@ -20,7 +20,15 @@ import {
   STopWrapper,
   SMidWrapper,
   SBotWrapper,
+<<<<<<< HEAD
   SWebRTCModal,
+=======
+<<<<<<< HEAD
+  SWebRTCModal,
+=======
+  customModalStyles,
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
 } from "../../styles/pages/SChallengePage";
 import { useSelector } from "react-redux";
 import { SImg } from "./../../styles/pages/SChallengePage";
@@ -35,11 +43,23 @@ const MyChallenge = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [challengeData, setChallengeData] = useState(null); // 모달에 전달할 데이터 state 추가
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
   const [selectedSessionId, setSelectedSessionId] = useState(null);
 
   const openModal = (challenge) => {
     setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
     setSelectedSessionId(challenge.id); // 선택한 챌린지의 세션 ID 저장
+<<<<<<< HEAD
+=======
+=======
+
+  const openModal = (challenge) => {
+    setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
     setIsOpen(true);
   };
   const closeModal = () => {
@@ -113,7 +133,11 @@ const MyChallenge = () => {
       // 이미 종료된 챌린지인 경우
       return `종료됨`;
     }
+<<<<<<< HEAD
     if (today.getTime() >= start.getTime()) {
+=======
+    if (today.getTime() === start.getTime()) {
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
       // 진행 중인 챌린지인 경우
       const timeDiff = today.getTime() - start.getTime();
       const daysInProgress = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
@@ -166,15 +190,36 @@ const MyChallenge = () => {
                 </SMidWrapper>
                 <SBotWrapper>
                   <p id="people">{challenge.userList.length}명 참여 중</p>
+<<<<<<< HEAD
                   {getDaysInProgress(
                     challenge.startDate,
                     challenge.endDate
                   )?.includes("현재") && (
+=======
+<<<<<<< HEAD
+                  {getDaysInProgress(
+                    challenge.startDate,
+                    challenge.endDate,
+                  ).includes("현재") && (
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
                     <button id="enter" onClick={() => openModal(challenge)}>
                       입장하기
                     </button>
                   )}
                   <button id="detail" onClick={() => detailClick(challenge)}>
+<<<<<<< HEAD
+=======
+=======
+                  <button id="enter" onClick={() => openModal(challenge)}>
+                    입장하기
+                  </button>
+                  <button
+                    id="detail"
+                    onClick={() => detailClick(challenge)} // 수정된 부분
+                  >
+                    {" "}
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
                     {location.pathname === "/ChallengePage"
                       ? "상세보기"
                       : "참여내역"}
@@ -185,7 +230,19 @@ const MyChallenge = () => {
           })}
         </SSwiper>
       )}
+<<<<<<< HEAD
       <Modal style={SWebRTCModal} isOpen={isOpen} onRequestClose={closeModal}>
+=======
+<<<<<<< HEAD
+      <Modal style={SWebRTCModal} isOpen={isOpen} onRequestClose={closeModal}>
+=======
+      <Modal
+        style={customModalStyles}
+        isOpen={isOpen}
+        onRequestClose={closeModal}
+      >
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
         {/* 모달 내부에서 VideoRoomComponent 사용 */}
         <VideoRoomComponent users={user} challengeData={challengeData} />
         {/* <VideoRoomComponent /> */}

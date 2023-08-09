@@ -29,10 +29,11 @@ const SignUp = () => {
       setMismatchError(e.target.value !== passwordCheck);
     },
     // 함수 기준 외부 변수만 deps[]에 작성
-    [passwordCheck]
+    [passwordCheck],
   );
   const onCheckId = (userId) => {
     axios
+<<<<<<< HEAD
       .post(`https://i9d201.p.ssafy.io/api/auth/valid/userId?userId=${userId}`)
       .then((res) => {
         Swal.fire({
@@ -81,12 +82,32 @@ const SignUp = () => {
       });
   };
 
+=======
+      .post(`https://i9d201.p.ssafy.io/api/auth/valid/userId`, { userId })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const onCheckNickname = (nickname) => {
+    axios
+      .post(`https://i9d201.p.ssafy.io/api/auth/valid/nickname`, { nickname })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
       setMismatchError(e.target.value !== password);
     },
-    [password]
+    [password],
   );
   const [mismatchError, setMismatchError] = useState(false);
   // 가입 실패
@@ -151,7 +172,11 @@ const SignUp = () => {
           });
       }
     },
+<<<<<<< HEAD
     [email, nickname, password, passwordCheck, checkId, checkNickname]
+=======
+    [email, nickname, password, passwordCheck],
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
   );
 
   return (

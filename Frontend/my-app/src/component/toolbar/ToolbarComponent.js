@@ -74,8 +74,15 @@ export default class ToolbarComponent extends Component {
       <AppBar className="toolbar" id="header">
         <Toolbar className="toolbar">
           <div id="navSessionInfo">
+<<<<<<< HEAD:Frontend/my-app/src/component/toolbar/ToolbarComponent.js
             <img id="header_img" alt="OpenVidu Logo" />
+=======
+            {/* <img id="header_img" alt="OpenVidu Logo" src={logo} /> */}
+<<<<<<< HEAD
+=======
+>>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b:Frontend/my-app/src/component/room/toolbar/ToolbarComponent.js
 
+>>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
             {this.props.sessionId && (
               <div id="titleContent">
                 <span id="session-title">{mySessionId}</span>
