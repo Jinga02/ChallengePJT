@@ -6,15 +6,12 @@ import DialogExtensionComponent from "./dialog-extension/DialogExtension";
 import StreamComponent from "./stream/StreamComponent";
 import "./VideoRoomComponent.css";
 
-import OpenViduLayout from "../../layout/openvidu-layout";
-import UserModel from "../../models/user-model";
+import OpenViduLayout from "../layout/openvidu-layout";
+import UserModel from "../models/user-model";
 import ToolbarComponent from "./toolbar/ToolbarComponent";
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production"
-    ? ""
-    : "https://i9d201.p.ssafy.io/openvidu/";
+const APPLICATION_SERVER_URL = "https://i9d201.p.ssafy.io/api/room/";
 
 class VideoRoomComponent extends Component {
   constructor(props) {
@@ -547,12 +544,8 @@ class VideoRoomComponent extends Component {
   }
 
   render() {
-    const { challengeData } = this.props;
-    console.log(challengeData);
-    const mySessionId = challengeData.challenge.id;
-    const nickName = challengeData.user.nickname;
+    const mySessionId = this.state.mySessionId;
     const localUser = this.state.localUser;
-    console.log(this.state);
     var chatDisplay = { display: this.state.chatDisplay };
 
     return (
@@ -623,25 +616,37 @@ class VideoRoomComponent extends Component {
   }
 
   async createSession(sessionId) {
+    // 여기서 세션 ID를 this.props.challengeData.challenge.id로 전달합니다.
+    console.log("test");
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions",
-      { customSessionId: sessionId },
+      APPLICATION_SERVER_URL + "sessions",
       {
-        headers: { "Content-Type": "application/json" },
+        customSessionId: "session_" + this.props.challengeData.challenge.id,
+        // challengeId: this.props.challengeData.challenge.id,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.props.users.accessToken}`,
+        },
       }
     );
-    return response.data; // The sessionId
+
+    return response.data.data; // The sessionId
   }
 
   async createToken(sessionId) {
     const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions/" + sessionId + "/connections",
+      APPLICATION_SERVER_URL + "sessions/" + sessionId + "/connections",
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.props.users.accessToken}`,
+        },
       }
     );
-    return response.data; // The token
+    return response.data.data; // The token
   }
 }
 export default VideoRoomComponent;

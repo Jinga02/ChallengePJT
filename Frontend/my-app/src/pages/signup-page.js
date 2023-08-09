@@ -11,7 +11,6 @@ import {
 import useInput from "../hooks/useInput";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import PopUp from "../component/PopUp";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
@@ -20,6 +19,8 @@ const SignUp = () => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [email, onChangeEmail] = useInput("");
   const [nickname, onChangeNickname] = useInput("");
+  const [checkId, setCheckId] = useState(false);
+  const [checkNickname, setcheckNickname] = useState(false);
   const nav = useNavigate();
   // 비밀번호 확인
   const onChangePassword = useCallback(
@@ -30,6 +31,55 @@ const SignUp = () => {
     // 함수 기준 외부 변수만 deps[]에 작성
     [passwordCheck]
   );
+  const onCheckId = (userId) => {
+    axios
+      .post(`https://i9d201.p.ssafy.io/api/auth/valid/userId?userId=${userId}`)
+      .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "사용가능한 아이디입니다.",
+          text: "CRIT",
+          showConfirmButton: false,
+          timer: 1500,
+          background: "#272727",
+          color: "white",
+        });
+        // 중복 확인 성공한 경우 id 중복 상태를 false로 변경
+        setCheckId(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        // 중복 확인 실패한 경우 id 중복 상태를 true로 변경
+        setCheckId(false);
+      });
+  };
+
+  const onCheckNickname = (nickname) => {
+    axios
+      .post(
+        `https://i9d201.p.ssafy.io/api/auth/valid/nickname?nickname=${nickname}`
+      )
+      .then((res) => {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "사용가능한 닉네임입니다.",
+          text: "CRIT",
+          showConfirmButton: false,
+          timer: 1500,
+          background: "#272727",
+          color: "white",
+        });
+        // 중복 확인 성공한 경우 nickname 중복 상태를 false로 변경
+        setcheckNickname(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        // 중복 확인 실패한 경우 nickname 중복 상태를 true로 변경
+        setcheckNickname(false);
+      });
+  };
 
   const onChangePasswordCheck = useCallback(
     (e) => {
@@ -47,7 +97,31 @@ const SignUp = () => {
     (e) => {
       e.preventDefault();
 
-      if (!mismatchError && nickname) {
+      if (!checkId) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "아이디 중복체크를 해주세요.",
+          text: "CRIT",
+          showConfirmButton: false,
+          timer: 1500,
+          background: "#272727",
+          color: "white",
+        });
+      }
+      if (!checkNickname) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "닉네임 중복체크를 해주세요.",
+          text: "CRIT",
+          showConfirmButton: false,
+          timer: 1500,
+          background: "#272727",
+          color: "white",
+        });
+      }
+      if (!mismatchError && checkId && checkNickname && nickname) {
         console.log("서버로 회원가입하기");
         // 요청 전 초기화
         // 요청을 여러번 할때 초기값이 이상할 수 있으니
@@ -55,14 +129,12 @@ const SignUp = () => {
         setSignUpSuccess(false);
         axios
           .post("https://i9d201.p.ssafy.io/api/auth/signup", {
-            // .post("http://localhost:8080/auth/signup", {
             id,
             password,
             email,
             nickname,
           })
           .then((response) => {
-            console.log(response);
             setSignUpSuccess(true);
             nav("/LoginPage");
             Swal.fire({
@@ -71,22 +143,15 @@ const SignUp = () => {
               title: "회원가입 완료!",
               showConfirmButton: false,
               timer: 1500,
-              // 먼지
-              // imageUrl: 'https://unsplash.it/400/200',
-              // imageWidth: 400,
-              // imageHeight: 200,
-              // imageAlt: 'Custom image',
             });
           })
           .catch((error) => {
             console.log(error);
             setSignUpError(error.response.data);
-          })
-          // 성공하든 실패하든 실행
-          .finally(() => {});
+          });
       }
     },
-    [email, nickname, password, passwordCheck]
+    [email, nickname, password, passwordCheck, checkId, checkNickname]
   );
 
   return (
@@ -101,7 +166,9 @@ const SignUp = () => {
             value={id}
             onChange={onChangeId}
           />
-          <SCheckButton>중복확인</SCheckButton>
+          <SCheckButton type="button" onClick={() => onCheckId(id)}>
+            중복확인
+          </SCheckButton>
         </span>
         <span>
           <label>이메일</label>
@@ -113,7 +180,6 @@ const SignUp = () => {
             onChange={onChangeEmail}
             placeholder="이메일형식(영문어아이디+ @이메일주소)"
           />
-          <SCheckButton>중복확인</SCheckButton>
         </span>
         <span>
           <label>비밀번호</label>
@@ -147,7 +213,9 @@ const SignUp = () => {
             onChange={onChangeNickname}
             placeholder="2자 이상 10자 이하"
           />
-          <SCheckButton>중복확인</SCheckButton>
+          <SCheckButton type="button" onClick={() => onCheckNickname(nickname)}>
+            중복확인
+          </SCheckButton>
         </span>
         {mismatchError && (
           <ErrorWrapper>비밀번호가 일치하지 않습니다.</ErrorWrapper>

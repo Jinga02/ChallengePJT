@@ -8,8 +8,8 @@ import {
   SBoardArticleCol,
   SBoardContainer
 } from '../../styles/pages/SCommunityPage';
-
 const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/boards';
+// const API_BASE_URL = 'http://localhost:8080/boards';
 
 const CommunityBoard = () => {
   const user = useSelector((state) => state.users);

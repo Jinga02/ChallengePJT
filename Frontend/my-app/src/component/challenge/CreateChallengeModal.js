@@ -22,6 +22,7 @@ import ChallengeImage from "./createChallenge/ChallengeImage";
 
 const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
   const user = useSelector((state) => state.users);
+  console.log(user);
   const [requestDto, setRequestDto] = useState({
     title: "",
     introduce: "",
@@ -163,8 +164,7 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
       "requestDto",
       new Blob([JSON.stringify(requestDto)], { type: "application/json" })
     ); // requestDto를 JSON 형식으로 추가
-    console.log(requestDto);
-    console.log(image);
+
     api
       .post("https://i9d201.p.ssafy.io/api/challenge/create", formData, {
         // .post("http://i9d201.p.ssafy.io/api/challenge/create", formData, {
@@ -174,7 +174,6 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
         },
       })
       .then((res) => {
-        console.log(res);
         closeModal();
         Swal.fire({
           position: "center",

@@ -5,6 +5,7 @@ import {
   SEntranceLiButton,
   SEntranceSwiper,
   SDetailButton,
+  SShortsWrapper,
 } from "../styles/pages/SMainPage";
 import SearchShorts from "../component/shorts/SearchShorts";
 import MostLikeShorts from "../component/shorts/list/MostLikeShorts";
@@ -43,13 +44,13 @@ const MainPage = () => {
 
   const getMyChallenge = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/challenge/list/mine", {
-        // .get("http://localhost:8080/challenge/list/ongoing", {
+      .get("https://i9d201.p.ssafy.io/api/challenge/list/ongoing", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
       })
       .then((res) => {
+        console.log(res.data.data);
         setMyChallenges(res.data.data);
       })
       .catch((err) => {
@@ -77,7 +78,7 @@ const MainPage = () => {
         },
       })
       .then((res) => {
-        // console.log("쇼츠데이터",res.data.data);
+        console.log("쇼츠데이터", res.data.data);
         setShortsByDate(res.data.data.thumbnailsByDate);
         setShortsByView(res.data.data.thumbnailsByView);
         setShortsByLike(res.data.data.thumbnailsByLike);
@@ -129,9 +130,11 @@ const MainPage = () => {
       <SearchShorts />
 
       {/* 쇼츠 영역 */}
+      <SShortsWrapper>
       <RecentShorts shortsByDate={shortsByDate} />
       <MostLikeShorts shortsByLike={shortsByLike} />
       <MostViewtShorts shortsByView={shortsByView} />
+      </SShortsWrapper>
     </>
   );
 };

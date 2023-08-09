@@ -13,7 +13,7 @@ const getNewAccessToken = async (refreshToken) => {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
-      },
+      }
     );
     const newAccessToken = response.data.token;
     console.log("newAccessToken:", newAccessToken);

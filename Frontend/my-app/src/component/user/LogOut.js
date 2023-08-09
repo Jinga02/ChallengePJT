@@ -1,17 +1,15 @@
-import axios from "axios";
 import { persistor } from "../../store"; // 경로가 맞는지 확인하세요
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
+import { api } from "../../api/api";
 
 const LogOut = () => {
   const user = useSelector((state) => state.users); // useSelector를 통해 userSlice의 상태를 가져옴
   const nav = useNavigate();
 
   const logOut = () => {
-    console.log(user);
-    axios
-      // .post("http://localhost:8080/auth/logout", {
+    api
       .post("https://i9d201.p.ssafy.io/api/auth/logout", {
         accessToken: user.accessToken,
         refreshToken: user.refreshToken,
