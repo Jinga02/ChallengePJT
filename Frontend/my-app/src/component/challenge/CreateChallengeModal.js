@@ -22,7 +22,6 @@ import ChallengeImage from "./createChallenge/ChallengeImage";
 
 const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
   const user = useSelector((state) => state.users);
-  console.log(user);
   const [requestDto, setRequestDto] = useState({
     title: "",
     introduce: "",

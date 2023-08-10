@@ -33,21 +33,33 @@ const SignUp = () => {
   );
   const onCheckId = (userId) => {
     axios
-<<<<<<< HEAD
       .post(`https://i9d201.p.ssafy.io/api/auth/valid/userId?userId=${userId}`)
       .then((res) => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "사용가능한 아이디입니다.",
-          text: "CRIT",
-          showConfirmButton: false,
-          timer: 1500,
-          background: "#272727",
-          color: "white",
-        });
-        // 중복 확인 성공한 경우 id 중복 상태를 false로 변경
-        setCheckId(true);
+        if (
+          res.data
+            ? Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "사용가능한 아이디입니다.",
+                text: "CRIT",
+                showConfirmButton: false,
+                timer: 1500,
+                background: "#272727",
+                color: "white",
+              })
+            : Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "이미 사용중인 아이디입니다.",
+                text: "CRIT",
+                showConfirmButton: false,
+                timer: 1500,
+                background: "#272727",
+                color: "white",
+              })
+        )
+          // 중복 확인 성공한 경우 id 중복 상태를 false로 변경
+          setCheckId(true);
       })
       .catch((err) => {
         console.log(err);
@@ -59,21 +71,34 @@ const SignUp = () => {
   const onCheckNickname = (nickname) => {
     axios
       .post(
-        `https://i9d201.p.ssafy.io/api/auth/valid/nickname?nickname=${nickname}`
+        `https://i9d201.p.ssafy.io/api/auth/valid/nickname?nickname=${nickname}`,
       )
       .then((res) => {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: "사용가능한 닉네임입니다.",
-          text: "CRIT",
-          showConfirmButton: false,
-          timer: 1500,
-          background: "#272727",
-          color: "white",
-        });
-        // 중복 확인 성공한 경우 nickname 중복 상태를 false로 변경
-        setcheckNickname(true);
+        if (
+          res.data
+            ? Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "사용가능한 닉네임입니다.",
+                text: "CRIT",
+                showConfirmButton: false,
+                timer: 1500,
+                background: "#272727",
+                color: "white",
+              })
+            : Swal.fire({
+                position: "center",
+                icon: "error",
+                title: "이미 사용중인 닉네임입니다.",
+                text: "CRIT",
+                showConfirmButton: false,
+                timer: 1500,
+                background: "#272727",
+                color: "white",
+              })
+        )
+          // 중복 확인 성공한 경우 nickname 중복 상태를 false로 변경
+          setcheckNickname(true);
       })
       .catch((err) => {
         console.log(err);
@@ -82,26 +107,6 @@ const SignUp = () => {
       });
   };
 
-=======
-      .post(`https://i9d201.p.ssafy.io/api/auth/valid/userId`, { userId })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  const onCheckNickname = (nickname) => {
-    axios
-      .post(`https://i9d201.p.ssafy.io/api/auth/valid/nickname`, { nickname })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
   const onChangePasswordCheck = useCallback(
     (e) => {
       setPasswordCheck(e.target.value);
@@ -172,11 +177,7 @@ const SignUp = () => {
           });
       }
     },
-<<<<<<< HEAD
-    [email, nickname, password, passwordCheck, checkId, checkNickname]
-=======
-    [email, nickname, password, passwordCheck],
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
+    [email, nickname, password, passwordCheck, checkId, checkNickname],
   );
 
   return (

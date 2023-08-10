@@ -30,7 +30,7 @@ const Token = () => {
           },
           (error) => {
             return Promise.reject(error);
-          }
+          },
         );
 
         // Response Interceptor 추가
@@ -41,52 +41,29 @@ const Token = () => {
           async (error) => {
             // 응답이 에러인 경우
             console.log(error);
-<<<<<<< HEAD
             if (
               error.response &&
               (error.response.status === 500 || error.response.status === 401)
             ) {
-=======
-            if (error.response && error.response.status === 401) {
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
               // 만료된 AccessToken으로 인증 실패한 경우
               // persistor.purge(); // 영구 저장된 모든 상태를 초기화
               try {
                 // 새로운 AccessToken을 받아와서 다시 요청을 보냄
                 const newAccessToken = await getNewAccessToken(refreshToken);
-<<<<<<< HEAD
                 console.log(newAccessToken);
-=======
-<<<<<<< HEAD
-                console.log(newAccessToken);
-                // dispatch(
-                //   setUser({
-                //     id: user.id,
-                //     nickname: user.nickname,
-                //     accessToken: newAccessToken,
-                //     refreshToken: user.refreshToken,
-                //   }),
-                // );
-                // persistor.flush(); // 상태를 영구적으로 저장
-                // error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-                // console.log(newAccessToken + "받아왔다 성공");
-                // return api.request(error.config);
-=======
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
                 dispatch(
                   setUser({
                     id: user.id,
                     nickname: user.nickname,
                     accessToken: newAccessToken,
                     refreshToken: user.refreshToken,
-                  })
+                  }),
                 );
                 persistor.flush(); // 상태를 영구적으로 저장
                 error.config.headers.Authorization = `Bearer ${newAccessToken}`;
                 console.log(newAccessToken + "받아왔다 성공");
                 window.location.reload();
                 return api.request(error.config);
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
               } catch (refreshError) {
                 // RefreshToken으로 AccessToken 재발급에 실패한 경우
                 console.error("Failed to get new access token:", refreshError);
@@ -94,7 +71,7 @@ const Token = () => {
               }
             }
             return Promise.reject(error);
-          }
+          },
         );
       } else {
         console.log("No data found in localStorage.");

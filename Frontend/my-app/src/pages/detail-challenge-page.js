@@ -10,6 +10,10 @@ const DetailChallengePage = () => {
   const challenge = location.state?.challenge;
   const user = useSelector((state) => state.users);
   const [boards, setBoards] = useState([]);
+  console.log(boards);
+  const date = new Date();
+  const today = date.toLocaleDateString();
+  console.log(today);
   const [checkUser, setCheckUser] = useState(false);
   const checkedUser = () => {
     if (challenge.userList.includes(user.nickname)) {
@@ -38,10 +42,6 @@ const DetailChallengePage = () => {
     getBoard();
     checkedUser();
   }, []);
-<<<<<<< HEAD
-=======
-  console.log(checkUser);
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
   return (
     <SDetailChallengeWrapper>
       <InformationChallenge />
