@@ -4,80 +4,64 @@ import CreateShortsModal from '../component/shorts/CreateShortsModal';
 import Feed from "../component/profile/ProfileFeed";
 import { useSelector } from "react-redux";
 import { api } from '../api/api';
-const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/auth';
+const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/';
+
 const ProfilePage = () => {
-  // const user_image = {
-  //   profile_image: "https://github.com/Jinga02/Review/assets/110621233/e8edd4c4-dd18-42d8-904c-4a04c6618018",
-  //   profileImg: "https://github.com/Jinga02/Review/assets/110621233/e8edd4c4-dd18-42d8-904c-4a04c6618018",
-  // };
-
   const user = useSelector((state) => state.users);
-  console.log(user)
-  const [profileImage, setProfileImage] = useState(user.profile_image);
-  const [profileFiles, setProfileFiles] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
+  const [profileInfo, setProfileInfo] = useState({});
   const profileImgFileInput = useRef(null);
-  const [shortsCreateModal,setShortsCreateModal] = useState(false);
+  const [shortsCreateModal, setShortsCreateModal] = useState(false);
+  const followersCount = profileInfo.followers ? profileInfo.followers.length : 0;
+  const followingCount = profileInfo.followings ? profileInfo.followings.length : 0;
 
+  // 프로필 정보 가져오기
   useEffect(() => {
     getProfile();
   }, []); // 빈 의존성 배열을 사용하여 초기 렌더링 시에만 실행
 
-  
+  // 프로필 이미지 변경 처리
   const profileChange = (e) => {
-    if (e.target.files[0]) {
-      setProfileFiles(e.target.files[0]);
-      const reader = new FileReader();
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          setProfileImage(reader.result);
-        }
-      };
-      reader.readAsDataURL(e.target.files[0]);
+    const imageList = e.target.files;
+    if (imageList.length > 0) {
+      const imageObj = { url: URL.createObjectURL(imageList[0]), file: imageList[0] };
+      setProfileImage(imageObj);
+    } else {
+      setProfileImage(null);
     }
   };
 
+  // 프로필 업로드 취소
   const cancelProfileUpload = () => {
     profileImgFileInput.current.value = "";
   };
 
-
+  // 프로필 이미지 가져오기
   const getProfile = async () => {
-    api.get(`${API_BASE_URL}/user/profile/${user.id}`, {
+    api.get(`${API_BASE_URL}/myProfile`, {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
       },
     })
-    .then((res) => {
-      // setProfileImage(res.data.data.content);
-      console.log("받아오냐?",res);
-
-    })
-    .catch((error) => {
-      console.log("에러받아오냐?",error)
-    })
+      .then((res) => {
+        console.log("프로필 정보", res);
+        setProfileInfo(res.data.data);
+        setProfileImage({ url: res.data.data.imageUrl, file: null });
+      })
+      .catch((error) => {
+        console.log("에러받아오냐?", error);
+      });
   };
 
-
-  const updateImage = (e) => { // async 키워드를 추가하여 함수를 비동기로 변경합니다.
+  // 프로필 이미지 업데이트
+  const updateImage = (e) => {
     e.preventDefault();
-  
     const formData = new FormData();
-    // 여기에서 이미지 객체가 단일 파일이기 때문에 수정이 필요합니다.
-    // if (profileImage.length === 0) {
-    //   formData.append("file", new Blob([], { type: "application/json" }));
-    // } else {
-    //   profileImage.forEach((imageObj) => {
-    //     formData.append("file", imageObj.file);
-    //   });
-    // }
-
-    // 수정된 이미지 파일 처리를 추가합니다.
-    if (profileFiles) {
-      formData.append("file", profileFiles);
+    if (!profileImage) {
+      formData.append("file", new Blob([], { type: "application/json" }));
     } else {
-      formData.append("file", new Blob([], { type: "application/json"}));
+      formData.append("file", profileImage.file);
     }
-
     api
       .put(`${API_BASE_URL}/image`, formData, {
         headers: {
@@ -91,8 +75,8 @@ const ProfilePage = () => {
       .catch(() => {
         console.log("프로필 업데이트 실패");
       });
-    };
-  
+  };
+
   return (
     <>
       <SProfileWrapper>
@@ -101,7 +85,7 @@ const ProfilePage = () => {
             <SProfileImg>
               <img
                 className="profileImage"
-                src={profileImage}
+                src={(profileImage && profileImage.url) || profileInfo.imageUrl}
                 alt="이미지 수정"
                 onClick={() => {
                   profileImgFileInput.current.click();
@@ -120,16 +104,25 @@ const ProfilePage = () => {
               name="profile_img"
             />
           </OpacityZero>
-          {/* 기존 onClick이벤트 추가하실 때 잊지마세요 */}
+          <Row>
+            <h2>{profileInfo.grade}</h2>
+            <br />
+            <h1>{profileInfo.nickname}</h1>
+          </Row>
+          <OpacityZero />
+          <Empty />
+          <Row>
+            <a>팔로워<br />{followersCount}</a>
+            <a>팔로잉<br />{followingCount}</a>
+          </Row>
           <button onClick={updateImage}>이미지 업로드</button>
         </Row>
-        <Empty/>
-        
+        <Empty />
         {/* 이후 추가될 쇼츠 영역 */}
-        <button onClick={()=>{setShortsCreateModal(true)}}>쇼츠 만들기</button>
+        <button onClick={() => { setShortsCreateModal(true) }}>쇼츠 만들기</button>
         {shortsCreateModal && (
-        <CreateShortsModal setShortsCreateModal={setShortsCreateModal}/>)}
-
+          <CreateShortsModal setShortsCreateModal={setShortsCreateModal} />
+        )}
         {/* 이후 추가될 피드 영역 */}
         <FeedGrid>
           <Feed />
@@ -138,5 +131,4 @@ const ProfilePage = () => {
     </>
   );
 };
-
 export default ProfilePage;
