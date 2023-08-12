@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { api } from "../../api/api";
+import Loading from '../Loading';
 import {
   
   SBoardDetailWrapper,
@@ -14,12 +15,16 @@ import {
   SBoardDetailBoardInfo,
   SLikeButton,
 } from '../../styles/pages/SCommunityPage';
+
 import CreateArticleModal from './CreateArticleModal'
+import Paging from './Paging';
+
 
 const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/boards';
 // const API_BASE_URL = 'http://localhost:8080/boards';
 
 const CommunityBoardDetail = ({ classification }) => {
+  const [loading, setLoading] = useState(true);
   const user = useSelector((state) => state.users);
   const [page, setPage] = useState(0);
   const [articles, setArticles] = useState({ content: [], totalPages: 0 });
@@ -38,6 +43,7 @@ const CommunityBoardDetail = ({ classification }) => {
 
 
   const fetchArticles = async (pageNo = 0) => {
+    setLoading(false); 
     api.get(`${API_BASE_URL}/whole/${classification}?page=${pageNo}`, {
       headers: {
         Authorization: `Bearer ${user.accessToken}`,
@@ -94,68 +100,44 @@ const CommunityBoardDetail = ({ classification }) => {
   };
   
 
-  // 페이지네이션
-  const handlePageButtonClick = (newPage) => {
-    setPage(newPage);
-    sortArticles(sortMethod, newPage);
-  };
+  // // 페이지네이션
+  // const handlePageButtonClick = (newPage) => {
+  //   setPage(newPage);
+  //   sortArticles(sortMethod, newPage);
+  // };
   
-  //페이지 변경 버튼
-  const PageButton = ({ pageNumber, onClick }) => {
-    return (
-      <button onClick={() => onClick(pageNumber)}>
-        {pageNumber + 1}
-      </button>
-    );
-  };
+  // //페이지 변경 버튼
+  // const PageButton = ({ pageNumber, onClick }) => {
+  //   return (
+  //     <button onClick={() => onClick(pageNumber)}>
+  //       {pageNumber + 1}
+  //     </button>
+  //   );
+  // };
 
-  const Pagination = ({ totalPages, onPageClick }) => {
-    // totalPages는 서버로부터 받은 총 페이지 수
-    const pageButtons = [];
-    for (let i = 0; i < totalPages; i++) {
-      pageButtons.push(
-        <PageButton key={i} pageNumber={i} onClick={onPageClick} />
-      );
-    }
+  // const Pagination = ({ totalPages, onPageClick }) => {
+  //   // totalPages는 서버로부터 받은 총 페이지 수
+  //   const pageButtons = [];
+  //   for (let i = 0; i < totalPages; i++) {
+  //     pageButtons.push(
+  //       <PageButton key={i} pageNumber={i} onClick={onPageClick} />
+  //     );
+  //   }
   
-    return (
-      <div>
-        {pageButtons}
-      </div>
-    );
+  //   return (
+  //     <div>
+  //       {pageButtons}
+  //     </div>
+  //   );
+  // };
+  
+  const handlePageChange = (newPage) => {
+    setPage(newPage - 1);
+    sortArticles(sortMethod, newPage - 1);
   };
+
   
 
-
-  const articleLike = async (articleid) => {              // 좋아요 기능
-    api.post(`${API_BASE_URL}/likes/${articleid}`, null, {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`,
-      },
-    })
-      .then((res) => {
-        console.log(res);
-        fetchArticles();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  const deleteLike = async (articleid) => {
-    api.delete(`${API_BASE_URL}/likes/${articleid}`, {
-      headers: {
-        Authorization: `Bearer ${user.accessToken}`,
-      },
-    })
-      .then((res) => {
-        console.log('Delete Like Response:', res);
-        return fetchArticles();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   const goToArticleDetail = (id) => {                     // 클릭하면 게시글 디테일로 넘어감
     window.location.href = `/CommunityBoardPage/${classification}/${id}`;
@@ -165,13 +147,18 @@ const CommunityBoardDetail = ({ classification }) => {
     setModal(true);
   };
 
+
+
   return (
+    <div>
+    {loading ? <Loading /> : null}
+
     <SBoardDetailWrapper>
       <h1>{classification}</h1>
       <SBoardDetailButton onClick={() => openModal()}>
         게시글작성
       </SBoardDetailButton>
-      <Pagination totalPages={articles.totalPages} onPageClick={handlePageButtonClick} />
+      {/* <Pagination totalPages={articles.totalPages} onPageClick={handlePageButtonClick} /> */}
       <SBoardDetailViewSelect
         value={sortMethod}
         onChange={handleSortMethodChange}
@@ -205,25 +192,29 @@ const CommunityBoardDetail = ({ classification }) => {
                 <SBoardDetailBoardInfo>작성자: {article.writer}</SBoardDetailBoardInfo>
                 <SBoardDetailBoardInfo>조회수: {article.views}</SBoardDetailBoardInfo>
                 <SBoardDetailBoardInfo>추천수: {article.likesCount}</SBoardDetailBoardInfo>
-                <SBoardDetailBoardInfo>{article.liked}</SBoardDetailBoardInfo>
-                {article.liked.includes(user.nickname) ? (
-                  <SLikeButton onClick={() => deleteLike(article.id)}>
-                    좋아요 취소
-                  </SLikeButton>
-                ) : (
-                  <SLikeButton onClick={() => articleLike(article.id)}>
-                    좋아요
-                  </SLikeButton>
-                )}
+                {/* <SBoardDetailBoardInfo>{article.liked}</SBoardDetailBoardInfo> */}
+                
               </div>
+              
             </SBoardDetailRow>
+            
           </SBoardDetailBoard>
+      
+      
+          
         ))
         
       ) : (
         <p>Loading...</p>
       )}
+
+    <Paging
+      activePage={page + 1}
+      totalItemsCount={articles.totalPages * 10}
+      onChange={handlePageChange}
+      />
     </SBoardDetailWrapper>
+    </div>
   );
 };
 

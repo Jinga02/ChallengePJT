@@ -5,13 +5,25 @@ import { useSelector } from "react-redux";
 
 const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/feeds';
 
-const FeedCreateModal = ({ setIsCreateModalOpen }, {getFeeds}) => {
+const FeedCreateModal = ({ setIsCreateModalOpen, getFeeds }) => {
   const user = useSelector((state) => state.users);
   const [feedContent, setFeedContent] = useState({
     content: "",
-    userName: user.nickname,
     classification: "Feeds",     
+    userName: user.id, 
   });
+
+  
+//user.nickname 으로 하니까 에러가 뜸. 뤼튼에게 서버코드 제공하니
+// 서버 코드를 분석한 결과, FileResponseDto의 userName 속성이 아래와 같이 user의 id로 설정되어 있습니다.
+// java
+// fileResponseDto.setUserName(user.getId());
+// 그리고 이후에는 해당 userName이 실제로 사용자의 id로 쓰이고 있는 것을 볼 수 있습니다.
+// java
+// .user(userRepository.findById(fileResponseDto.getUserName()).get())
+// 아까 드렸던 프론트코드의 경우, 아래와 같이 사용자의 닉네임을 userName 필드에 저장하고 있었습니다.
+// 라고 함.
+
 
   const [feedImage, setFeedImage] = useState([]);
 
@@ -34,7 +46,7 @@ const FeedCreateModal = ({ setIsCreateModalOpen }, {getFeeds}) => {
       setIsCreateModalOpen(false);
     }
   };
-
+  
 
   const feedCreate = (e) => {
     e.preventDefault();
@@ -43,14 +55,14 @@ const FeedCreateModal = ({ setIsCreateModalOpen }, {getFeeds}) => {
       alert("제목과 내용을 모두 작성해주세요.");}
     const formData = new FormData();
   
-    // 이미지가 없을 경우 빈 배열을 전달하려면 다음과 같이 작성하십시오.
-    if (feedImage.length === 0) {
-      formData.append("file", new Blob([], { type: "application/json" }));
-    } else {
+    // // 이미지가 없을 경우 빈 배열을 전달하려면 다음과 같이 작성하십시오.
+    // if (feedImage.length === 0) {
+    //   formData.append("file", new Blob([], { type: "application/json" }));
+    // } else {
       feedImage.forEach((imageObj) => {
         formData.append("file", imageObj.file);
       });
-    }
+    
   
     formData.append(
       "fileResponseDto",

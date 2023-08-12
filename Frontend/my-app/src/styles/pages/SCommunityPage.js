@@ -273,6 +273,109 @@ export const SCommentAuthor = styled.span`
   margin-right: 10px;
 `;
 
+export const SCreateModal = styled.div`
+  font-family: "Pretendard";
+  font-style: normal;
+  width : 900px;
+  height : 1000px;
+  max-height : 700px;
+  
+  padding : 30px;
+  background: linear-gradient(180deg, #2B2B2B 0%, rgba(0, 0, 0, 100) 100%);
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+`
+export const SAriticleForm = styled.form`
+  position: absolute;
+  width : 800px;
+  height : 600px;
+  max-height : 600px;
+
+
+
+  & input[type="text"] {
+    flex: 1;
+    margin-top : 10px;
+    font-size: 1.5rem;
+    background: white;
+    padding: 20px;
+    height : 25px;
+    width : 865px;
+    border: 0;
+    margin-right: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  }
+
+  & textarea {
+    margin-top : 10px;
+    font-family: "Pretendard";
+    background: white;
+    width : 865px;
+    height : 300px;
+    border: 0;
+    padding: 20px;
+    font-size: 1.2rem;
+    resize: none;
+    vertical-align: top; // 추가: 콘텐츠 상단에 텍스트 커서 위치 지정
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  }
+
+  & input[type="submit"] {
+    background-color: #0000c5;
+    font-size : 18px;
+    width : 100px;
+    height : 50px;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;    
+  `
+  export const SImageContainer = styled.div`
+  display: flex;
+  width : 755px;
+  height: 100px;
+  flex-direction: row;
+  align-items: center;
+  background: linear-gradient(180deg, #2B2B2B 0%, rgba(0, 0, 0, 0) 100%);
+  margin-left: 150px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+export const SFileInputLabel = styled.label`
+  margin-top: 15px;
+  position: absolute;
+  background: linear-gradient(180deg, #060DB3 0%, #FF1EB2 100%);
+  font-size : 18px;
+  width : 85px;
+  height : 20px;
+  border: none;
+  color: #fff;
+  padding: 15px;
+  border-radius: .25rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  &:hover {
+    background: linear-gradient(180deg, #0000C5 0%, rgba(0, 0, 0, 0) 90%);
+  }
+`;
+
+export const SFileInput = styled.input`
+  display: none;
+`;
+
+export const SPreviewImage = styled.img`
+    max-width :100px ;
+    max-height :100px ;
+    margin :5px ;
+    border-radius :5px ;
+`;
+
 export const SCommentContent = styled.span``;
 
 export const SCommentForm = styled.form`

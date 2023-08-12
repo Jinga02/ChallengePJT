@@ -1,4 +1,4 @@
-import { styled, keyframes} from "styled-components";
+import { styled, keyframes } from "styled-components";
 import { Swiper, SwiperSlide } from "swiper/react";
 const fadeIn = keyframes`
   0% {opacity: 0;}
@@ -7,7 +7,9 @@ const fadeIn = keyframes`
 export const SShortsWrapper = styled.div`
   width: 1200px;
   justify-content: flex-end;
-  margin: 30px auto -40px auto;
+  // margin: 30px auto -40px auto;
+  margin: auto;
+  margin-top: -50px;
 `;
 
 export const SEntranceButtonWrapper = styled.div`
@@ -19,7 +21,7 @@ export const SEntranceButton = styled.button`
   position: absolute;
   left: 78%;
   top: 100px;
-  background-color: #0000c5;
+  background-color: #ff007a;
   border: none;
   border-radius: 6px;
   margin: 25px;
@@ -84,14 +86,15 @@ SEntranceSlide.displayName = "SwiperSlide";
 export const SEntranceLiButton = styled.button`
   position: absolute;
   bottom: 10px;
-  right: 15px;
+  right: 130px;
   width: 100px;
   height: 30px;
-  background-color: #33ff00;
+  background-color: #0000c5;
   border: none;
   border-radius: 6px;
   font-weight: 800;
   font-size: 15px;
+  color: white;
   font-family: "Pretendard";
   cursor: pointer;
 `;
@@ -168,10 +171,10 @@ export const SShortsCard = styled.div`
 `;
 
 export const SShortsContainer = styled.div`
-  padding: 20px;
+  padding: 10px;
   display: flex;
   flex-wrap: nowrap;
-  width: 100%;
+  width: 600px;
   height: 300px;
   overflow-x: auto;
   gap: 10px;
@@ -212,10 +215,12 @@ export const SShortItem = styled.div`
   p {
     opacity: 0;
     transition: opacity 0.3s;
+    margin-top: -30px;
   }
 
   h2 {
-    font-size: 18px;
+    margin-top: 30px;
+    font-size: 25px;
     font-weight: bold;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -426,7 +431,7 @@ export const SModifyModal = styled.div`
   z-index: 1010;
   /* 애니메이션 코드 추가 */
   animation: ${fadeIn} 0.3s ease-in;
-  
+
   &:before {
     content: "";
     position: fixed;
@@ -466,7 +471,7 @@ export const SSubmitButton = styled.input`
 export const SResultList = styled.ul`
   list-style-type: none;
   padding: 0;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 export const SResultItem = styled.li`
