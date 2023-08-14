@@ -189,6 +189,9 @@ export const SLoadingBackground = styled.div`
 export const SLoadingText = styled.div`
   font: 1rem "Noto Sans KR";
   text-align: center;
+<<<<<<< HEAD
   font-weight : 1000;
   text-align: center;
+=======
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
 `;

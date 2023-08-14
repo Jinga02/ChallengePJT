@@ -17,10 +17,15 @@ const ShowBoard = ({ boards, challenge, getBoard }) => {
   console.log(reversedBoards);
   return (
     <SBoardWrapper>
+<<<<<<< HEAD
       {challenge.challengeStatus === "END" ? (
         <h1>종료 된 챌린지 입니다</h1>
       ) : challenge.challengeStatus === "WAIT" ? (
         <h1>진행 예정인 챌린지 입니다</h1>
+=======
+      {challenge.challengeStatus == "END" ? (
+        <h1>종료 된 챌린지 입니다</h1>
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
       ) : (
         <CreateBoard
           getBoard={getBoard}

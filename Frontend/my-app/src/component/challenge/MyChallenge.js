@@ -30,9 +30,14 @@ import PhotoChallengeModal from "./PhotoChallengeModal";
 const MyChallenge = () => {
   const user = useSelector((state) => state.users);
   const myChallenges = useSelector((state) => state.myChallenges);
+<<<<<<< HEAD
   const ongoingChallenges = useSelector((state) => state.onGoingMyChallenges);
   const completeChallenges = useSelector((state) => state.completeMyChallenges);
   const plannedChallenges = useSelector((state) => state.plannedMyChallenges);
+=======
+  const ongoingChallenges = useSelector((state) => state.onGoingChallenges);
+  const completeChallenges = useSelector((state) => state.completeChallenges);
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
   const location = useLocation();
   const navigate = useNavigate();
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -44,7 +49,12 @@ const MyChallenge = () => {
   const handleCategoryClick = (status) => {
     if (status == "전체") {
       if (myChallenges) {
+<<<<<<< HEAD
         setSelectedCategory(myChallenges);
+=======
+        const searchResult = myChallenges;
+        setSelectedCategory(searchResult);
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
       }
       if (!myChallenges) {
         Swal.fire({
@@ -68,7 +78,12 @@ const MyChallenge = () => {
     }
     if (status == "진행 중") {
       if (ongoingChallenges) {
+<<<<<<< HEAD
         setSelectedCategory(ongoingChallenges);
+=======
+        const searchResult = ongoingChallenges;
+        setSelectedCategory(searchResult);
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
       }
       if (!ongoingChallenges) {
         Swal.fire({
@@ -90,6 +105,7 @@ const MyChallenge = () => {
         });
       }
     }
+<<<<<<< HEAD
     if (status == "진행 예정") {
       if (plannedChallenges) {
         setSelectedCategory(plannedChallenges);
@@ -117,6 +133,15 @@ const MyChallenge = () => {
     if (status == "종료") {
       if (completeChallenges) {
         setSelectedCategory(completeChallenges);
+=======
+    // if(status=="진행 예정"){
+    //   searchResult =
+    // }
+    if (status == "종료") {
+      if (completeChallenges) {
+        const searchResult = completeChallenges;
+        setSelectedCategory(searchResult);
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
       }
       if (!completeChallenges) {
         Swal.fire({
@@ -296,7 +321,11 @@ const MyChallenge = () => {
           {sortedMyChallenges.map((challenge) => {
             const daysInProgress = getDaysInProgress(
               challenge.startDate,
+<<<<<<< HEAD
               challenge.endDate,
+=======
+              challenge.endDate
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
             );
 
             return (
@@ -326,7 +355,11 @@ const MyChallenge = () => {
                   <p id="people">{challenge.userList.length}명 참여 중</p>
                   {getDaysInProgress(
                     challenge.startDate,
+<<<<<<< HEAD
                     challenge.endDate,
+=======
+                    challenge.endDate
+>>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
                   )?.includes("현재") ? (
                     new Date(challenge.startTime) <= new Date() &&
                     new Date() <= new Date(challenge.endTime) ? (
