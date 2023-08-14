@@ -4,11 +4,17 @@ import Swal from "sweetalert2";
 
 const JoinChallenge = ({ challenge }) => {
   const user = useSelector((state) => state.users);
+  console.log(challenge);
+  console.log(user);
   const checkEntrance = () => {
     return Swal.fire({
       position: "center",
-      title: "챌린지에 참여하시겠습니까?",
-      text: "참여한 챌린지는 나갈 수 없습니다.",
+      html: `<div>
+      <h1>챌린지에 참여하시겠습니까?</h1>
+      <h3>참여한 챌린지는 취소하실 수 없습니다.</h3>
+      <h3>참여비 : ${challenge.money}포인트</h3>
+    </div>`,
+
       showCancelButton: true,
       confirmButtonText: "확인",
       cancelButtonText: "취소",
@@ -56,27 +62,29 @@ const JoinChallenge = ({ challenge }) => {
       })
       .catch((err) => {
         console.log(err);
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: "이미 참여중인 챌린지입니다!",
-          text: "CRIT",
-          showConfirmButton: false,
-          timer: 1500,
-          background: "#272727",
-          color: "white",
-          // width: "500px",
-          // 먼지
-          // imageUrl: 'https://unsplash.it/400/200',
-          // imageWidth: 400,
-          // imageHeight: 200,
-          // imageAlt: 'Custom image',
-        });
+        if (err.response.data.errorMessage === "포인트가 부족합니다.") {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: err.response.data.errorMessage,
+            text: "CRIT",
+            showConfirmButton: false,
+            timer: 1500,
+            background: "#272727",
+            color: "white",
+            // width: "500px",
+            // 먼지
+            // imageUrl: 'https://unsplash.it/400/200',
+            // imageWidth: 400,
+            // imageHeight: 200,
+            // imageAlt: 'Custom image',
+          });
+        }
       });
   };
 
   return (
-    <button id="enter" onClick={() => checkEntrance()}>
+    <button id="join" onClick={() => checkEntrance()}>
       참여하기
     </button>
   );

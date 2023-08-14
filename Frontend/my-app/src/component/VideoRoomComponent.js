@@ -5,32 +5,45 @@ import ChatComponent from "./chat/ChatComponent";
 import DialogExtensionComponent from "./dialog-extension/DialogExtension";
 import StreamComponent from "./stream/StreamComponent";
 import "./VideoRoomComponent.css";
-<<<<<<< HEAD
-=======
 
-<<<<<<< HEAD:Frontend/my-app/src/component/VideoRoomComponent.js
 import OpenViduLayout from "../layout/openvidu-layout";
 import UserModel from "../models/user-model";
-=======
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
-import OpenViduLayout from "../../layout/openvidu-layout";
-import UserModel from "../../models/user-model";
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b:Frontend/my-app/src/component/room/VideoRoomComponent.js
 import ToolbarComponent from "./toolbar/ToolbarComponent";
+import * as tmImage from "@teachablemachine/image";
+import { api } from "../api/api";
+import Swal from "sweetalert2";
 
 var localUser = new UserModel();
 const APPLICATION_SERVER_URL = "https://i9d201.p.ssafy.io/api/room/";
 
+// Teachable machine 관련 변수
+// const webcamRef = null; // webcam을 useRef로 선언
+// const modelRef = null;
+// const totalTimeRef = 0;
+const URL = "https://teachablemachine.withgoogle.com/models/0ZpItWsAb/";
+const modelURL = URL + "model.json";
+const metadataURL = URL + "metadata.json";
+
+let model;
+let webcam;
+const maxPredictions = 2; // 모델이 가지고 있는 클래스의 수에 따라 변경하세요
+// let isUnmounted = false;
+
 class VideoRoomComponent extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
+    this.webcamRef = React.createRef(); // webcam을 Ref로 선언
+    this.modelRef = React.createRef();
+    this.totalTimeRef = React.createRef();
+    this.isUnmounted = false;
     this.hasBeenUpdated = false;
     this.layout = new OpenViduLayout();
-    let sessionName = this.props.sessionName
-      ? this.props.sessionName
+    let sessionName = props.challengeData.challenge.name
+      ? props.challengeData.challenge.name
       : "SessionA";
-    let userName = this.props.user
-      ? this.props.user
+    let userName = props.challengeData.user.nickname
+      ? props.challengeData.user.nickname
       : "OpenVidu_User" + Math.floor(Math.random() * 100);
     this.remotes = [];
     this.localUserAccessAllowed = false;
@@ -77,23 +90,51 @@ class VideoRoomComponent extends Component {
 
     this.layout.initLayoutContainer(
       document.getElementById("layout"),
-<<<<<<< HEAD
-      openViduLayoutOptions,
-=======
       openViduLayoutOptions
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
     window.addEventListener("beforeunload", this.onbeforeunload);
     window.addEventListener("resize", this.updateLayout);
     window.addEventListener("resize", this.checkSize);
     this.joinSession();
+
+    this.checkChallengeEndTimeInterval = setInterval(() => {
+      const currentTime = new Date();
+      const currentHour = this.formatNumber(currentTime.getHours());
+      const currentMinute = this.formatNumber(currentTime.getMinutes());
+      const endTime = this.props.challengeData.challenge.endTime;
+
+      if (`${currentHour}:${currentMinute}` == endTime) {
+        clearInterval(this.checkChallengeEndTimeInterval);
+        this.showChallengeResultModal();
+      }
+    }, 1000); // 1초마다 체크
   }
 
   componentWillUnmount() {
     window.removeEventListener("beforeunload", this.onbeforeunload);
     window.removeEventListener("resize", this.updateLayout);
     window.removeEventListener("resize", this.checkSize);
+    // 컴포넌트가 언마운트될 때 setInterval을 클리어합니다.
+    clearInterval(this.checkChallengeEndTimeInterval);
     this.leaveSession();
+  }
+
+  showChallengeResultModal() {
+    this.camStatusChanged();
+    Swal.fire({
+      position: "center",
+      // icon: "success",
+      title: "챌린지 종료!",
+      text: "화면 상단의 종료버튼을 눌러야 챌린지가 종료됩니다.",
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      background: "#272727",
+      color: "white",
+      preConfirm: () => {
+        return this.leaveSession();
+      },
+    });
   }
 
   onbeforeunload(event) {
@@ -110,11 +151,7 @@ class VideoRoomComponent extends Component {
       async () => {
         this.subscribeToStreamCreated();
         await this.connectToSession();
-<<<<<<< HEAD
-      },
-=======
       }
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
   }
 
@@ -131,11 +168,7 @@ class VideoRoomComponent extends Component {
         console.error(
           "There was an error getting the token:",
           error.code,
-<<<<<<< HEAD
-          error.message,
-=======
           error.message
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
         );
         if (this.props.error) {
           this.props.error({
@@ -155,6 +188,7 @@ class VideoRoomComponent extends Component {
       .connect(token, { clientData: this.state.myUserName })
       .then(() => {
         this.connectWebCam();
+        this.initTeachableMachine();
       })
       .catch((error) => {
         if (this.props.error) {
@@ -169,21 +203,56 @@ class VideoRoomComponent extends Component {
         console.log(
           "There was an error connecting to the session:",
           error.code,
-<<<<<<< HEAD
-          error.message,
-=======
           error.message
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
         );
       });
   }
+  //-----------------------teachable machine----------------------------//
+  async initTeachableMachine() {
+    model = await tmImage.load(modelURL, metadataURL);
+    webcam = new tmImage.Webcam(200, 200, true); // 너비, 높이, 뒤집기 여부
+    this.modelRef.current = model;
+    this.webcamRef.current = webcam; // useRef로 저장
+    await webcam.setup(); // 웹캠 권한 요청
+    await webcam.play();
+
+    requestAnimationFrame(this.loop);
+  }
+
+  loop = async () => {
+    if (this.isUnmounted) return; // 언마운트 된 상태이면 loop 종료
+    if (this.webcamRef.current) {
+      this.webcamRef.current.update(); // 웹캠 프레임 업데이트
+      await this.predict();
+      if (!this.isUnmounted) {
+        requestAnimationFrame(this.loop);
+      }
+    }
+  };
+
+  async predict() {
+    // 현재 웹캠 프레임을 이미지로 가져옵니다.
+    const image = this.webcamRef.current.canvas;
+    // 모델로 예측을 수행합니다.
+    const prediction = await this.modelRef.current.predict(image);
+    // 예측 결과를 콘솔에 출력합니다.
+    for (let i = 0; i < maxPredictions; i++) {
+      const classPrediction = prediction[i].className;
+      const probability = prediction[i].probability.toFixed(2);
+      console.log(`예측: ${classPrediction}, 확률: ${probability}`);
+      if (classPrediction === "Class 1" && parseFloat(probability) >= 0.75) {
+        this.totalTimeRef.current += 1; // 0.01 second
+      }
+    }
+  }
+  //-----------------------teachable machine----------------------------//
 
   async connectWebCam() {
-    await this.OV.getUserMedia({
+    await this.OV?.getUserMedia({
       audioSource: undefined,
       videoSource: undefined,
     });
-    var devices = await this.OV.getDevices();
+    var devices = await this.OV?.getDevices();
     var videoDevices = devices.filter((device) => device.kind === "videoinput");
 
     let publisher = this.OV.initPublisher(undefined, {
@@ -207,13 +276,7 @@ class VideoRoomComponent extends Component {
         });
       });
     }
-<<<<<<< HEAD
-    const { challengeData } = this.props;
-    const nickName = challengeData.user.nickname;
-    localUser.setNickname(nickName);
-=======
     localUser.setNickname(this.state.myUserName);
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     localUser.setConnectionId(this.state.session.connection.connectionId);
     localUser.setScreenShareActive(false);
     localUser.setStreamManager(publisher);
@@ -229,17 +292,10 @@ class VideoRoomComponent extends Component {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
           this.updateLayout();
           publisher.videos[0].video.parentElement.classList.remove(
-<<<<<<< HEAD
-            "custom-class",
-          );
-        });
-      },
-=======
             "custom-class"
           );
         });
       }
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
   }
 
@@ -259,19 +315,21 @@ class VideoRoomComponent extends Component {
           });
         }
         this.updateLayout();
-<<<<<<< HEAD
-      },
-=======
       }
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
+  }
+
+  formatNumber(number) {
+    return number < 10 ? `0${number}` : number;
   }
 
   leaveSession() {
     const mySession = this.state.session;
 
+    // this.props.closeModal(); // closeModal 함수 호출
     if (mySession) {
       mySession.disconnect();
+      this.webcamRef.current.stop();
     }
 
     // Empty all properties...
@@ -286,7 +344,56 @@ class VideoRoomComponent extends Component {
     if (this.props.leaveSession) {
       this.props.leaveSession();
     }
+    console.log("Teachable Machine 종료");
+    this.isUnmounted = true;
+    const challengeId = this.props.challengeData.challenge.id;
+    const inTime = 0 + this.totalTimeRef.current;
+    console.log(`이탈 시간: ${this.totalTimeRef.current}ms`);
+
+    api
+      .post("https://i9d201.p.ssafy.io/api/cert/video", {
+        challengeId,
+        inTime,
+      })
+      .then((res) => {
+        const cert = res.data.data;
+        console.log(cert);
+        Swal.fire({
+          position: "center",
+          icon: cert.percentage >= 80 ? "success" : "error",
+          html: `
+            <div>
+            <h1>이탈시간 : ${cert.absentTime}</h1>
+            <h1>인증시간 : ${cert.presenceTime}</h1>
+            <h1>인증 성공도 : ${Math.floor(cert.percentage)}%</h1>
+            <h1>${this.props.challengeData.user.nickname}님</h1>
+            <h1>${cert.percentage >= 80 ? "챌린지 성공!" : "챌린지 실패"}</h1>
+            </div>
+          `,
+          showConfirmButton: false,
+          timer: 5000,
+          background: "#272727",
+          color: "white",
+          // width: "500px",
+          // 먼지
+          // imageUrl: 'https://unsplash.it/400/200',
+          // imageWidth: 400,
+          // imageHeight: 200,
+          // imageAlt: 'Custom image',
+        });
+
+        this.props.closeVideoModal();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
+
+  handleLeaveSession() {
+    this.isUnmounted = true;
+    this.leaveSession(); // 컴포넌트가 언마운트될 때 세션 종료
+  }
+
   camStatusChanged() {
     localUser.setVideoActive(!localUser.isVideoActive());
     localUser.getStreamManager().publishVideo(localUser.isVideoActive());
@@ -313,11 +420,7 @@ class VideoRoomComponent extends Component {
   deleteSubscriber(stream) {
     const remoteUsers = this.state.subscribers;
     const userStream = remoteUsers.filter(
-<<<<<<< HEAD
-      (user) => user.getStreamManager().stream === stream,
-=======
       (user) => user.getStreamManager().stream === stream
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     )[0];
     let index = remoteUsers.indexOf(userStream, 0);
     if (index > -1) {
@@ -335,11 +438,7 @@ class VideoRoomComponent extends Component {
       subscriber.on("streamPlaying", (e) => {
         this.checkSomeoneShareScreen();
         subscriber.videos[0].video.parentElement.classList.remove(
-<<<<<<< HEAD
-          "custom-class",
-=======
           "custom-class"
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
         );
       });
       const newUser = new UserModel();
@@ -393,11 +492,7 @@ class VideoRoomComponent extends Component {
         {
           subscribers: remoteUsers,
         },
-<<<<<<< HEAD
-        () => this.checkSomeoneShareScreen(),
-=======
         () => this.checkSomeoneShareScreen()
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
       );
     });
   }
@@ -451,21 +546,12 @@ class VideoRoomComponent extends Component {
     try {
       const devices = await this.OV.getDevices();
       var videoDevices = devices.filter(
-<<<<<<< HEAD
-        (device) => device.kind === "videoinput",
-=======
         (device) => device.kind === "videoinput"
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
       );
 
       if (videoDevices && videoDevices.length > 1) {
         var newVideoDevice = videoDevices.filter(
-<<<<<<< HEAD
-          (device) =>
-            device.deviceId !== this.state.currentVideoDevice.deviceId,
-=======
           (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
         );
 
         if (newVideoDevice.length > 0) {
@@ -481,11 +567,7 @@ class VideoRoomComponent extends Component {
 
           //newPublisher.once("accessAllowed", () => {
           await this.state.session.unpublish(
-<<<<<<< HEAD
-            this.state.localUser.getStreamManager(),
-=======
             this.state.localUser.getStreamManager()
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
           );
           await this.state.session.publish(newPublisher);
           this.state.localUser.setStreamManager(newPublisher);
@@ -521,11 +603,7 @@ class VideoRoomComponent extends Component {
         } else if (error && error.name === "SCREEN_CAPTURE_DENIED") {
           alert("You need to choose a window or application to share");
         }
-<<<<<<< HEAD
-      },
-=======
       }
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
 
     publisher.once("accessAllowed", () => {
@@ -614,18 +692,7 @@ class VideoRoomComponent extends Component {
   }
 
   render() {
-<<<<<<< HEAD:Frontend/my-app/src/component/VideoRoomComponent.js
     const mySessionId = this.state.mySessionId;
-=======
-    const { challengeData } = this.props;
-    console.log(challengeData);
-    const mySessionId = challengeData.challenge.id;
-<<<<<<< HEAD
-
-=======
-    const nickName = challengeData.user.nickname;
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b:Frontend/my-app/src/component/room/VideoRoomComponent.js
     const localUser = this.state.localUser;
     var chatDisplay = { display: this.state.chatDisplay };
 
@@ -697,23 +764,8 @@ class VideoRoomComponent extends Component {
   }
 
   async createSession(sessionId) {
-<<<<<<< HEAD:Frontend/my-app/src/component/VideoRoomComponent.js
     // 여기서 세션 ID를 this.props.challengeData.challenge.id로 전달합니다.
     console.log("test");
-=======
-<<<<<<< HEAD
-    // 여기서 세션 ID를 this.props.challengeData.challenge.id로 전달합니다.
-    const response = await axios.post(
-      APPLICATION_SERVER_URL + "api/sessions",
-      {
-        customSessionId: sessionId,
-        challengeId: this.props.challengeData.challenge.id,
-      },
-      {
-        headers: { "Content-Type": "application/json" },
-      },
-=======
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b:Frontend/my-app/src/component/room/VideoRoomComponent.js
     const response = await axios.post(
       APPLICATION_SERVER_URL + "sessions",
       {
@@ -723,10 +775,9 @@ class VideoRoomComponent extends Component {
       {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.props.users.accessToken}`,
+          Authorization: `Bearer ${this.props.challengeData.user.accessToken}`,
         },
       }
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
 
     return response.data.data; // The sessionId
@@ -737,19 +788,11 @@ class VideoRoomComponent extends Component {
       APPLICATION_SERVER_URL + "sessions/" + sessionId + "/connections",
       {},
       {
-<<<<<<< HEAD:Frontend/my-app/src/component/VideoRoomComponent.js
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${this.props.users.accessToken}`,
+          Authorization: `Bearer ${this.props.challengeData.user.accessToken}`,
         },
-=======
-        headers: { "Content-Type": "application/json" },
-<<<<<<< HEAD
-      },
-=======
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b:Frontend/my-app/src/component/room/VideoRoomComponent.js
       }
->>>>>>> c6edd8ff8f92e6296b6e8e109d26003a4ac04c4f
     );
     return response.data.data; // The token
   }

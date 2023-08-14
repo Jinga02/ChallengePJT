@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SNav,
   SMenuWrapper,
   SUserWrapper,
   SLogoWrapper,
+  SBtnAnimation,
 } from "../../styles/SCommon";
+import { StyledSent } from "../../styles/pages/SMessage";	
 import { FaRegUserCircle } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { BiEnvelope } from "react-icons/bi";
@@ -35,14 +37,20 @@ const Nav = () => {
       )}
     </div>
   );
-
   return (
     <SNav>
       {user && user.accessToken ? (
         <SMenuWrapper>
           <ul>
             <li>
-              <NavLink to="/IntroPage">CRIT</NavLink>
+              <NavLink to="/IntroPage">
+                {" "}
+                <img
+                  src={process.env.PUBLIC_URL + "/logo2.png"}
+                  style={{ width: "55px", height: "25px" }}
+                  alt="placeholder"
+                />
+              </NavLink>
             </li>
             <li>
               <NavLink to="/MainPage">메인</NavLink>
@@ -69,24 +77,35 @@ const Nav = () => {
       )}
       <SUserWrapper>
         {/* 메시지 파트 */}
-        {user && user.accessToken ? (
-          <ul onClick={() => setMassageView(!massageView)}>
-            <li>
-              <BiEnvelope
-                size={35}
-                style={{
-                  cursor: "pointer",
-                  position: "absolute",
-                  top: "-15px",
-                  left: "-30px",
-                }}
-              />{" "}
-            </li>
-          </ul>
+        {user && user.accessToken ? (	
+          <SBtnAnimation>	
+            <ul onClick={() => setMassageView(!massageView)}>	
+              <li>	
+                <StyledSent style={{	
+                    cursor: "pointer",	
+                    position: "absolute",	
+                    top: "-15px",	
+                    left: "-30px",	
+                  }}/>	
+                {/* <BiEnvelope	
+                  size={35}	
+                  style={{	
+                    cursor: "pointer",	
+                    position: "absolute",	
+                    top: "-15px",	
+                    left: "-30px",	
+                  }}	
+                />{" "} */}	
+              </li>	
+            </ul>	
+          </SBtnAnimation>	
         ) : (
           <div></div>
         )}
-        <MessageInfo massageView={massageView} />
+        <MessageInfo
+          massageView={massageView}
+          setMassageView={setMassageView}
+        />
 
         {/* 내정보 파트 */}
         {user && user.accessToken ? (
@@ -97,7 +116,7 @@ const Nav = () => {
                 style={{
                   cursor: "pointer",
                   position: "absolute",
-                  top: "-15px",
+                  top: "-18px",
                 }}
               />{" "}
             </li>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Swal from "sweetalert2";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // ChallengPage
@@ -22,20 +23,39 @@ export const SCreateChallengeButton = styled.button`
 `;
 
 // MyChallenge
+export const SStatusWrapper = styled.div`
+  width: 900px;
+  margin: 100px auto -120px;
+  ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+  }
+  a {
+    margin: 0 20px 0 0;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 800;
+    color: gray;
+
+    &:hover {
+      color: #ff007a;
+    }
+  }
+`;
 export const SImg = styled.img`
-  // position: absolute;
-  // bottom: -120px;
-  // left: 120px;
+  position: absolute;
+  bottom: -120px;
+  left: 120px;
   width: 600px;
   height: 600px;
-  margin: 100px auto;
 `;
 
 export const SSwiper = styled(Swiper)`
   // background-color: rgba(22, 22, 22, 0.599);
   width: 900px;
   height: 300px;
-  margin: 100px auto;
+  margin: 150px auto;
   padding: 10px;
   border:none
   // border: 0.5px solid white;
@@ -69,10 +89,15 @@ export const STopWrapper = styled.div`
     font-size: 22px;
     right: 20px;
   }
-
-  #dday {
+  #time {
     position: absolute;
     top: 40px;
+    font-size: 20px;
+    left: 650px;
+  }
+  #dday {
+    position: absolute;
+    top: 70px;
     font-size: 20px;
     right: 20px;
   }
@@ -106,6 +131,20 @@ export const SBotWrapper = styled.div`
     bottom: 5px;
   }
   #enter {
+    position: absolute;
+    left: 550px;
+    bottom: 20px;
+    background-color: #0000c5;
+    border: none;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+    cursor: pointer;
+  }
+  #photo {
     position: absolute;
     left: 550px;
     bottom: 20px;
@@ -704,3 +743,119 @@ export const SWebRTCModal = {
     zIndex: "999",
   },
 };
+
+// 사진인증 모달
+export const SPhotochallengeWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 100%;
+  #title {
+    position: absolute;
+    left: 470px;
+    font-size: 40px;
+    margin: 15px 0 0 0;
+    color: white;
+  }
+  #form {
+    position: absolute;
+    top: 60px;
+    left: 450px;
+  }
+  #fileLabel {
+    position: absolute;
+    left: -100px;
+    cursor: pointer;
+  }
+  #file {
+    display: none;
+  }
+  #image {
+    position: absolute;
+    top: 30px;
+    left: -40px;
+    width: 600px;
+    height: 500px;
+  }
+  #submit {
+    position: absolute;
+    right: -140px;
+    bottom: -639px;
+    width: 200px;
+    height: 60px;
+    font-size: 30px;
+    font-weight: 900;
+
+    border: none;
+    border-radius: 10px;
+    background-color: #0000c5;
+    color: white;
+    cursor: pointer;
+  }
+  #close {
+    position: absolute;
+    left: 650px;
+    width: 200px;
+    height: 60px;
+    font-size: 30px;
+    font-weight: 900;
+    bottom: 50px;
+    border: none;
+    border-radius: 10px;
+    background-color: #33ff00;
+    cursor: pointer;
+  }
+`;
+
+// 참여내역
+export const SJoinListModal = {
+  content: {
+    backgroundColor: "rgba(22, 22, 22, 1)",
+    border: "0.5px solid rgba(80, 80, 80)",
+    borderRadius: "10px",
+    boxShadow: "0px 0px 15px gray",
+    width: "400px",
+    height: "470px",
+    margin: "auto",
+    padiing: "0px",
+    color: "black",
+  },
+  overlay: {
+    background: "rgba(0, 0, 0, 0.5)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: "999",
+  },
+};
+
+export const SJoinListWrapper = styled.div`
+  width: 100%;
+  overflow-y: auto; /* 스크롤 생성 */
+  padding: "0",
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  overflow: hidden;
+  color:white;
+  text-align:center;
+  ul{
+    list-style: none;
+    padding:0;
+
+  }
+  #time{
+    font-size: 20px;
+  }
+  #certified{
+    font-size: 25px;
+  }
+  button{
+    position:absolute;
+    top:10px;
+    right:10px;
+    border:none;
+    background:none;
+    color: white;
+    font-size:30px;
+    cursor:pointer;
+  }
+`;

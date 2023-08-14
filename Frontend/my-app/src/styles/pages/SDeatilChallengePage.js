@@ -91,16 +91,17 @@ export const SInfoWrapper = styled.div`
   #userList {
     position: absolute;
     top: 205px;
+    width: 200px;
     font-size: 20px;
     margin: 0 0 0 400px;
   }
 `;
 export const SButtonWrapper = styled.div`
-  text-align: center;
+  position: relative;
+  top: 440px;
   #participation {
     position: absolute;
-    bottom: 420px;
-    right: 190px;
+    right: 40px;
     width: 150px;
     height: 50px;
     font-size: 18px;
@@ -111,19 +112,8 @@ export const SButtonWrapper = styled.div`
     cursor: pointer;
   }
   #enter {
-    width: 150px;
-    height: 40px;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 10px;
-    border: none;
-    margin: 150px 150px 0 0;
-    cursor: pointer;
-  }
-  #detailEnter {
     position: absolute;
-    bottom: 420px;
-    right: 360px;
+    right: 200px;
     color: white;
     width: 150px;
     height: 50px;
@@ -132,6 +122,59 @@ export const SButtonWrapper = styled.div`
     border-radius: 10px;
     border: none;
     background-color: #0000c5;
+    cursor: pointer;
+  }
+  #detailEnter {
+    position: absolute;
+    right: 200px;
+    color: white;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    background-color: #0000c5;
+    cursor: pointer;
+  }
+
+  #join {
+    position: absolute;
+    right: 30px;
+    color: white;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    background-color: #ff007a;
+    cursor: pointer;
+  }
+  #photo {
+    position: absolute;
+    right: 200px;
+    color: white;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    background-color: #0000c5;
+    cursor: pointer;
+  }
+  #joinList {
+    position: absolute;
+    right: 30px;
+    // color: white;
+    width: 150px;
+    height: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 10px;
+    border: none;
+    background-color: #33ff00;
 
     cursor: pointer;
   }
@@ -199,6 +242,10 @@ export const SBoardImage = styled.input`
 export const SBoardWrapper = styled.div`
   width: 1200px;
   margin: 30px auto;
+  h1 {
+    text-align: center;
+    font-size: 70px;
+  }
 `;
 
 export const SBoardLi = styled.li`
@@ -266,6 +313,7 @@ export const SLikeBoardButton = styled.button`
   border-radius: 5px;
   color: white;
   font-size: 15px;
+  cursor: pointer;
 `;
 export const SUnLikeBoardButton = styled.button`
   ${"" /* position: absolute; */}
@@ -278,4 +326,5 @@ export const SUnLikeBoardButton = styled.button`
   border-radius: 5px;
   color: white;
   font-size: 15px;
+  cursor: pointer;
 `;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect} from 'react';
 import { useSelector } from "react-redux";
 import {
   BrowserRouter,
@@ -29,6 +29,22 @@ import { Sfont } from "./styles/SCommon";
 import Swal from "sweetalert2";
 import GoogleCallback from "./component/user/socialLogin/GoogleCallback";
 import NaverCallback from "./component/user/socialLogin/NaverCallback";
+import Footer from './component/footer/footer';
+
+import styled from "styled-components";
+
+
+const AppContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
+const ContentWrapper = styled.div`
+  flex: 1;
+  width: 100%;
+`;
+
 
 function App() {
   return (
@@ -41,6 +57,7 @@ function App() {
 }
 
 function AppRoutes() {
+  
   const location = useLocation();
 
   const user = useSelector((state) => state.users);
@@ -53,10 +70,15 @@ function AppRoutes() {
     "/LoginPage",
     "/SignUpPage",
     "/login/oauth2/code/kakao",
+    "/login/oauth2/code/naver",
   ];
 
-  const isAuthorizedPage = !authorizedPages.includes(location.pathname) & !user;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
+
+  const isAuthorizedPage = !authorizedPages.includes(location.pathname) & !user;
   // 로그인하지 않은 상태에서 보지 못해야할 페이지로 접근하려 하면 로그인 페이지로 Redirect
   if (isAuthorizedPage) {
     Swal.fire({
@@ -75,13 +97,16 @@ function AppRoutes() {
       // imageHeight: 200,
       // imageAlt: 'Custom image',
     });
-
+    
     return <Navigate to="/LoginPage" />;
   }
 
   return (
     <>
+      <AppContainer>
+
       {showNav && <Nav />}
+      <ContentWrapper>
       <Routes>
         <Route path="/" element={<StartPage />} />
         <Route path="/login/oauth2/code/kakao" element={<KakaoCallback />} />
@@ -105,10 +130,13 @@ function AppRoutes() {
         <Route path="/ProfilePage" element={<ProfilePage />} />
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/PayPage" element={<PayPage />} />
-        <Route path="/PaySuccessPage" element={<PaySuccessPage />} />
+        <Route path="/payment/success" element={<PaySuccessPage />} />
         <Route path="/PayCanclePage" element={<PayCanclePage />} />
         <Route path="/PayConflictPage" element={<PayConflictPage />} />
       </Routes>
+      </ContentWrapper>
+      <Footer/>
+      </AppContainer>
     </>
   );
 }

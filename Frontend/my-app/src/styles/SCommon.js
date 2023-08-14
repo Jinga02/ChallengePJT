@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 //Nav
 export const SNav = styled.nav`
@@ -141,4 +142,50 @@ export const SButton = styled.button`
   &:hover {
     background-color: #3333ff;
   }
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1200;
+`;
+
+export const SBtnAnimation = styled.div`
+  color: linear-gradient(90deg, red, blue);
+  :hover {
+  animation: gradient-animation 1s infinite linear alternate; 
+  @keyframes gradient-animation {
+    0% {
+      color: linear-gradient(90deg, red, blue);
+    }
+    100% {
+      color: linear-gradient(90deg, yellow, green);
+    }
+}
+`;
+
+export const SLoadingBackground = styled.div`
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.727);
+  z-index: 1559;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const SLoadingText = styled.div`
+  font: 1rem "Noto Sans KR";
+  text-align: center;
 `;

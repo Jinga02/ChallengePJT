@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { api } from "../../api/api";
-
+import { ModalOverlay } from '../../styles/SCommon';
+import { SCreateModal,SAriticleForm, SBoardArticleDeleteButton, SImageContainer, SFileInput, SPreviewImage, SFileInputLabel  } from '../../styles/pages/SCommunityPage';
 const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/boards';
 // const API_BASE_URL = 'http://localhost:8080/boards';
 
 
 const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetchArticles }) => {
-  const initialImages = prevArticles.imageFiles.map((image) => ({ url: image, file: null }));
+  const initialImages = prevArticles.imageFiles.map((image, index) => ({
+    url: image,
+    file: null,
+    fileId: prevArticles.fileId[index]
+  }));
   const user = useSelector((state) => state.users);
   const [images, setImages] = useState(initialImages);
   const [article, setArticle] = useState(prevArticles);
@@ -25,27 +30,32 @@ const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetch
     setImages(imageObjList);
   };
 
-  const removeImage = (fileId,e) => {
+  const removeImage = (fileId, e) => {
+    console.log("파일아이디 테스트", fileId);
     api
-      .post(`${API_BASE_URL}/deleteImageOne/${article.id}/${prevArticles.fileId}`,{
+      .post(`${API_BASE_URL}/deleteImageOne/${article.id}/${fileId}`, {
         headers: {
-          Authorization: `Bearer ${user.accessToken}`,
+          Authorization: `Bearer ${user .accessToken}`,
           "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
         console.log(res);
-        setImages(images.filter((_, i) => i !== fileId));
+        console.log(fileId);
+        setImages(images.filter((image) => image.fileId !== fileId));
       })
       .catch((err)=>{
-        console.log(err)
+        console.log(err);
       });
   };
-
+  
 
   const writeArticle = (e) => {
     e.preventDefault();
-  
+    if (article.title.trim() === "" || article.content.trim() === "") {
+      alert("제목과 내용을 모두 작성해주세요.");
+      return;
+      }
     const formData = new FormData();
 
     images.forEach((imageObj) => {
@@ -83,54 +93,55 @@ const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetch
     });
   };
 
+  const handleOutsideClick = (e) => {
+    if (e.target.getAttribute('data-cy') === "modal-overlay") {
+      setIsEditOpen(false);
+    }
+  };
+
   return (
-    <div>
-      <form onSubmit={writeArticle}>
+    <ModalOverlay onClick={handleOutsideClick} data-cy="modal-overlay">
+      <SCreateModal>
+      <h1>게시글 수정</h1>
+      <SAriticleForm onSubmit={writeArticle}>
         <input
           name="title"
           type="text"
           value={article.title}
           onChange={handleArticleChange}
         ></input>
-        <input
+          <textarea
           name="content"
           type="textarea"
           value={article.content}
           onChange={handleArticleChange}
-        ></input>
-        <input type="file" multiple onChange={onArticleImage}/>
+        ></textarea>
+
+        <SFileInputLabel htmlFor="fileInput">
+          이미지 첨부
+        <SFileInput id="fileInput" type="file" multiple onChange={onArticleImage} />
+        </SFileInputLabel>
+        {/* <input type="file" multiple onChange={onArticleImage}/> */}
         {/* 선택된 이미지 불러오기 */}
+        <SImageContainer>
         {images.map((imageObj, index) => (
           <div key={index} style={{ display: "inline-block", position: "relative" }}>
             <img
               src={imageObj.url}
               alt={`Image ${index + 1}`}
-              style={{ maxWidth: "100px", maxHeight: "px", margin: "5px" }}
+              style={{ maxWidth: "100px", maxHeight: "px", margin: "60px 5px 0px 0px" }}
             />
-            <button
-              type="button"
-              onClick={() => removeImage(index)}
-              style={{
-                position: "absolute",
-                top: 0,
-                right: 0,
-                background: "red",
-                borderRadius: "50%",
-                width: "20px",
-                height: "20px",
-                textAlign: "center",
-                lineHeight: "18px",
-                color: "white",
-                fontSize: "12px",
-              }}
-            >
-            
-            </button>
+            <SBoardArticleDeleteButton
+              onClick={() => removeImage(imageObj.fileId)}
+            >⊖
+            </SBoardArticleDeleteButton>
           </div>
         ))}
+        </SImageContainer>
         <input type="submit" value={"작성완료"}></input>
-      </form>
-    </div>
+      </SAriticleForm>
+      </SCreateModal>
+      </ModalOverlay>
   );
 };
 export default ModifyArticleModal;

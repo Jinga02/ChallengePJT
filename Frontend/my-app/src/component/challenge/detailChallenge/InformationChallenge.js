@@ -6,27 +6,84 @@ import {
   SInfoWrapper,
   SButtonWrapper,
 } from "../../../styles/pages/SDeatilChallengePage";
-import ParticipationChallenge from "../ParticipationChallenge";
-
+import PhotoChallengeModal from "../PhotoChallengeModal";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import {
+  SJoinListModal,
+  SWebRTCModal,
+} from "../../../styles/pages/SChallengePage";
+import JoinListModal from "../JoinListModal";
 
 const InformationChallenge = () => {
   const location = useLocation();
   const challenge = location.state.challenge;
   const user = useSelector((state) => state.users);
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [isJoinListOpen, setIsJoinListOpen] = useState(false);
+  const onClickJoinList = () => {
+    setIsJoinListOpen(true);
+    setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
+  };
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
+  const [isPhotoOpen, setIsPhotoOpen] = useState(false);
   const [challengeData, setChallengeData] = useState(null); // 모달에 전달할 데이터 state 추가
   const [selectedSessionId, setSelectedSessionId] = useState(null);
-  const openModal = (challenge) => {
+  const checkEnterTime = () => {
+    return Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "챌린지 시간이 아닙니다!.",
+      text: "CRIT",
+      showConfirmButton: false,
+      timer: 1500,
+      background: "#272727",
+      color: "white",
+      width: "500px",
+
+      // 먼지
+      // imageUrl: 'https://unsplash.it/400/200',
+      // imageWidth: 400,
+      // imageHeight: 200,
+      // imageAlt: 'Custom image',
+    });
+  };
+  const openVideoModal = (challenge) => {
     setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
     setSelectedSessionId(challenge.id); // 선택한 챌린지의 세션 ID 저장
-    setIsOpen(true);
+    setIsVideoOpen(true);
+    return Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "챌린지 입장 중!",
+      text: "CRIT",
+      showConfirmButton: false,
+      timer: 2000,
+      background: "#272727",
+      color: "white",
+      width: "500px",
+
+      // 먼지
+      // imageUrl: 'https://unsplash.it/400/200',
+      // imageWidth: 400,
+      // imageHeight: 200,
+      // imageAlt: 'Custom image',
+    });
   };
-  const closeModal = () => {
-    setIsOpen(false);
+  const openPhotoModal = (challenge) => {
+    setChallengeData({ challenge, user }); // 모달에 전달할 데이터를 state에 저장
+    setSelectedSessionId(challenge.id); // 선택한 챌린지의 세션 ID 저장
+    setIsPhotoOpen(true);
+  };
+  const closeVideoModal = () => {
+    setIsVideoOpen(false);
+  };
+  const closePhotoModal = () => {
+    setIsPhotoOpen(false);
+  };
+  const closeJoinListModal = () => {
+    setIsJoinListOpen(false);
   };
   const getDaysInProgress = (startDate, endDate) => {
     const today = new Date();
@@ -60,6 +117,12 @@ const InformationChallenge = () => {
       return `현재 ${daysInProgress + 1}일째 참여 중`;
     }
   };
+
+  // 참여하기 startDate 2일전까지만 보이게
+
+  const twoDaysBefore = new Date(challenge.startDate);
+  twoDaysBefore.setDate(twoDaysBefore.getDate() - 2);
+
   return (
     <SInformationWrapper>
       <SImgWrapper>
@@ -87,20 +150,78 @@ const InformationChallenge = () => {
           <>
             {getDaysInProgress(
               challenge.startDate,
-              challenge.endDate
-            )?.includes("현재") && (
-              <>
-                <button id="detailEnter" onClick={() => openModal(challenge)}>
-                  입장하기
-                </button>
-                <ParticipationChallenge />
-              </>
-            )}
+              challenge.endDate,
+            )?.includes("현재") ? (
+              new Date(challenge.startTime) <= new Date() &&
+              new Date() <= new Date(challenge.endTime) ? (
+                challenge.cert === "실시간" ? (
+                  <>
+                    <button
+                      id="enter"
+                      onClick={() => openVideoModal(challenge)}
+                    >
+                      입장하기
+                    </button>
+                    <button id="joinList" onClick={onClickJoinList}>
+                      참여내역
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      id="photo"
+                      onClick={() => openPhotoModal(challenge)}
+                    >
+                      사진인증
+                    </button>
+                    <button id="joinList" onClick={onClickJoinList}>
+                      참여내역
+                    </button>
+                  </>
+                )
+              ) : challenge.cert === "실시간" ? (
+                <>
+                  <button id="enter" onClick={() => openVideoModal(challenge)}>
+                    {/* <button id="join" onClick={() => checkEnterTime()}> */}
+                    입장하기
+                  </button>
+                  <button id="joinList" onClick={onClickJoinList}>
+                    참여내역
+                  </button>
+                </>
+              ) : (
+                <>
+                  {/* <button id="join" onClick={() => checkEnterTime()}> */}
+                  <button id="photo" onClick={() => openPhotoModal(challenge)}>
+                    사진인증
+                  </button>
+                  <button id="joinList" onClick={onClickJoinList}>
+                    참여내역
+                  </button>
+                </>
+              )
+            ) : null}
           </>
         ) : (
-          <JoinChallenge challenge={challenge} />
+          <>
+            {twoDaysBefore >= new Date() && (
+              <JoinChallenge challenge={challenge} />
+            )}
+          </>
         )}
       </SButtonWrapper>
+      <Modal style={SWebRTCModal} isOpen={isPhotoOpen}>
+        <PhotoChallengeModal
+          challengeData={challengeData}
+          closePhotoModal={closePhotoModal}
+        ></PhotoChallengeModal>
+      </Modal>
+      <Modal style={SJoinListModal} isOpen={isJoinListOpen}>
+        <JoinListModal
+          challengeData={challengeData}
+          closeJoinListModal={closeJoinListModal}
+        ></JoinListModal>
+      </Modal>
     </SInformationWrapper>
   );
 };

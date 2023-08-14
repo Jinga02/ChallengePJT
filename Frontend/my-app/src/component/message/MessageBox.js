@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { api } from "../../api/api";
 import ReceivedMessage from './ReceivedMessage';
 import SendMessage from './SendMessage';
 import SentMessage from './SentMessage';
 import { FiInbox, FiSend, FiMail } from 'react-icons/fi';
-import { SMessageWrapper, SMessageBox, } from '../../styles/pages/SMessage';
+import { SMessageWrapper, SMessageBox, StyledInbox, StyledMail, StyledSent, IconContainer } from '../../styles/pages/SMessage';
+import { ModalOverlay } from '../../styles/SCommon';
 
-const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/messages';
-
-const MessageBox = (setMassageView) => {
+const MessageBox = ({ massageView, setMassageView }) => {
   const user = useSelector((state) => state.users);
   const [selectFunction, SetselectFunction] = useState(1);
 
@@ -25,30 +23,26 @@ const MessageBox = (setMassageView) => {
         return null;
     }
   };
+  const handleOutsideClick = (e) => {
+    if (e.target.getAttribute('data-cy') === "modal-overlay") {
+      setMassageView(false);
+    }
+  };
 
   return (
-    <SMessageWrapper>
-      <div>
-        <h3>메시지함</h3>
-        <div>
-          <FiInbox
-            onClick={() => SetselectFunction(1)}
-            style={{ cursor: 'pointer', marginRight: '10px' }}
-          />
-          <FiMail
-            onClick={() => SetselectFunction(2)}
-            style={{ cursor: 'pointer', marginRight: '10px' }}
-          />
-          <FiSend
-            onClick={() => SetselectFunction(3)}
-            style={{ cursor: 'pointer' }}
-          />
+    <ModalOverlay onClick={handleOutsideClick} data-cy="modal-overlay">
+      <SMessageWrapper>
+        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+          <h2 style={{ position: 'absolute', margin: '30px 40px', color: '#1877f2' }}>메시지함</h2>
+          <IconContainer>
+            <StyledInbox onClick={() => SetselectFunction(1)} />
+            <StyledMail onClick={() => SetselectFunction(2)} />
+            <StyledSent onClick={() => SetselectFunction(3)} />
+          </IconContainer>
         </div>
-        <SMessageBox>
-          {renderComponent()}
-        </SMessageBox>
-      </div>
-    </SMessageWrapper>
+        <SMessageBox>{renderComponent()}</SMessageBox>
+      </SMessageWrapper>
+    </ModalOverlay>
   );
 };
 

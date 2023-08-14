@@ -1,76 +1,66 @@
+import Loading from "../component/Loading";
 import {
   SEntranceButton,
   SEntranceButtonWrapper,
-  SEntranceSlide,
-  SEntranceLiButton,
-  SEntranceSwiper,
-  SDetailButton,
   SShortsWrapper,
 } from "../styles/pages/SMainPage";
+import { SEmpty } from "../styles/SCommon";
 import SearchShorts from "../component/shorts/SearchShorts";
 import MostLikeShorts from "../component/shorts/list/MostLikeShorts";
 import CreateShortsModal from "../component/shorts/CreateShortsModal";
 import RecentShorts from "../component/shorts/list/RecentShorts";
-import MostViewtShorts from "../component/shorts/list/MostViewtShorts";
+import MostViewShorts from "../component/shorts/list/MostViewShorts";
 import { useEffect, useState } from "react";
 import { api } from "../api/api";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
-import { EffectCreative } from "swiper/modules";
-
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-cards";
 import "swiper/css/effect-creative";
+import Swal from "sweetalert2";
+import Entrance from "../component/challenge/Entrance";
+import { useSelector } from "react-redux";
+import GetCompleteMyChallenge from "../component/challenge/GetCompleteMyChallenge";
+import GetOnGoingMyChallenge from "./../component/challenge/GetOnGoingMyChallenge";
+import GetAllMyChallenge from "../component/challenge/GetAllMyChallenge";
 
 const MainPage = () => {
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(true);
-  const openChallenge = () => {
-    setIsOpen(!isOpen);
-  };
-
   const user = useSelector((state) => state.users);
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [myChallenges, setMyChallenges] = useState([]);
   const [shorts, setShorts] = useState([]);
-
+  const onGoingChallenge = useSelector((state) => state.onGoingChallenges);
   // 쇼츠 데이터 최신, 조회수, 좋아요 순
   const [shortsByDate, setShortsByDate] = useState([]);
   const [shortsByView, setShortsByView] = useState([]);
   const [shortsByLike, setShortsByLike] = useState([]);
-
-  const getMyChallenge = () => {
-    api
-      .get("https://i9d201.p.ssafy.io/api/challenge/list/ongoing", {
-        headers: {
-          Authorization: `Bearer ${user.accessToken}`,
-        },
-      })
-      .then((res) => {
-        console.log(res.data.data);
-        setMyChallenges(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
+  const openChallenge = () => {
+    if (onGoingChallenge.length === 0) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "진행중인 챌린지가 없습니다.",
+        text: "CRIT",
+        showConfirmButton: false,
+        timer: 1500,
+        background: "#272727",
+        color: "white",
+        // width: "500px",
+        // 먼지
+        // imageUrl: 'https://unsplash.it/400/200',
+        // imageWidth: 400,
+        // imageHeight: 200,
+        // imageAlt: 'Custom image',
       });
+    } else {
+      setIsOpen(!isOpen);
+    }
   };
-  // 상세보기 클릭
-  const detailClick = (challenge) => {
-    navigate(`/ChallengePage/${challenge.id}`, {
-      state: { challenge },
-    });
-  };
-  useEffect(() => {
-    getMyChallenge();
-    getShorts();
-  }, []);
-  // console.log(myChallenges);
 
   // 쇼츠
   const getShorts = () => {
+    setLoading(false);
     api
       .get("https://i9d201.p.ssafy.io/api/shorts/main", {
         headers: {
@@ -87,54 +77,27 @@ const MainPage = () => {
         console.log(err);
       });
   };
-
+  useEffect(() => {
+    getShorts();
+  }, []);
   return (
     <>
       <SEntranceButtonWrapper>
+        {loading ? <Loading /> : null}
         <SEntranceButton onClick={openChallenge}>바로입장</SEntranceButton>
-        {isOpen ? null : (
-          <SEntranceSwiper
-            grabCursor={true}
-            effect={"creative"}
-            creativeEffect={{
-              prev: {
-                shadow: true,
-                translate: [0, 0, -400],
-              },
-              next: {
-                translate: ["100%", 0, 0],
-              },
-            }}
-            modules={[EffectCreative]}
-            // effect={"cards"}
-            // grabCursor={true}
-            // modules={[EffectCards]}
-            className="mySwiper"
-          >
-            {myChallenges.map((challenge) => (
-              <SEntranceSlide key={challenge.id}>
-                <img src={challenge.imgPath} alt="챌린지 이미지" />
-                <h4>{challenge.name}</h4>
-                <p>
-                  {challenge.info.length > 30
-                    ? challenge.info.slice(0, 30) + "..."
-                    : challenge.info}
-                </p>
-                <SDetailButton onClick={detailClick}>상세보기</SDetailButton>
-                <SEntranceLiButton>입장하기</SEntranceLiButton>
-              </SEntranceSlide>
-            ))}
-          </SEntranceSwiper>
-        )}
+        {isOpen ? null : <Entrance />}
       </SEntranceButtonWrapper>
+      <SEmpty />
       <SearchShorts />
-
       {/* 쇼츠 영역 */}
       <SShortsWrapper>
-      <RecentShorts shortsByDate={shortsByDate} />
-      <MostLikeShorts shortsByLike={shortsByLike} />
-      <MostViewtShorts shortsByView={shortsByView} />
+        <RecentShorts shortsByDate={shortsByDate} />
+        <MostLikeShorts shortsByLike={shortsByLike} />
+        <MostViewShorts shortsByView={shortsByView} />
       </SShortsWrapper>
+      <GetAllMyChallenge />
+      <GetCompleteMyChallenge />
+      <GetOnGoingMyChallenge />
     </>
   );
 };

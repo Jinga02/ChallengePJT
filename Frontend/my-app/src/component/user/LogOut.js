@@ -9,13 +9,7 @@ const LogOut = () => {
   const nav = useNavigate();
 
   const logOut = () => {
-<<<<<<< HEAD
     api
-=======
-    console.log(user);
-    api
-      // .post("http://localhost:8080/auth/logout", {
->>>>>>> 91fb90ac185d27d332e1ce8d912f9abe5091c14b
       .post("https://i9d201.p.ssafy.io/api/auth/logout", {
         accessToken: user.accessToken,
         refreshToken: user.refreshToken,
@@ -30,7 +24,7 @@ const LogOut = () => {
           timer: 1500,
           background: "#272727",
           color: "white",
-          // width: "500px",
+          width: "500px",
           // 먼지
           // imageUrl: 'https://unsplash.it/400/200',
           // imageWidth: 400,
@@ -45,7 +39,7 @@ const LogOut = () => {
         console.log(err);
       });
   };
-  return <h3 onClick={logOut}>로그아웃</h3>;
+  return <h3 onClick={() => logOut()}>로그아웃</h3>;
 };
 
 export default LogOut;
