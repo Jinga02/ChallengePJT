@@ -24,10 +24,7 @@ import { useSelector } from "react-redux";
 import GetCompleteMyChallenge from "../component/challenge/GetCompleteMyChallenge";
 import GetOnGoingMyChallenge from "./../component/challenge/GetOnGoingMyChallenge";
 import GetAllMyChallenge from "../component/challenge/GetAllMyChallenge";
-<<<<<<< HEAD
 import GetPlannedMyChallenge from "../component/challenge/GetPlannedMyChallenge";
-=======
->>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
 
 const MainPage = () => {
   const [loading, setLoading] = useState(true);
@@ -39,11 +36,12 @@ const MainPage = () => {
   const [shortsByDate, setShortsByDate] = useState([]);
   const [shortsByView, setShortsByView] = useState([]);
   const [shortsByLike, setShortsByLike] = useState([]);
+  // 바로입장 클릭 시
   const openChallenge = () => {
-    if (onGoingChallenge.length === 0) {
+    if (onGoingChallenge === undefined) {
       Swal.fire({
         position: "center",
-        icon: "success",
+        icon: "error",
         title: "진행중인 챌린지가 없습니다.",
         text: "CRIT",
         showConfirmButton: false,
@@ -102,10 +100,7 @@ const MainPage = () => {
       <GetAllMyChallenge />
       <GetCompleteMyChallenge />
       <GetOnGoingMyChallenge />
-<<<<<<< HEAD
       <GetPlannedMyChallenge />
-=======
->>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
     </>
   );
 };
