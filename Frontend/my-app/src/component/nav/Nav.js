@@ -47,7 +47,8 @@ const Nav = () => {
                 {" "}
                 <img
                   src={process.env.PUBLIC_URL + "/logo2.png"}
-                  style={{ width: "55px", height: "25px" }}
+                  style={{ width: "80px", height: "40px" }}
+
                   alt="placeholder"
                 />
               </NavLink>

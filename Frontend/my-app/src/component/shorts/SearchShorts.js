@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -8,28 +7,37 @@ import {
   SInput,
   SShortItem,
   SResultList,
+  SResultContainer,
   SResultItem,
+  ShortsSpanWrapper
 } from "../../styles/pages/SMainPage";
-import { SShortsContainer } from '../../styles/pages/SMainPage';
-const SearchShorts = () => {
+import { SEmpty2 } from '../../styles/SCommon';
+import {SLogoImage} from '../../styles/pages/SStartPage'
+
+
+
+const SearchShorts = ({shortsByAll}) => {
+
+  const shortLength = shortsByAll.length
   const user = useSelector((state) => state.users);
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [openDetailModal, setOpenDetailModal] = useState({});
+
 
   useEffect(() => {
     if (searchTerm.length > 0) {
       // 데이터를 불러오는 API 호출을 통해 실제 검색 결과를 가져옵니다.
       const fetchData = async () => {
         const response = await axios.get(
-          "https://i9d201.p.ssafy.io/api/shorts/main",
+          "https://i9d201.p.ssafy.io/api/shorts/whole",
           {
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
             },
           }
         );
-        const data = response.data.data.thumbnailsByDate;
+        const data = response.data.data;
         const results = data.filter((short) =>
           short.title.toLowerCase().includes(searchTerm.toLowerCase())
         );
@@ -50,8 +58,11 @@ const SearchShorts = () => {
 
   return (
     <SSearchShortsWrapper>
-      <h4>갓생러들의 챌린지를 지금 바로 만나보세요!</h4>
-      <h2>100,293,176개의 챌스가 등록되어있습니다.</h2>
+            <SLogoImage src={process.env.PUBLIC_URL + "/logo.png"} alt="placeholder" />
+            <SEmpty2/>
+
+      <h1 style={{color:"gray", fontWeight:"normal"}}> {shortLength}개의 숏챌이 등록되어있습니다.</h1>
+      <SEmpty2/>
       <SInput
         value={searchTerm}
         onChange={handleInputChange}
@@ -61,27 +72,32 @@ const SearchShorts = () => {
       
       <SResultList>
       {/* <SResultItem> */}
-      <SShortsContainer>
+      <SResultContainer>
       {searchResults &&
         searchResults.map((result) => (
-          <SShortItem key={result.id}>
+          <SResultItem onClick={() =>
+            !isAnyModalOpen() &&
+            setOpenDetailModal({
+              ...openDetailModal,
+              [result.id]: !openDetailModal[result.id],
+            })
+          }key={result.id}>
             <img
                 src={result.thumbnailUrl}
                 alt={result.title}
-                onClick={() =>
-                  !isAnyModalOpen() &&
-                  setOpenDetailModal({
-                    ...openDetailModal,
-                    [result.id]: !openDetailModal[result.id],
-                  })
-                }
+                
               />
               <h2>{result.title}</h2>
-              <p>{result.content}</p>
-          </SShortItem>
+              <p>♥ &nbsp; {result.likesCount}</p>
+              <ShortsSpanWrapper>
+              <span>{result.title}</span>
+              <span style={{color:"gray",fontWeight:"normal"}}>{result.writer}</span>
+              <span style={{color:"gray", fontWeight:"normal"}}>조회수&nbsp;{result.views}회</span>
+              </ShortsSpanWrapper>
+          </SResultItem>
           
         ))}
-      </SShortsContainer>
+      </SResultContainer>
       {/* </SResultItem> */}
       </SResultList>
         {searchResults &&
@@ -103,110 +119,4 @@ const SearchShorts = () => {
   );
 };
 
-=======
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import DetailShortModal from './DetailShortModal';
-import {
-  SSearchShortsWrapper,
-  SInput,
-  SShortItem,
-  SResultList,
-  SResultItem,
-} from "../../styles/pages/SMainPage";
-import { SShortsContainer } from '../../styles/pages/SMainPage';
-const SearchShorts = () => {
-  const user = useSelector((state) => state.users);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
-  const [openDetailModal, setOpenDetailModal] = useState({});
-
-  useEffect(() => {
-    if (searchTerm.length > 0) {
-      // 데이터를 불러오는 API 호출을 통해 실제 검색 결과를 가져옵니다.
-      const fetchData = async () => {
-        const response = await axios.get(
-          "https://i9d201.p.ssafy.io/api/shorts/main",
-          {
-            headers: {
-              Authorization: `Bearer ${user.accessToken}`,
-            },
-          }
-        );
-        const data = response.data.data.thumbnailsByDate;
-        const results = data.filter((short) =>
-          short.title.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        setSearchResults(results);
-      };
-      fetchData();
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchTerm]);
-
-  const handleInputChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-  const isAnyModalOpen = () => {
-    return Object.values(openDetailModal).some((value) => value === true);
-  };
-
-  return (
-    <SSearchShortsWrapper>
-      <h4>갓생러들의 챌린지를 지금 바로 만나보세요!</h4>
-      <h2>100,293,176개의 챌스가 등록되어있습니다.</h2>
-      <SInput
-        value={searchTerm}
-        onChange={handleInputChange}
-        placeholder="검색어를 입력하세요."
-      />
-
-      
-      <SResultList>
-      {/* <SResultItem> */}
-      <SShortsContainer>
-      {searchResults &&
-        searchResults.map((result) => (
-          <SShortItem key={result.id}>
-            <img
-                src={result.thumbnailUrl}
-                alt={result.title}
-                onClick={() =>
-                  !isAnyModalOpen() &&
-                  setOpenDetailModal({
-                    ...openDetailModal,
-                    [result.id]: !openDetailModal[result.id],
-                  })
-                }
-              />
-              <h2>{result.title}</h2>
-              <p>{result.content}</p>
-          </SShortItem>
-          
-        ))}
-      </SShortsContainer>
-      {/* </SResultItem> */}
-      </SResultList>
-        {searchResults &&
-        searchResults.map((result) =>
-          openDetailModal[result.id] ? (
-            <DetailShortModal
-              key={result.id}
-              shortId={result.id}
-              setOpenDetailModal={() =>
-                setOpenDetailModal({
-                  ...openDetailModal,
-                  [result.id]: false,
-                })
-              }
-            />
-          ) : null
-        )}
-    </SSearchShortsWrapper>
-  );
-};
-
->>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
 export default SearchShorts;

@@ -7,7 +7,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/effect-cards";
 
 // 나머지
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import VideoRoomComponent from "../VideoRoomComponent";
@@ -20,6 +20,7 @@ import {
   SMidWrapper,
   SBotWrapper,
   SWebRTCModal,
+  SPhotoModal,
   SStatusWrapper,
 } from "../../styles/pages/SChallengePage";
 import { useSelector } from "react-redux";
@@ -144,7 +145,7 @@ const MyChallenge = () => {
     return Swal.fire({
       position: "center",
       icon: "error",
-      title: "챌린지 시간이 아닙니다!.",
+      title: "챌린지 시간이 아닙니다!",
       text: "CRIT",
       showConfirmButton: false,
       timer: 1500,
@@ -216,6 +217,7 @@ const MyChallenge = () => {
     return startDateA - startDateB;
   };
   const sortedMyChallenges = [...selectedStatus].sort(sortByStartDate);
+  console.log(sortedMyChallenges);
   // 상세보기 클릭
   const detailClick = (challenge) => {
     if (location.pathname === "/ChallengePage") {
@@ -266,6 +268,12 @@ const MyChallenge = () => {
       return `현재 ${daysInProgress + 1}일째 참여 중`;
     }
   };
+  // 챌린지 입장가능 시간
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const Time = `${hours}:${formattedMinutes}`;
 
   return (
     <>
@@ -298,7 +306,6 @@ const MyChallenge = () => {
               challenge.startDate,
               challenge.endDate,
             );
-
             return (
               <SSwiperSlide key={challenge.id}>
                 <STopWrapper>
@@ -328,8 +335,7 @@ const MyChallenge = () => {
                     challenge.startDate,
                     challenge.endDate,
                   )?.includes("현재") ? (
-                    new Date(challenge.startTime) <= new Date() &&
-                    new Date() <= new Date(challenge.endTime) ? (
+                    challenge.startTime <= Time && Time <= challenge.endTime ? (
                       challenge.cert === "실시간" ? (
                         <button
                           id="enter"
@@ -346,20 +352,11 @@ const MyChallenge = () => {
                         </button>
                       )
                     ) : challenge.cert === "실시간" ? (
-                      <button
-                        id="enter"
-                        onClick={() => openVideoModal(challenge)}
-
-                        // onClick={() => checkEnterTime()}
-                      >
+                      <button id="enter" onClick={() => checkEnterTime()}>
                         입장하기
                       </button>
                     ) : (
-                      <button
-                        id="photo"
-                        // onClick={() => checkEnterTime()}
-                        onClick={() => openPhotoModal(challenge)}
-                      >
+                      <button id="photo" onClick={() => checkEnterTime()}>
                         사진인증
                       </button>
                     )
@@ -384,7 +381,7 @@ const MyChallenge = () => {
         />
         {/* <VideoRoomComponent /> */}
       </Modal>
-      <Modal style={SWebRTCModal} isOpen={isPhotoOpen}>
+      <Modal style={SPhotoModal} isOpen={isPhotoOpen}>
         <PhotoChallengeModal
           challengeData={challengeData}
           closePhotoModal={closePhotoModal}

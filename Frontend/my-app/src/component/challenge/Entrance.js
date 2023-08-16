@@ -7,16 +7,17 @@ import {
   SEntranceSlide,
   SEntranceSwiper,
 } from "../../styles/pages/SMainPage";
+
 import { useNavigate } from "react-router";
 import { EffectCreative } from "swiper/modules";
 import Modal from "react-modal";
-import { SWebRTCModal } from "../../styles/pages/SChallengePage";
+import { SPhotoModal, SWebRTCModal } from "../../styles/pages/SChallengePage";
 import VideoRoomComponent from "../VideoRoomComponent";
 import PhotoChallengeModal from "./PhotoChallengeModal";
 
 const Entrance = () => {
   const user = useSelector((state) => state.users);
-  const onGoingChallenge = useSelector((state) => state.onGoingChallenges);
+  const ongoingChallenges = useSelector((state) => state.onGoingMyChallenges);
   const navigate = useNavigate();
   const [challengeData, setChallengeData] = useState(null); // 모달에 전달할 데이터 state 추가
   const [selectedSessionId, setSelectedSessionId] = useState(null);
@@ -33,7 +34,7 @@ const Entrance = () => {
     return Swal.fire({
       position: "center",
       icon: "error",
-      title: "챌린지 시간이 아닙니다!.",
+      title: "챌린지 시간이 아닙니다!",
       text: "CRIT",
       showConfirmButton: false,
       timer: 1500,
@@ -115,6 +116,13 @@ const Entrance = () => {
   const closePhotoModal = () => {
     setIsPhotoOpen(false);
   };
+  // 챌린지 입장가능 시간
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const Time = `${hours}:${formattedMinutes}`;
+  console.log(Time);
   return (
     <SEntranceSwiper
       grabCursor={true}
@@ -131,7 +139,7 @@ const Entrance = () => {
       modules={[EffectCreative]}
       className="mySwiper"
     >
-      {onGoingChallenge.map((challenge) => (
+      {ongoingChallenges.map((challenge) => (
         <SEntranceSlide key={challenge.id}>
           <img src={challenge.imgPath} alt="챌린지 이미지" />
           <h4>{challenge.name}</h4>
@@ -141,10 +149,9 @@ const Entrance = () => {
               : challenge.info}
           </p>
           {getDaysInProgress(challenge.startDate, challenge.endDate)?.includes(
-            "현재"
+            "현재",
           ) ? (
-            new Date(challenge.startTime) <= new Date() &&
-            new Date() <= new Date(challenge.endTime) ? (
+            challenge.startTime <= Time && Time <= challenge.endTime ? (
               challenge.cert === "실시간" ? (
                 <SEntranceLiButton onClick={() => openVideoModal(challenge)}>
                   입장하기
@@ -155,17 +162,11 @@ const Entrance = () => {
                 </SEntranceLiButton>
               )
             ) : challenge.cert === "실시간" ? (
-              <SEntranceLiButton
-                // onClick={() => checkEnterTime()}
-                onClick={() => openVideoModal(challenge)}
-              >
+              <SEntranceLiButton onClick={() => checkEnterTime()}>
                 입장하기
               </SEntranceLiButton>
             ) : (
-              <SEntranceLiButton
-                // onClick={() => checkEnterTime()}
-                onClick={() => openPhotoModal(challenge)}
-              >
+              <SEntranceLiButton onClick={() => checkEnterTime()}>
                 사진인증
               </SEntranceLiButton>
             )
@@ -182,9 +183,8 @@ const Entrance = () => {
           closeVideoModal={closeVideoModal}
           challengeData={challengeData}
         />
-        {/* <VideoRoomComponent /> */}
       </Modal>
-      <Modal style={SWebRTCModal} isOpen={isPhotoOpen}>
+      <Modal style={SPhotoModal} isOpen={isPhotoOpen}>
         <PhotoChallengeModal
           closePhotoModal={closePhotoModal}
           challengeData={challengeData}

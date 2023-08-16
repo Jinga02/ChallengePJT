@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "../../api/api";
 import {
   SJoinListWrapper,
+  SJoinWrapper,
   SJoinTitle,
-} from "../../styles/pages/SChallengePage";
+} from "../../styles/pages/SDeatilChallengePage";
+import Loading from "../../component/Loading";
 
 const JoinListModal = ({ challengeData, closeJoinListModal }) => {
+  const [loading, setLoading] = useState(true);
+
   const [joinList, setJoinList] = useState([]);
-  console.log(challengeData);
   const getJoinList = () => {
     api
       .get(
@@ -19,8 +22,9 @@ const JoinListModal = ({ challengeData, closeJoinListModal }) => {
         },
       )
       .then((res) => {
-        console.log(res);
+        console.log(res.data.data);
         setJoinList(res.data.data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -29,21 +33,27 @@ const JoinListModal = ({ challengeData, closeJoinListModal }) => {
   useEffect(() => {
     getJoinList();
   }, []);
-  console.log(joinList);
   return (
     <SJoinListWrapper>
-      <SJoinTitle>
-        <p>참여내역</p>
-      </SJoinTitle>
-      {joinList.map((join) => (
-        <ul>
-          <li key={join.id}>
-            <p id="time">{join.certTime}</p>
-            <p id="certified">{join.certified ? "완료" : "실패"}</p>
-          </li>
-        </ul>
-      ))}
-      <button onClick={closeJoinListModal}>X</button>
+      {loading ? <Loading /> : null}
+      <SJoinTitle></SJoinTitle>
+      {joinList.length > 0 ? (
+        joinList.reverse().map((join) => (
+          <React.Fragment key={join.id}>
+            <SJoinWrapper>
+              {join.certified ? (
+                <p id="success">완료</p>
+              ) : (
+                <p id="fail">실패</p>
+              )}
+              <p id="time">{join.certTime}</p>
+            </SJoinWrapper>
+            <hr />
+          </React.Fragment>
+        ))
+      ) : (
+        <h1>참여 내역이 없습니다.</h1>
+      )}
     </SJoinListWrapper>
   );
 };

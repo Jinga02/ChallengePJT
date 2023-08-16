@@ -5,6 +5,7 @@ import {
   SImgWrapper,
   SInfoWrapper,
   SButtonWrapper,
+  SJoinListModal,
 } from "../../../styles/pages/SDeatilChallengePage";
 import PhotoChallengeModal from "../PhotoChallengeModal";
 import Modal from "react-modal";
@@ -12,10 +13,11 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import {
-  SJoinListModal,
   SWebRTCModal,
+  SPhotoModal,
 } from "../../../styles/pages/SChallengePage";
 import JoinListModal from "../JoinListModal";
+import VideoRoomComponent from "./../../VideoRoomComponent";
 
 const InformationChallenge = () => {
   const location = useLocation();
@@ -30,6 +32,7 @@ const InformationChallenge = () => {
   const [isPhotoOpen, setIsPhotoOpen] = useState(false);
   const [challengeData, setChallengeData] = useState(null); // 모달에 전달할 데이터 state 추가
   const [selectedSessionId, setSelectedSessionId] = useState(null);
+
   const checkEnterTime = () => {
     return Swal.fire({
       position: "center",
@@ -59,7 +62,7 @@ const InformationChallenge = () => {
       title: "챌린지 입장 중!",
       text: "CRIT",
       showConfirmButton: false,
-      timer: 2000,
+      timer: 1500,
       background: "#272727",
       color: "white",
       width: "500px",
@@ -89,7 +92,8 @@ const InformationChallenge = () => {
     const today = new Date();
     const start = new Date(startDate);
     const end = new Date(endDate);
-
+    console.log(start);
+    console.log(end);
     // 연, 월, 일만 비교
     today.setHours(0, 0, 0, 0);
     start.setHours(0, 0, 0, 0);
@@ -118,8 +122,14 @@ const InformationChallenge = () => {
     }
   };
 
+  // 챌린지 입장가능 시간
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const Time = `${hours}:${formattedMinutes}`;
+  console.log(Time);
   // 참여하기 startDate 2일전까지만 보이게
-
   const twoDaysBefore = new Date(challenge.startDate);
   twoDaysBefore.setDate(twoDaysBefore.getDate() - 2);
 
@@ -154,10 +164,10 @@ const InformationChallenge = () => {
               challenge.startDate,
               challenge.endDate,
             )?.includes("현재") ? (
-              new Date(challenge.startTime) <= new Date() &&
-              new Date() <= new Date(challenge.endTime) ? (
+              challenge.startTime <= Time && Time <= challenge.endTime ? (
                 challenge.cert === "실시간" ? (
                   <>
+                    {" "}
                     <button
                       id="enter"
                       onClick={() => openVideoModal(challenge)}
@@ -183,8 +193,8 @@ const InformationChallenge = () => {
                 )
               ) : challenge.cert === "실시간" ? (
                 <>
-                  <button id="enter" onClick={() => openVideoModal(challenge)}>
-                    {/* <button id="join" onClick={() => checkEnterTime()}> */}
+                  {/* <button id="enter" onClick={() => openVideoModal(challenge)}> */}
+                  <button id="join" onClick={() => checkEnterTime()}>
                     입장하기
                   </button>
                   <button id="joinList" onClick={onClickJoinList}>
@@ -193,8 +203,8 @@ const InformationChallenge = () => {
                 </>
               ) : (
                 <>
-                  {/* <button id="join" onClick={() => checkEnterTime()}> */}
-                  <button id="photo" onClick={() => openPhotoModal(challenge)}>
+                  <button id="join" onClick={() => checkEnterTime()}>
+                    {/* <button id="photo" onClick={() => openPhotoModal(challenge)}> */}
                     사진인증
                   </button>
                   <button id="joinList" onClick={onClickJoinList}>
@@ -202,7 +212,11 @@ const InformationChallenge = () => {
                   </button>
                 </>
               )
-            ) : null}
+            ) : (
+              <button id="joinList" onClick={onClickJoinList}>
+                참여내역
+              </button>
+            )}
           </>
         ) : (
           <>
@@ -212,14 +226,26 @@ const InformationChallenge = () => {
           </>
         )}
       </SButtonWrapper>
-      <Modal style={SWebRTCModal} isOpen={isPhotoOpen}>
+
+      <Modal style={SWebRTCModal} isOpen={isVideoOpen}>
+        <VideoRoomComponent
+          closeVideoModal={closeVideoModal}
+          challengeData={challengeData}
+        />
+      </Modal>
+      <Modal style={SPhotoModal} isOpen={isPhotoOpen}>
         <PhotoChallengeModal
           challengeData={challengeData}
           closePhotoModal={closePhotoModal}
         ></PhotoChallengeModal>
       </Modal>
-      <Modal style={SJoinListModal} isOpen={isJoinListOpen}>
+      <Modal
+        style={SJoinListModal}
+        isOpen={isJoinListOpen}
+        onRequestClose={closeJoinListModal}
+      >
         <JoinListModal
+          style={SJoinListModal}
           challengeData={challengeData}
           closeJoinListModal={closeJoinListModal}
         ></JoinListModal>
