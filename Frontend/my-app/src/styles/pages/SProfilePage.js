@@ -144,6 +144,7 @@ export const SFeedButton2 = styled.span`
   align-items: center;
   display: inline-block;
   width: 90px;
+  cursor : pointer;
   height: 20px;
   padding: 15px;
   margin-bottom: 40px;
@@ -165,6 +166,7 @@ export const SFeedButton = styled.span`
   width: 90px;
   height: 20px;
   padding: 15px;
+  cursor : pointer;
   margin-bottom: 10px;
   font-size: 18px;
   color: white;
@@ -186,7 +188,7 @@ export const SFeedArea = styled.div`
 
   .grid-container {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 5px;
   }
 `;
@@ -550,3 +552,92 @@ export const ModalButton = styled.button`
 `;
 
 
+export const SFollowButton = styled.a`
+  display: inline-block;
+  padding: 8px 14px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  margin-top : 50px;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #2980b9;
+    box-shadow: 0px 0px 20px 0.1px rgba(255,255,255,15%);
+
+    border-color: #2980b9;
+  }
+`;
+
+
+export const SAccessDenied = styled.div`
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 600px;
+height: 600px;
+z-index: 1500;
+display : flex;
+justify-content: center;
+align-items: center;
+`
+export const SMyFollowingListModal= styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  max-height: 350px;
+  z-index: 1500;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  overflow-y: auto; // 스크롤 추가
+  padding-top: 80px; // 헤더 높이와 동일하게 설정
+`;
+export const SMyFollowingListModalArea = styled.div`
+  width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto; // 스크롤 추가
+
+`;
+
+
+export const SisNotExist= styled.div`
+color : #343CF4;
+width: 100%;
+font-size: 30px;
+height: 100%;
+margin-top: 200px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+`;
+
+
+export const SModalHeader = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px; // 원하는 높이로 설정
+  background-color: #1877f2; // 원하는 배경색으로 설정
+  display: flex;
+  align-items: center;
+  padding: 7px 18px;
+  font-size: 17px;
+  font-weight: 500;
+  color: white;
+  box-sizing: border-box;
+  z-index: 2;
+`;

@@ -13,8 +13,10 @@ import "swiper/css/grid";
 import "swiper/css/pagination";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useSelector } from "react-redux";
 
 const SearchChallenge = ({ allChallenge }) => {
+  const user = useSelector((state) => state.users);
   const navigate = useNavigate();
   // 챌린지 검색
   const [title, onChangeTitle, setTitle] = useInput("");
@@ -23,11 +25,18 @@ const SearchChallenge = ({ allChallenge }) => {
   const [study, setStudy] = useState([]);
   const [book, setBook] = useState([]);
   const [stretching, setStretching] = useState([]);
+  const [progress, setProgress] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("전체"); // 초기값: 전체
-
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const month = (date.getMonth() + 1).toString();
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${month}${day}`;
+  };
+  const now = new Date();
   const onSearchChallenge = () => {
     const filterChallenge = allChallenge.filter((challenge) =>
-      challenge.name.includes(title)
+      challenge.name.includes(title),
     );
     if (filterChallenge.length === 0) {
       Swal.fire({
@@ -49,22 +58,28 @@ const SearchChallenge = ({ allChallenge }) => {
 
   const categorizeChallenges = () => {
     const studyChallenges = allChallenge.filter(
-      (challenge) => challenge.category === "공부"
+      (challenge) => challenge.category === "공부",
     );
     const sportChallenges = allChallenge.filter(
-      (challenge) => challenge.category === "운동"
+      (challenge) => challenge.category === "운동",
     );
     const bookChallenges = allChallenge.filter(
-      (challenge) => challenge.category === "독서"
+      (challenge) => challenge.category === "독서",
     );
     const stretchingChallenges = allChallenge.filter(
-      (challenge) => challenge.category === "스트레칭"
+      (challenge) => challenge.category === "스트레칭",
+    );
+    const progressChallenges = allChallenge.filter(
+      (challenge) =>
+        formatDate(now) <= formatDate(challenge.startDate) &&
+        !challenge.userList.includes(user.nickname),
     );
 
     setStudy(studyChallenges);
     setSport(sportChallenges);
     setBook(bookChallenges);
     setStretching(stretchingChallenges);
+    setProgress(progressChallenges);
   };
 
   const handleCategoryClick = (category) => {
@@ -88,6 +103,8 @@ const SearchChallenge = ({ allChallenge }) => {
     categoryChallenges = study;
   } else if (selectedCategory === "독서") {
     categoryChallenges = book;
+  } else if (selectedCategory === "참여가능") {
+    categoryChallenges = progress;
   }
 
   // 검색 결과가 있으면 검색 결과를, 없으면 카테고리 별 챌린지를 보여줍니다.
@@ -121,6 +138,7 @@ const SearchChallenge = ({ allChallenge }) => {
           <a onClick={() => handleCategoryClick("스트레칭")}>스트레칭</a>
           <a onClick={() => handleCategoryClick("공부")}>공부</a>
           <a onClick={() => handleCategoryClick("독서")}>독서</a>
+          <a onClick={() => handleCategoryClick("참여가능")}>참여가능</a>
         </ul>
       </SCategoryWrapper>
       <SSearchSwiper

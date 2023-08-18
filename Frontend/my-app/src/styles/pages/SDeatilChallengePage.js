@@ -2,6 +2,10 @@ import { styled } from "styled-components";
 // 디테일페이지 전체 div
 export const SDetailChallengeWrapper = styled.div`
   margin: 30px auto -40px auto;
+  h1 {
+    text-align: center;
+    font-size: 60px;
+  }
 `;
 // 디테일페이지 챌린지 정보 div
 export const SInformationWrapper = styled.div`
@@ -184,11 +188,9 @@ export const SButtonWrapper = styled.div`
     height: 50px;
     font-size: 18px;
     font-weight: 1000;
-
     border-radius: 10px;
     border: none;
     background-color: #33ff00;
-
     cursor: pointer;
   }
 `;
@@ -272,7 +274,7 @@ export const SBoardsWrapper = styled.div`
   margin: 30px auto;
   h1 {
     text-align: center;
-    font-size: 70px;
+    font-size: 60px;
   }
 `;
 
@@ -372,7 +374,7 @@ export const SJoinListModal = {
     border: "0.5px solid rgba(80, 80, 80)",
     borderRadius: "10px",
     boxShadow: "0px 0px 15px gray",
-    width: "400px",
+    width: "350px",
     height: "650px",
     margin: "70px auto",
     padding: "0",
@@ -397,11 +399,13 @@ export const SJoinListWrapper = styled.div`
   hr {
     border: 1px solid #838383;
     transform: scaleY(0.5);
-    margin-left: 60px;
-    width: 280px;
+    margin-left: 30px;
+    width: 290px;
   }
   h1 {
-    margin: 80px 35px;
+    font-weight: 200;
+    font-size: 24px;
+    margin: 80px 70px;
   }
 `;
 
@@ -421,17 +425,17 @@ export const SJoinWrapper = styled.div`
     color: #838383;
   }
   #success {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     color: white;
-    margin-left: 50px;
+    margin-left: 30px;
     margin-right: 70px;
   }
   #fail {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 800;
     color: #33ff00;
-    margin-left: 50px;
+    margin-left: 30px;
     margin-right: 70px;
   }
 `;

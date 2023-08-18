@@ -19,7 +19,7 @@ import {
 import JoinListModal from "../JoinListModal";
 import VideoRoomComponent from "./../../VideoRoomComponent";
 
-const InformationChallenge = () => {
+const InformationChallenge = ({ setCheckUser }) => {
   const location = useLocation();
   const challenge = location.state.challenge;
   const user = useSelector((state) => state.users);
@@ -92,8 +92,7 @@ const InformationChallenge = () => {
     const today = new Date();
     const start = new Date(startDate);
     const end = new Date(endDate);
-    console.log(start);
-    console.log(end);
+
     // 연, 월, 일만 비교
     today.setHours(0, 0, 0, 0);
     start.setHours(0, 0, 0, 0);
@@ -128,7 +127,6 @@ const InformationChallenge = () => {
   const minutes = now.getMinutes();
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const Time = `${hours}:${formattedMinutes}`;
-  console.log(Time);
   // 참여하기 startDate 2일전까지만 보이게
   const twoDaysBefore = new Date(challenge.startDate);
   twoDaysBefore.setDate(twoDaysBefore.getDate() - 2);
@@ -221,7 +219,10 @@ const InformationChallenge = () => {
         ) : (
           <>
             {twoDaysBefore >= new Date() && (
-              <JoinChallenge challenge={challenge} />
+              <JoinChallenge
+                setCheckUser={setCheckUser}
+                challenge={challenge}
+              />
             )}
           </>
         )}

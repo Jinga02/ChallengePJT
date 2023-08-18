@@ -19,14 +19,13 @@ const KakaoCallback = () => {
       // url: `https://i9d201.p.ssafy.io/api/oauth/login/oauth2/code/${registrationId}?code=${code}&state=${state}`,
     })
       .then((res) => {
-        console.log(res);
         dispatch(
           setUser({
             id: res.data.id,
             nickname: res.data.nickname,
             accessToken: res.data.accessToken,
             refreshToken: res.data.refreshToken,
-          }),
+          })
         );
         persistor.flush(); // 상태를 영구적으로 저장
         // Swal.fire({
@@ -58,9 +57,14 @@ const KakaoCallback = () => {
 
   return (
     <div className="LoginHandler">
-      <div className="notice">
-        <p>로그인 중입니다.</p>
-        <p>잠시만 기다려주세요.</p>
+      <div
+        style={{
+          margin: "0 atuo",
+        }}
+        className="notice"
+      >
+        <h1>로그인 중입니다.</h1>
+        <h1>잠시만 기다려주세요.</h1>
         <div className="spinner"></div>
       </div>
     </div>

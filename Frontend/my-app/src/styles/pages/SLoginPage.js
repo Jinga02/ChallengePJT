@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 
 export const SLoginPageWrapper = styled.div`
   position: absolute;
-  top: 450px;
+  top: 500px;
   left: 50%;
   width: 500px;
   height: 630px;
   transform: translate(-50%, -50%);
-  ${"" /* background-color: rgb(23, 23, 23); */}
-  ${"" /* border-radius: 20px; */}
   text-align: center;
-  ${"" /* box-shadow: 5px 5px 20px gray; */}
 `;
 export const SImg = styled.img`
-  width: 350px;
-  height: 150px;
+  width: 400px;
+  height: 200px;
 `;
 export const SForm = styled.form``;
 export const SSpan = styled.span`
@@ -60,9 +57,8 @@ export const SMoveSignUp = styled(Link)`
 `;
 
 export const SKakaoLoginButton = styled.img`
-  width: 60px;
-  height: 60px;
-  border-radius: 5px;
+  width: 150px;
+  height: 40px;
   cursor: pointer;
   margin: 10px;
 `;

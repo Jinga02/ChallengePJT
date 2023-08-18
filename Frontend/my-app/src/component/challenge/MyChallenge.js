@@ -27,7 +27,6 @@ import { useSelector } from "react-redux";
 import { SImg } from "./../../styles/pages/SChallengePage";
 import Swal from "sweetalert2";
 import PhotoChallengeModal from "./PhotoChallengeModal";
-import { SCrit } from "../../styles/pages/SChallengePage";
 
 const MyChallenge = () => {
   const user = useSelector((state) => state.users);
@@ -41,7 +40,6 @@ const MyChallenge = () => {
   const [isPhotoOpen, setIsPhotoOpen] = useState(false);
   const [challengeData, setChallengeData] = useState(null); // 모달에 전달할 데이터 state 추가
   const [selectedSessionId, setSelectedSessionId] = useState(null);
-  console.log(myChallenges);
   const [selectedStatus, setSelectedCategory] = useState(myChallenges); // 초기값: 전체
   const handleCategoryClick = (status) => {
     if (status == "전체") {
@@ -59,12 +57,6 @@ const MyChallenge = () => {
           background: "#272727",
           color: "white",
           width: "500px",
-
-          // 먼지
-          // imageUrl: 'https://unsplash.it/400/200',
-          // imageWidth: 400,
-          // imageHeight: 200,
-          // imageAlt: 'Custom image',
         });
       }
     }
@@ -83,12 +75,6 @@ const MyChallenge = () => {
           background: "#272727",
           color: "white",
           width: "500px",
-
-          // 먼지
-          // imageUrl: 'https://unsplash.it/400/200',
-          // imageWidth: 400,
-          // imageHeight: 200,
-          // imageAlt: 'Custom image',
         });
       }
     }
@@ -107,12 +93,6 @@ const MyChallenge = () => {
           background: "#272727",
           color: "white",
           width: "500px",
-
-          // 먼지
-          // imageUrl: 'https://unsplash.it/400/200',
-          // imageWidth: 400,
-          // imageHeight: 200,
-          // imageAlt: 'Custom image',
         });
       }
     }
@@ -131,12 +111,6 @@ const MyChallenge = () => {
           background: "#272727",
           color: "white",
           width: "500px",
-
-          // 먼지
-          // imageUrl: 'https://unsplash.it/400/200',
-          // imageWidth: 400,
-          // imageHeight: 200,
-          // imageAlt: 'Custom image',
         });
       }
     }
@@ -153,12 +127,6 @@ const MyChallenge = () => {
       background: "#272727",
       color: "white",
       width: "500px",
-
-      // 먼지
-      // imageUrl: 'https://unsplash.it/400/200',
-      // imageWidth: 400,
-      // imageHeight: 200,
-      // imageAlt: 'Custom image',
     });
   };
   const openVideoModal = (challenge) => {
@@ -175,12 +143,6 @@ const MyChallenge = () => {
       background: "#272727",
       color: "white",
       width: "500px",
-
-      // 먼지
-      // imageUrl: 'https://unsplash.it/400/200',
-      // imageWidth: 400,
-      // imageHeight: 200,
-      // imageAlt: 'Custom image',
     });
   };
   const openPhotoModal = (challenge) => {
@@ -197,11 +159,6 @@ const MyChallenge = () => {
       background: "#272727",
       color: "white",
       width: "500px",
-      // 먼지
-      // imageUrl: 'https://unsplash.it/400/200',
-      // imageWidth: 400,
-      // imageHeight: 200,
-      // imageAlt: 'Custom image',
     });
   };
   const closeVideoModal = () => {
@@ -218,7 +175,6 @@ const MyChallenge = () => {
     return startDateA - startDateB;
   };
   const sortedMyChallenges = [...selectedStatus].sort(sortByStartDate);
-  console.log(sortedMyChallenges);
   // 상세보기 클릭
   const detailClick = (challenge) => {
     if (location.pathname === "/ChallengePage") {
@@ -273,9 +229,9 @@ const MyChallenge = () => {
   const now = new Date();
   const hours = now.getHours();
   const minutes = now.getMinutes();
+  const formattedHours = hours < 10 ? `0${hours}` : hours;
   const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const Time = `${hours}:${formattedMinutes}`;
-
+  const Time = `${formattedHours}:${formattedMinutes}`;
   return (
     <>
       <SStatusWrapper>

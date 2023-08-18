@@ -20,14 +20,14 @@ import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 import ChallengeImage from "./createChallenge/ChallengeImage";
 
-const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
+const CreateChallengeModal = ({ closeModal }) => {
   const user = useSelector((state) => state.users);
   const [requestDto, setRequestDto] = useState({
     title: "",
     introduce: "",
     select: "",
     authentication: "",
-    member: "",
+    member: 3,
     money: "",
     startTime: "",
     endTime: "",
@@ -73,12 +73,6 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
       timer: 1500,
       background: "#272727",
       color: "white",
-      // width: "500px",
-      // 먼지
-      // imageUrl: 'https://unsplash.it/400/200',
-      // imageWidth: 400,
-      // imageHeight: 200,
-      // imageAlt: 'Custom image',
     });
   };
   // 챌린지 생성
@@ -92,18 +86,11 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
       cancelButtonText: "취소",
       confirmButtonColor: "#0000c5",
       cancelButtonColor: "#ff007a",
-
       background: "#272727",
       color: "white",
       preConfirm: () => {
         return createChallenge();
       },
-      // width: "500px",
-      // 먼지
-      // imageUrl: 'https://unsplash.it/400/200',
-      // imageWidth: 400,
-      // imageHeight: 200,
-      // imageAlt: 'Custom image',
     });
   };
   const createChallenge = () => {
@@ -185,14 +172,8 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
           timer: 1500,
           background: "#272727",
           color: "white",
-          // width: "500px",
-          // 먼지
-          // imageUrl: 'https://unsplash.it/400/200',
-          // imageWidth: 400,
-          // imageHeight: 200,
-          // imageAlt: 'Custom image',
         });
-        getAllChallenge();
+        window.location.reload();
       })
       .catch((error) => {
         console.error("챌린지 생성 에러:", error);
@@ -200,10 +181,7 @@ const CreateChallengeModal = ({ closeModal, getAllChallenge }) => {
           position: "center",
           icon: "error",
           html: `
-            <h1>${
-              error.response.data.errorMessage
-                ? error.response.data.errorMessage
-                : error.response.data
+            <h1>기존 챌린지 시간과 중복되는 시간입니다.
             }</h1>
           `,
           showConfirmButton: false,

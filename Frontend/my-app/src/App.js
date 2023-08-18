@@ -30,6 +30,7 @@ import Swal from "sweetalert2";
 import Footer from "./component/footer/footer";
 
 import styled from "styled-components";
+import { api } from "./api/api";
 
 const AppContainer = styled.div`
   display: flex;
@@ -135,7 +136,7 @@ function AppRoutes() {
             />
             <Route path="/PayPage" element={<PayPage />} />
             <Route path="/payment/success" element={<PaySuccessPage />} />
-            <Route path="/PayCanclePage" element={<PayCanclePage />} />
+            <Route path="/payment/cancel" element={<PayCanclePage />} />
             <Route path="/PayConflictPage" element={<PayConflictPage />} />
           </Routes>
         </ContentWrapper>

@@ -165,3 +165,58 @@ export const StyledMail = styled(FiMail)`
     color: #1877f2;
   }
 `;
+
+
+
+
+export const SMyFollowingListModalForMessage = styled.div`
+  color: black;
+  position: fixed;
+  top: 59%;
+  left: 77.5%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 320px;
+  z-index: 1500;
+  background-color: #ffffff;
+  border-radius: 20px;
+  border: 1px solid #dbdbdb;
+  box-shadow: 0 5px 30px rgba(255, 255, 255, 0.25);
+`;
+
+export const SMyFollowingListModalAreaForMessage = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  color: black;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  
+  overflow-y: auto;
+`;
+
+
+export const SFollowButtonForMessage = styled.a`
+  display: inline-block;
+  padding: 4px 14px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #fff;
+  margin-top : 50px;
+  background-color: #3897f0;
+  border: 1px solid #3897f0;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #2980b9;
+    box-shadow: 0px 0px 20px 0.1px rgba(255,255,255,15%);
+
+    border-color: #2980b9;
+  }
+`;
+
+

@@ -49,23 +49,8 @@ export const completeMyChallengeSlice = createSlice({
   },
 });
 
-export const completeMyChallengeSlice = createSlice({
-  name: "completeMyChallenges",
-  initialState: [],
-  reducers: {
-    setCompleteMyChallenge: (state, action) => {
-      return action.payload;
-    },
-  },
-});
-
 export const { setChallenge } = challengeSlice.actions;
 export const { setMyChallenge } = myChallengeSlice.actions;
-<<<<<<< HEAD
 export const { setOnGoingMyChallenge } = onGoingMyChallengeSlice.actions;
 export const { setCompleteMyChallenge } = completeMyChallengeSlice.actions;
 export const { setPlannedMyChallenge } = plannedMyChallengeSlice.actions;
-=======
-export const { setOnGoingChallenge } = onGoingChallengeSlice.actions;
-export const { setCompleteMyChallenge } = completeMyChallengeSlice.actions;
->>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6

@@ -34,7 +34,7 @@ export const SLogoWrapper = styled.div`
   #login {
     position: absolute;
     right: 20px;
-    top: 15px;
+    top: 10px;
     font-size: 25px;
     text-decoration: none;
     color: white;
@@ -81,7 +81,7 @@ export const SMenuWrapper = styled.div`
 // User
 export const SUserWrapper = styled.div`
   position: absolute;
-  width: 120px;
+  width: 140px;
   font-size: 17px;
   cursor: pointer;
   right: 10px;
@@ -175,21 +175,22 @@ export const ModalOverlay = styled.div`
 export const SBtnAnimation = styled.div`
   color: linear-gradient(90deg, red, blue);
   :hover {
-  animation: gradient-animation 1s infinite linear alternate; 
-  @keyframes gradient-animation {
-    0% {
-      color: linear-gradient(90deg, red, blue);
+    animation: gradient-animation 1s infinite linear alternate;
+    @keyframes gradient-animation {
+      0% {
+        color: linear-gradient(90deg, red, blue);
+      }
+      100% {
+        color: linear-gradient(90deg, yellow, green);
+      }
     }
-    100% {
-      color: linear-gradient(90deg, yellow, green);
-    }
-}
+  }
 `;
 
 export const SLoadingBackground = styled.div`
   position: fixed;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.727);
@@ -201,8 +202,9 @@ export const SLoadingBackground = styled.div`
 `;
 
 export const SLoadingText = styled.div`
-  font: 1rem "Noto Sans KR";
+  font-family: "Pretendard";
   text-align: center;
-  font-weight: 1000;
+  font-size: 28px;
+  font-weight: 500;
   text-align: center;
 `;

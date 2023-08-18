@@ -1,31 +1,30 @@
-<<<<<<< HEAD
 
 import React from 'react';
 import Payment from '../component/pay/PaymentComponent';
 
+import { SPayWrapper, SPayInfoArea , SPayEmpty} from '../styles/pages/SPayPage';
+import { SDividerLine } from '../styles/pages/SMainPage'
+import PayInfomation from '../component/pay/PayInfomation';
+
+
 function PayPage() {
   return (
     <div>
-      <h1>Kakao Pay 예제</h1>
+    <SPayWrapper>
+      <h1>포인트 충전</h1>
+      <SDividerLine/>
+      <SPayEmpty/>
       <Payment />
+      <SPayEmpty/>
+
+    </SPayWrapper>
+
+    <SPayInfoArea>
+    <SDividerLine/>
+    <PayInfomation/>
+    </SPayInfoArea>
     </div>
   );
 }
 
 export default PayPage;
-=======
-
-import React from 'react';
-import Payment from '../component/pay/PaymentComponent';
-
-function PayPage() {
-  return (
-    <div>
-      <h1>Kakao Pay 예제</h1>
-      <Payment />
-    </div>
-  );
-}
-
-export default PayPage;
->>>>>>> 9ef782af2f69c513080be5cb10ef258c41b485e6
