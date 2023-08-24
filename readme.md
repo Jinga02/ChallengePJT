@@ -18,7 +18,7 @@ CRIT은 단순한 챌린지 서비스를 넘어, 참가자들이 '함께' 성장
 
 ---
 
-![제목_없음]("https://lab.ssafy.com/s09-webmobile1-sub2/S09P12D201/uploads/da4c7d050815d098f6758a32a7d134f7/%EC%A0%9C%EB%AA%A9_%EC%97%86%EC%9D%8C.png")
+![제목_없음]("https://github.com/Jinga02/ChallengePJT/assets/110621233/7d585d00-f48a-47a2-b5c2-0f3dc64390c5")
 
 - C : Create Goals(목표를 설정하세요)
 - R : Realize your Goals(목표를 거머쥐세요)
