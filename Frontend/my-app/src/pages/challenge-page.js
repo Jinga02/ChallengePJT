@@ -7,12 +7,6 @@ import {
   SCritWrapper,
   SCrit2,
   SCritWrapper2,
-  SQnAButton,
-  SQnaWrapper,
-  SQnajWrapper,
-  SQnAButton2,
-  SQnajWrapper2,
-  SScrollCircle,
 } from "../styles/pages/SChallengePage";
 import Loading from "../component/Loading";
 
@@ -30,7 +24,6 @@ import GetAllMyChallenge from "../component/challenge/GetAllMyChallenge";
 import GetPlannedMyChallenge from "../component/challenge/GetPlannedMyChallenge";
 import { SCrit } from "../styles/pages/SChallengePage";
 import { SStartImage, SStartImage2 } from "../styles/pages/SStartPage";
-import { SScrollButtonWrapper2 } from "../styles/pages/SMainPage";
 import CheckTime from "./../component/challenge/CheckTime";
 import GetAllChallenge from "./../component/challenge/GetAllChallenge";
 import QnaModal from "../component/challenge/QnaModal";

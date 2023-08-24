@@ -9,7 +9,6 @@ import rootReducer from "./rootReducer"; // rootReducer를 import 하도록 수�
 const persistConfig = {
   key: "root",
   storage, //local Storage에 저장
-  // whitelist: ["users"], //auth Reducer만 저장
   whitelist: [
     "users",
     "challenges",
@@ -18,12 +17,15 @@ const persistConfig = {
     "completeMyChallenges",
   ], //auth Reducer만 저장
 };
-
+// persistReducer 함수를 사용하여 persistConfig를 적용한 새로운 rootReducer를 생성
+// 이렇게 생성된 rootReducer는 상태가 영구 저장되도록 설정
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
+    // serializableCheck를 false로 설정하여 Redux store의 액션과 상태의 직렬화 여부를 체크하지 않도록 함
+    // 이 설정은 개발 환경에서 시리얼라이징 관련 경고 메시지를 무시하기 위함
     getDefaultMiddleware({
       serializableCheck: false,
     }),
