@@ -169,13 +169,13 @@ OpenVidu라이브러리를 사용하여 kurento-midea-server를 거쳐 서로 �
 
 ---
 
-![수정한_아키텍쳐2__1_](/uploads/412e5e08ce94793f422e1e3f508ee3c2/수정한_아키텍쳐2__1_.jpg)
+![수정한_아키텍쳐2__1_](https://github.com/Jinga02/ChallengePJT/assets/110621233/f18fb248-56c9-43d0-912e-4dfda292993e)
 
 ## ERD
 
 ---
 
-![image](/uploads/1823dca98b0be6e1c3927da3c44446f5/image.png)
+![image](https://github.com/Jinga02/ChallengePJT/assets/110621233/4e2abb05-aac3-415c-a032-e34475e64e0d)
 
 ## 협업 툴
 
