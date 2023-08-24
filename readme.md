@@ -18,7 +18,7 @@ CRIT은 단순한 챌린지 서비스를 넘어, 참가자들이 '함께' 성장
 
 ---
 
-![제목_없음]("https://github.com/Jinga02/ChallengePJT/assets/110621233/8ee29f37-f949-43c1-bb67-3f426d640d9a")
+![제목_없음](https://github.com/Jinga02/ChallengePJT/assets/110621233/8ee29f37-f949-43c1-bb67-3f426d640d9a)
 
 - C : Create Goals(목표를 설정하세요)
 - R : Realize your Goals(목표를 거머쥐세요)
@@ -62,19 +62,19 @@ CRIT은 단순한 챌린지 서비스를 넘어, 참가자들이 '함께' 성장
 
 ### 시작페이지 & 회원가입 & 로그인
 
-![회원가입](/uploads/7655bb5a0492bf2f1f88b431c77b2676/ezgif.com-gif-maker.gif)
+![회원가입](https://github.com/Jinga02/ChallengePJT/assets/110621233/dc834913-d815-486a-b4d3-baa022a680a3)
 
 ### 메인페이지 & 커뮤니티
 
-![메인페이지](/uploads/6871b2f032e0c8a052845560c65ea84c/ezgif.com-optimize.gif)
+![메인페이지](https://github.com/Jinga02/ChallengePJT/assets/110621233/7d585d00-f48a-47a2-b5c2-0f3dc64390c5)
 
 ### 프로필 & 메시지
 
-![프로필](/uploads/bdb23db1d7b1c6ad8a63b822dc08eb1d/ezgif.com-optimize__1_.gif)
+![프로필](https://github.com/Jinga02/ChallengePJT/assets/110621233/dc2b96ac-b5d6-4ef8-b8e0-6bc7c1cbca93)
 
 ### 챌린지
 
-![챌린지](/uploads/c2cbca461ca3958bbbfb11bc6b6be464/ezgif.com-gif-maker__1_.gif)
+![챌린지](https://github.com/Jinga02/ChallengePJT/assets/110621233/87fcbe06-30d0-4810-a7e5-90a7720ebad2)
 
 ## 기술 차별점
 
