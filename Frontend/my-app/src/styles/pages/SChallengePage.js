@@ -1,5 +1,4 @@
 import styled, { css, keyframes } from "styled-components";
-import Swal from "sweetalert2";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // 애니메이션

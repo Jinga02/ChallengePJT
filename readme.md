@@ -18,12 +18,20 @@ CRIT은 단순한 챌린지 서비스를 넘어, 참가자들이 '함께' 성장
 
 ---
 
-![제목_없음](/uploads/da4c7d050815d098f6758a32a7d134f7/제목_없음.png)
+![제목_없음](https://github.com/Jinga02/ChallengePJT/assets/110621233/8ee29f37-f949-43c1-bb67-3f426d640d9a)
 
 - C : Create Goals(목표를 설정하세요)
 - R : Realize your Goals(목표를 거머쥐세요)
 - I : Improve yourself everyday(매일 자신을 개선하세요)
 - T : Try again when you fail(실패하면 다시 시도하세요)
+
+## 나의 역할
+
+### Frontend
+
+- 폴더 및 컴포넌트 구조화
+- UI/레이아웃 구성/ 디자인
+- 구현한 기능 : 챌린지 (생성, 참여, 표시 등 모든 부분), WebRTC(OpenVidu활용), JWT토큰 재발급, 회원가입, 로그인
 
 ## 주요 기능
 
@@ -62,19 +70,19 @@ CRIT은 단순한 챌린지 서비스를 넘어, 참가자들이 '함께' 성장
 
 ### 시작페이지 & 회원가입 & 로그인
 
-![회원가입](/uploads/7655bb5a0492bf2f1f88b431c77b2676/ezgif.com-gif-maker.gif)
+![회원가입](https://github.com/Jinga02/ChallengePJT/assets/110621233/dc834913-d815-486a-b4d3-baa022a680a3)
 
 ### 메인페이지 & 커뮤니티
 
-![메인페이지](/uploads/6871b2f032e0c8a052845560c65ea84c/ezgif.com-optimize.gif)
+![메인페이지](https://github.com/Jinga02/ChallengePJT/assets/110621233/7d585d00-f48a-47a2-b5c2-0f3dc64390c5)
 
 ### 프로필 & 메시지
 
-![프로필](/uploads/bdb23db1d7b1c6ad8a63b822dc08eb1d/ezgif.com-optimize__1_.gif)
+![프로필](https://github.com/Jinga02/ChallengePJT/assets/110621233/dc2b96ac-b5d6-4ef8-b8e0-6bc7c1cbca93)
 
 ### 챌린지
 
-![챌린지](/uploads/c2cbca461ca3958bbbfb11bc6b6be464/ezgif.com-gif-maker__1_.gif)
+![챌린지](https://github.com/Jinga02/ChallengePJT/assets/110621233/87fcbe06-30d0-4810-a7e5-90a7720ebad2)
 
 ## 기술 차별점
 
@@ -113,6 +121,8 @@ OpenVidu라이브러리를 사용하여 kurento-midea-server를 거쳐 서로 �
 - axios 1.4.0
 - jquery 3.7.0
 - swiper 10.1.0
+- sweetalert2 11.7.20
+- openvidu-browser 2.27.0
 
 ### **1.2 Backend**
 
@@ -169,13 +179,13 @@ OpenVidu라이브러리를 사용하여 kurento-midea-server를 거쳐 서로 �
 
 ---
 
-![수정한_아키텍쳐2__1_](/uploads/412e5e08ce94793f422e1e3f508ee3c2/수정한_아키텍쳐2__1_.jpg)
+![수정한_아키텍쳐2__1_](https://github.com/Jinga02/ChallengePJT/assets/110621233/f18fb248-56c9-43d0-912e-4dfda292993e)
 
 ## ERD
 
 ---
 
-![image](/uploads/1823dca98b0be6e1c3927da3c44446f5/image.png)
+![image](https://github.com/Jinga02/ChallengePJT/assets/110621233/4e2abb05-aac3-415c-a032-e34475e64e0d)
 
 ## 협업 툴
 
@@ -185,3 +195,31 @@ OpenVidu라이브러리를 사용하여 kurento-midea-server를 거쳐 서로 �
 - Jira
 - Notion
 - Mattermost
+
+## 느낀 점
+
+---
+
+저는 Frontend개발자로서 초기 폴더 구조와 컴포넌트 세분화, UI와 디자인, 회원가입, JWT토큰을 활용한 로그인 그리고 챌린지 생성, 알람, 참여 등 챌린지의 모든 부분을 맡았습니다.
+
+### 1. <b>폴더 구조와 컴포넌트</b>
+
+폴더 구조를 만들 때는 처음 보는 사람도 프로젝트 구조를 쉽게 파악하고 이해할 수 있게 일관성과 가독성에 집중했습니다. 그리고 컴포넌트는 각 기능 별로 그룹화하고 그 안의 작은 기능들은 세분화하여 재사용성과 유지보수성에 집중했습니다. <br>
+하지만 프로젝트를 진행하면서 기능 구현에 집중하다 보니 처음 정했던 규칙과 구조를 벗어나게 되는 경우도 있었습니다. 지금의 경험을 바탕으로 어떻게 폴더 구조를 짜고 컴포넌트를 세분화해야 하는가에 대해 고민하고,다음 프로젝트를 진행할 때는 좀 더 세분화되고 완성도 높은 규칙을 만들고 엄격히 지켜야겠다 다짐했습니다.
+
+### 2. <b>UI와 디자인</b>
+
+화려하진 않지만 처음 방문하는 사람들이 쉽게 우리 서비스를 이해하고 사용할 수 있도록 UI와 디자인은 일관성과 사용성에 집중했습니다. 처음 Figma를 통해 만든 목업디자인과 유사하게 완성했지만 다양한 디바이스에서 사용할 수 있게 디자인을 하지 못해 아쉬움이 있습니다.
+다음 프로젝트에는 CSS에 대해 좀 더 공부하여 완성도 높은 반응형디자인을 적용시키겠다 다짐했습니다.
+
+### 3. <b>JWT토큰 재발급</b>
+
+먼저 JWT토큰이란 무엇인지, 어떤 원리로 동작하는지에 대해 공부한 뒤 어떻게 로직을 작성할 까 고민했습니다.
+우선 <b>'accessToken이 만료되는 즉시 UX적 문제 없이 재발급을 받고 정상적인 요청을 처리할 수 있을까'</b>에 대해 중점을 두고 로직을 작성했습니다.
+차후 지속적인 유지보수와 리팩토링을 통해 JWT토큰 재발급 로직을 좀 더 안전하고 클린한 코드로 수정할 예정입니다.
+
+### 4. <b>기능 구현</b>
+
+컴포넌트 세분화와 성공적인 기능 구현에 집중했습니다.
+최초 생각했던 기능들을 모두 구현했고 컴포넌트도 세분화하여 잘 작성했다고 생각했으나, 프로젝트 종료 후 천천히 코드를 살펴보니 기능 구현에 너무 집중한 나머지 코드를 클린하게 작성하지 못했고 없어도 되는 코드들도 간간히 보였습니다.
+차후 지속적인 유지보수와 리팩토링을 통해 좀 더 간결한 클린 코드로 수정 할 예정입니다.
