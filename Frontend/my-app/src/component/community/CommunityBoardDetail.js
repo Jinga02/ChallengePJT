@@ -18,7 +18,7 @@ import {
 import CreateArticleModal from "./CreateArticleModal";
 import Paging from "./Paging";
 
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/boards";
+const API_BASE_URL = "https://crithub.shop/api/boards";
 
 const CommunityBoardDetail = ({ classification }) => {
   const [loading, setLoading] = useState(false);

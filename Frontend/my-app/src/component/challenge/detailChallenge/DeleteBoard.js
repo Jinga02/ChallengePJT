@@ -30,7 +30,7 @@ const DeleteBoard = ({ boardId, getBoard }) => {
   };
   const deleteBoard = () => {
     api
-      .delete(`https://i9d201.p.ssafy.io/api/boards/delete/${boardId}`, {
+      .delete(`https://crithub.shop/api/boards/delete/${boardId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

@@ -9,7 +9,7 @@ const GetPlannedMyChallenge = () => {
 
   const PlannedMyChallenge = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/challenge/list/mine/planned", {
+      .get("https://crithub.shop/api/challenge/list/mine/planned", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

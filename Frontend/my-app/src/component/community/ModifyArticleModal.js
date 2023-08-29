@@ -11,7 +11,7 @@ import {
   SPreviewImage,
   SFileInputLabel,
 } from "../../styles/pages/SCommunityPage";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/boards";
+const API_BASE_URL = "https://crithub.shop/api/boards";
 // const API_BASE_URL = 'http://localhost:8080/boards';
 
 const ModifyArticleModal = ({
@@ -89,7 +89,7 @@ const ModifyArticleModal = ({
 
     formData.append(
       "boardDto",
-      new Blob([JSON.stringify(article)], { type: "application/json" })
+      new Blob([JSON.stringify(article)], { type: "application/json" }),
     );
     api
       .patch(`${API_BASE_URL}/update/${article.id}`, formData, {

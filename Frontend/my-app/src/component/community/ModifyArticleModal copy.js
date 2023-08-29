@@ -2,10 +2,18 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { api } from "../../api/api";
 
-const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/boards';
+const API_BASE_URL = "https://crithub.shop/api/boards";
 
-const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetchArticles }) => {
-  const initialImages = prevArticles.imageFiles.map((image) => ({ url: image, file: null }));
+const ModifyArticleModal = ({
+  classification,
+  setIsEditOpen,
+  prevArticles,
+  fetchArticles,
+}) => {
+  const initialImages = prevArticles.imageFiles.map((image) => ({
+    url: image,
+    file: null,
+  }));
   const user = useSelector((state) => state.users);
   const [images, setImages] = useState(initialImages);
   const [article, setArticle] = useState(prevArticles);
@@ -13,12 +21,12 @@ const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetch
   const onArticleImage = (e) => {
     const imageList = e.target.files;
     let imageObjList = [...images];
-    
+
     for (let i = 0; i < imageList.length; i++) {
       const imageUrl = URL.createObjectURL(imageList[i]);
       imageObjList.push({ url: imageUrl, file: imageList[i] });
     }
-  
+
     setImages(imageObjList);
   };
 
@@ -28,19 +36,22 @@ const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetch
 
   const writeArticle = (e) => {
     e.preventDefault();
-  
+
     const formData = new FormData();
 
     images.forEach((imageObj) => {
       if (imageObj.file) {
         formData.append("file", imageObj.file);
-        console.log(imageObj.file)
+        console.log(imageObj.file);
       } else {
         formData.append("file", imageObj.url);
       }
     });
 
-    formData.append('boardDto', new Blob([JSON.stringify(article)], { type: 'application/json' }))
+    formData.append(
+      "boardDto",
+      new Blob([JSON.stringify(article)], { type: "application/json" }),
+    );
     api
       .patch(`${API_BASE_URL}/update/${article.id}`, formData, {
         headers: {
@@ -52,12 +63,11 @@ const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetch
         setIsEditOpen(false);
         fetchArticles();
       })
-      .catch((err)=>{
-        console.log(err)
+      .catch((err) => {
+        console.log(err);
       });
   };
 
-  
   const handleArticleChange = (event) => {
     const { name, value } = event.target;
     setArticle({
@@ -81,10 +91,13 @@ const ModifyArticleModal = ({ classification, setIsEditOpen, prevArticles, fetch
           value={article.content}
           onChange={handleArticleChange}
         ></input>
-        <input type="file" multiple onChange={onArticleImage}/>
+        <input type="file" multiple onChange={onArticleImage} />
         {/* 선택된 이미지 불러오기 */}
         {images.map((imageObj, index) => (
-          <div key={index} style={{ display: "inline-block", position: "relative" }}>
+          <div
+            key={index}
+            style={{ display: "inline-block", position: "relative" }}
+          >
             <img
               src={imageObj.url}
               alt={`Image ${index + 1}`}

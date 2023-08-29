@@ -9,7 +9,7 @@ const GetAllChallenge = () => {
 
   const allChallenge = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/challenge/list/all", {
+      .get("https://crithub.shop/api/challenge/list/all", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

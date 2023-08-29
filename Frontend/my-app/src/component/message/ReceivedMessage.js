@@ -8,7 +8,7 @@ import {
   SMessageItem,
   SDeleteIconButton,
 } from "../../styles/pages/SMessage";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/messages";
+const API_BASE_URL = "https://crithub.shop/api/messages";
 const ReceivedMessage = (setMassageView) => {
   const user = useSelector((state) => state.users);
   const [receivedMessage, setReceivedMessage] = useState([]);
@@ -27,7 +27,7 @@ const ReceivedMessage = (setMassageView) => {
       .then((res) => {
         // console.log(res);
         setReceivedMessage(
-          res.data.data.sort((a, b) => new Date(b.id) - new Date(a.id))
+          res.data.data.sort((a, b) => new Date(b.id) - new Date(a.id)),
         );
       })
       .catch((err) => {

@@ -11,7 +11,7 @@ const LogOut = () => {
   const logOut = () => {
     api
       .post(
-        "https://i9d201.p.ssafy.io/api/auth/logout",
+        "https://crithub.shop/api/auth/logout",
         {
           accessToken: user.accessToken,
           refreshToken: user.refreshToken,
@@ -20,7 +20,7 @@ const LogOut = () => {
           headers: {
             Authorization: `Bearer ${user.refreshToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         persistor.purge(); // 영구 저장된 모든 상태를 초기화

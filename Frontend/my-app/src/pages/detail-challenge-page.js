@@ -24,7 +24,7 @@ const DetailChallengePage = () => {
   const getBoard = () => {
     api
       .get(
-        `https://i9d201.p.ssafy.io/api/boards/challengeWhole/${challenge.classification}`,
+        `https://crithub.shop/api/boards/challengeWhole/${challenge.classification}`,
         {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,

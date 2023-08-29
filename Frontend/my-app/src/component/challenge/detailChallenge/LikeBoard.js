@@ -9,7 +9,7 @@ const LikeBoard = ({ board, getBoard }) => {
   const user = useSelector((state) => state.users);
   const onLikeBoard = () => {
     api
-      .post(`https://i9d201.p.ssafy.io/api/boards/likes/${board.id}`, null, {
+      .post(`https://crithub.shop/api/boards/likes/${board.id}`, null, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -23,7 +23,7 @@ const LikeBoard = ({ board, getBoard }) => {
   };
   const onUnLikeBoard = () => {
     api
-      .delete(`https://i9d201.p.ssafy.io/api/boards/likes/${board.id}`, {
+      .delete(`https://crithub.shop/api/boards/likes/${board.id}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

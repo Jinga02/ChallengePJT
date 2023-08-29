@@ -11,7 +11,7 @@ import {
 import MyFollowingListForMessage from "./MyFollowingListForMessage";
 import Loading from "../Loading";
 
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/messages";
+const API_BASE_URL = "https://crithub.shop/api/messages";
 const SendMessage = (setMassageView) => {
   const user = useSelector((state) => state.users);
   const [loading, setLoading] = useState(false);
@@ -38,7 +38,7 @@ const SendMessage = (setMassageView) => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         const followingsList = res.data.data;
@@ -102,7 +102,7 @@ const SendMessage = (setMassageView) => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         setLoading(false);

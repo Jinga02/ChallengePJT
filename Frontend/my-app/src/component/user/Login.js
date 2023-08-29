@@ -23,7 +23,7 @@ const Login = () => {
       e.preventDefault();
       setLogInError(false);
       api
-        .post("https://i9d201.p.ssafy.io/api/auth/login", {
+        .post("https://crithub.shop/api/auth/login", {
           id,
           password,
         })
@@ -35,7 +35,7 @@ const Login = () => {
               nickname: res.data.nickname,
               accessToken: res.data.accessToken,
               refreshToken: res.data.refreshToken,
-            })
+            }),
           );
           persistor.flush(); // 상태를 영구적으로 저장
           nav("/MainPage");
@@ -45,7 +45,7 @@ const Login = () => {
           setLogInError(error.response?.status === 400);
         });
     },
-    [id, password]
+    [id, password],
   );
   return (
     <SForm onSubmit={onSubmit}>

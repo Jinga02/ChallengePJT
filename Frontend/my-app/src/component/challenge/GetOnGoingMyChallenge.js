@@ -9,7 +9,7 @@ const GetOnGoingMyChallenge = () => {
 
   const onGoindMyChallenge = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/challenge/list/mine/ongoing", {
+      .get("https://crithub.shop/api/challenge/list/mine/ongoing", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

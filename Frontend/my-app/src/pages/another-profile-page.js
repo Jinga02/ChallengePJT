@@ -26,7 +26,7 @@ import AnotherProfileShorts from "../component/profile/AnotherProfileShorts";
 import { useSelector } from "react-redux";
 import { api } from "../api/api";
 import CheckTime from "./../component/challenge/CheckTime";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/";
+const API_BASE_URL = "https://crithub.shop/api/";
 
 const AnotherProfilePage = () => {
   const navigate = useNavigate();
@@ -97,7 +97,7 @@ const AnotherProfilePage = () => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         getAnotherProfile();
@@ -115,7 +115,7 @@ const AnotherProfilePage = () => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         getAnotherProfile();

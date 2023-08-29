@@ -4,13 +4,13 @@ import { useSelector } from "react-redux";
 import {
   ProfileShortsListArea,
   ProfileShortsList,
-  SisNotExist
+  SisNotExist,
 } from "../../styles/pages/SProfilePage";
 import AnotherProfileShortsItem from "./AnotherProfileShortsItem";
 import { SDividerLine } from "../../styles/pages/SMainPage";
 import { useParams } from "react-router-dom";
 
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/feeds";
+const API_BASE_URL = "https://crithub.shop/api/feeds";
 
 const AnotherProfileShorts = () => {
   const { nickname } = useParams();
@@ -21,13 +21,15 @@ const AnotherProfileShorts = () => {
   // 쇼츠 정보 받아오기
   const getShorts = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/shorts/whole", {
+      .get("https://crithub.shop/api/shorts/whole", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
       })
       .then((res) => {
-        setShortsByAll(res.data.data.filter((short) => short.writer === nickname));
+        setShortsByAll(
+          res.data.data.filter((short) => short.writer === nickname),
+        );
       })
       .catch((err) => {
         console.log(err);

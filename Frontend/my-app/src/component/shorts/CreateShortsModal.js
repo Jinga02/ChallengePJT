@@ -9,7 +9,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { api } from "../../api/api";
 import ShortsLoading from "../ShortsLoading";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/shorts";
+const API_BASE_URL = "https://crithub.shop/api/shorts";
 
 const CreateShortsModal = ({ setShortsCreateModal }) => {
   const [loading, setLoading] = useState(false);
@@ -51,7 +51,7 @@ const CreateShortsModal = ({ setShortsCreateModal }) => {
 
     formData.append(
       "shortsDto",
-      new Blob([JSON.stringify(shortsDto)], { type: "application/json" })
+      new Blob([JSON.stringify(shortsDto)], { type: "application/json" }),
     );
 
     api
@@ -63,7 +63,7 @@ const CreateShortsModal = ({ setShortsCreateModal }) => {
         onUploadProgress: (progressEvent) => {
           // 진행 상황 계산 및 상태 업데이트
           const percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
+            (progressEvent.loaded * 100) / progressEvent.total,
           );
           setProgress(percentCompleted);
         },

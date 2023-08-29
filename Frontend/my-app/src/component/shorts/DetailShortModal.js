@@ -46,7 +46,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
   const getShorts = () => {
     setLoading(true);
     api
-      .get("https://i9d201.p.ssafy.io/api/shorts/main", {
+      .get("https://crithub.shop/api/shorts/main", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -63,7 +63,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
   const getShort = () => {
     setLoading(true);
     api
-      .get(`https://i9d201.p.ssafy.io/api/shorts/${shortId}`, {
+      .get(`https://crithub.shop/api/shorts/${shortId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -80,7 +80,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
   // 좋아요 기능
   const shortsLike = async (shortId) => {
     api
-      .post(`https://i9d201.p.ssafy.io/api/shorts/likes/${shortId}`, null, {
+      .post(`https://crithub.shop/api/shorts/likes/${shortId}`, null, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -97,7 +97,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
   // 좋아요 취소 기능
   const deleteLike = async (shortId) => {
     api
-      .delete(`https://i9d201.p.ssafy.io/api/shorts/likes/${shortId}`, {
+      .delete(`https://crithub.shop/api/shorts/likes/${shortId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -125,7 +125,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
     }
 
     api
-      .delete(`https://i9d201.p.ssafy.io/api/shorts/${shortId}`, {
+      .delete(`https://crithub.shop/api/shorts/${shortId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -144,7 +144,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
   // 댓글 정보 불러오기
   const getComments = () => {
     api
-      .get(`https://i9d201.p.ssafy.io/api/shorts/comments/${shortId}`, {
+      .get(`https://crithub.shop/api/shorts/comments/${shortId}`, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -168,7 +168,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
     event.preventDefault();
     api
       .post(
-        `https://i9d201.p.ssafy.io/api/shorts/comments/${shortId}`,
+        `https://crithub.shop/api/shorts/comments/${shortId}`,
         {
           content: newComment,
           writer: user.nickname,
@@ -177,7 +177,7 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then(() => {
         setNewComment("");
@@ -197,12 +197,12 @@ const DetailShortModal = ({ shortId, setOpenDetailModal, ref }) => {
   const deleteComment = async (commentId) => {
     api
       .delete(
-        `https://i9d201.p.ssafy.io/api/shorts/comments/${shortId}/${commentId}`,
+        `https://crithub.shop/api/shorts/comments/${shortId}/${commentId}`,
         {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then(() => {
         setNewComment("");

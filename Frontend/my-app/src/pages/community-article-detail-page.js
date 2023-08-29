@@ -27,7 +27,7 @@ import {
   SArticleTitle,
   SArticleContent,
 } from "../styles/pages/SCommunityPage.js";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/boards";
+const API_BASE_URL = "https://crithub.shop/api/boards";
 // const API_BASE_URL = 'http://localhost:8080/boards';
 
 const CommunityArticleDetailPage = () => {
@@ -99,7 +99,7 @@ const CommunityArticleDetailPage = () => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then(() => {
         setNewComment("");
@@ -217,16 +217,16 @@ const CommunityArticleDetailPage = () => {
 
     if (year === currentYear) {
       return `${formattedMonth.slice(-2)}.${formattedDay.slice(
-        -2
+        -2,
       )} ${formattedHour.slice(-2)}:${formattedMinute.slice(
-        -2
+        -2,
       )}:${formattedSecond.slice(-2)}`;
     } else {
       const shortYear = year.toString().slice(-2);
       return `${shortYear}.${formattedMonth.slice(-2)}.${formattedDay.slice(
-        -2
+        -2,
       )} ${formattedHour.slice(-2)}:${formattedMinute.slice(
-        -2
+        -2,
       )}:${formattedSecond.slice(-2)}`;
     }
   };

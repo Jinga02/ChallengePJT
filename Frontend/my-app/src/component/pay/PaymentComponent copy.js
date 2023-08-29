@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { api } from "../../api/api";
 
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/payment";
+const API_BASE_URL = "https://crithub.shop/api/payment";
 
 const Pay = () => {
   const user = useSelector((state) => state.users);
@@ -22,7 +22,7 @@ const Pay = () => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       )
       .then((res) => {
         // console.log('결제 승인 완료:', res.data);
@@ -55,7 +55,7 @@ const Pay = () => {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
-      }
+      },
     )
     .then((res) => {
       // console.log('환불 처리 완료:', res.data);

@@ -14,7 +14,7 @@ import { api } from "../api/api";
 import Swal from "sweetalert2";
 
 var localUser = new UserModel();
-const APPLICATION_SERVER_URL = "https://i9d201.p.ssafy.io/api/room/";
+const APPLICATION_SERVER_URL = "https://crithub.shop/api/room/";
 
 // Teachable machine 관련 변수
 // const webcamRef = null; // webcam을 useRef로 선언
@@ -31,6 +31,7 @@ const maxPredictions = 2; // 모델이 가지고 있는 클래스의 수에 따�
 
 class VideoRoomComponent extends Component {
   constructor(props) {
+    console.log(props);
     super(props);
     this.webcamRef = React.createRef(); // webcam을 Ref로 선언
     this.modelRef = React.createRef();
@@ -93,7 +94,7 @@ class VideoRoomComponent extends Component {
 
     this.layout.initLayoutContainer(
       document.getElementById("layout"),
-      openViduLayoutOptions
+      openViduLayoutOptions,
     );
     window.addEventListener("beforeunload", this.onbeforeunload);
     window.addEventListener("resize", this.updateLayout);
@@ -158,7 +159,7 @@ class VideoRoomComponent extends Component {
       async () => {
         this.subscribeToStreamCreated();
         await this.connectToSession();
-      }
+      },
     );
   }
 
@@ -173,7 +174,7 @@ class VideoRoomComponent extends Component {
         console.error(
           "There was an error getting the token:",
           error.code,
-          error.message
+          error.message,
         );
         if (this.props.error) {
           this.props.error({
@@ -355,10 +356,10 @@ class VideoRoomComponent extends Component {
         this.state.localUser.getStreamManager().on("streamPlaying", (e) => {
           this.updateLayout();
           publisher.videos[0].video.parentElement.classList.remove(
-            "custom-class"
+            "custom-class",
           );
         });
-      }
+      },
     );
   }
 
@@ -378,7 +379,7 @@ class VideoRoomComponent extends Component {
           });
         }
         this.updateLayout();
-      }
+      },
     );
   }
 
@@ -416,7 +417,7 @@ class VideoRoomComponent extends Component {
     // console.log(`지속 시간: ${this.state.totalTime.toFixed(2)}초`);
 
     api
-      .post("https://i9d201.p.ssafy.io/api/cert/video", {
+      .post("https://crithub.shop/api/cert/video", {
         challengeId,
         inTime,
       })
@@ -483,7 +484,7 @@ class VideoRoomComponent extends Component {
   deleteSubscriber(stream) {
     const remoteUsers = this.state.subscribers;
     const userStream = remoteUsers.filter(
-      (user) => user.getStreamManager().stream === stream
+      (user) => user.getStreamManager().stream === stream,
     )[0];
     let index = remoteUsers.indexOf(userStream, 0);
     if (index > -1) {
@@ -501,7 +502,7 @@ class VideoRoomComponent extends Component {
       subscriber.on("streamPlaying", (e) => {
         this.checkSomeoneShareScreen();
         subscriber.videos[0].video.parentElement.classList.remove(
-          "custom-class"
+          "custom-class",
         );
       });
       const newUser = new UserModel();
@@ -555,7 +556,7 @@ class VideoRoomComponent extends Component {
         {
           subscribers: remoteUsers,
         },
-        () => this.checkSomeoneShareScreen()
+        () => this.checkSomeoneShareScreen(),
       );
     });
   }
@@ -609,12 +610,13 @@ class VideoRoomComponent extends Component {
     try {
       const devices = await this.OV.getDevices();
       var videoDevices = devices.filter(
-        (device) => device.kind === "videoinput"
+        (device) => device.kind === "videoinput",
       );
 
       if (videoDevices && videoDevices.length > 1) {
         var newVideoDevice = videoDevices.filter(
-          (device) => device.deviceId !== this.state.currentVideoDevice.deviceId
+          (device) =>
+            device.deviceId !== this.state.currentVideoDevice.deviceId,
         );
 
         if (newVideoDevice.length > 0) {
@@ -630,7 +632,7 @@ class VideoRoomComponent extends Component {
 
           //newPublisher.once("accessAllowed", () => {
           await this.state.session.unpublish(
-            this.state.localUser.getStreamManager()
+            this.state.localUser.getStreamManager(),
           );
           await this.state.session.publish(newPublisher);
           this.state.localUser.setStreamManager(newPublisher);
@@ -666,7 +668,7 @@ class VideoRoomComponent extends Component {
         } else if (error && error.name === "SCREEN_CAPTURE_DENIED") {
           alert("You need to choose a window or application to share");
         }
-      }
+      },
     );
 
     publisher.once("accessAllowed", () => {
@@ -842,7 +844,7 @@ class VideoRoomComponent extends Component {
           "Content-Type": "application/json",
           Authorization: `Bearer ${this.props.challengeData.user.accessToken}`,
         },
-      }
+      },
     );
 
     return response.data.data; // The sessionId
@@ -857,7 +859,7 @@ class VideoRoomComponent extends Component {
           "Content-Type": "application/json",
           Authorization: `Bearer ${this.props.challengeData.user.accessToken}`,
         },
-      }
+      },
     );
     return response.data.data; // The token
   }

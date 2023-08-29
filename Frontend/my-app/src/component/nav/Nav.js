@@ -16,7 +16,7 @@ import MessageBox from "../message/MessageBox";
 import { api } from "../../api/api";
 
 const Nav = () => {
-  const API_BASE_URL = "https://i9d201.p.ssafy.io/api/";
+  const API_BASE_URL = "https://crithub.shop/api/";
   const user = useSelector((state) => state.users); // useSelector를 통해 userSlice의 상태를 가져옴
   const [view, setView] = useState(false);
   const [massageView, setMassageView] = useState(false);
@@ -153,7 +153,7 @@ const Nav = () => {
                   src={profile.url}
                   style={{
                     width: "50px",
-                    height:"50px",
+                    height: "50px",
                     objectFit: "cover",
 
                     borderRadius: "50%",

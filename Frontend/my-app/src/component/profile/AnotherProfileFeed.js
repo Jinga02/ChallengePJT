@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import { api } from "../../api/api";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/feeds";
+const API_BASE_URL = "https://crithub.shop/api/feeds";
 
 const AnotherProfileFeed = ({ userId }) => {
   const { nickname } = useParams();
@@ -42,7 +42,7 @@ const AnotherProfileFeed = ({ userId }) => {
           headers: {
             Authorization: `Bearer ${user.accessToken}`,
           },
-        }
+        },
       );
 
       const allFeeds = response.data.data.content;

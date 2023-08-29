@@ -27,15 +27,11 @@ const JoinChallenge = ({ challenge, setCheckUser }) => {
   };
   const entranceChallenge = () => {
     api
-      .post(
-        `https://i9d201.p.ssafy.io/api/challenge/join/${challenge.id}`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${user.accessToken}`,
-          },
-        }
-      )
+      .post(`https://crithub.shop/api/challenge/join/${challenge.id}`, null, {
+        headers: {
+          Authorization: `Bearer ${user.accessToken}`,
+        },
+      })
       .then((res) => {
         Swal.fire({
           position: "center",

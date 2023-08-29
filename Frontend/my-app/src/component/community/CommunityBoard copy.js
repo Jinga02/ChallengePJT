@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { api } from "../../api/api";
-import BoardCard from './BoardCard.js'
-import Loading from '../Loading';
-import { 
-  SHr, 
-  SEmpty, 
+import BoardCard from "./BoardCard.js";
+import Loading from "../Loading";
+import {
+  SHr,
+  SEmpty,
   SBoardArticleCol,
-  SBoardContainer
-} from '../../styles/pages/SCommunityPage';
-const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/boards';
+  SBoardContainer,
+} from "../../styles/pages/SCommunityPage";
+const API_BASE_URL = "https://crithub.shop/api/boards";
 
 const CommunityBoard = () => {
   const [loading, setLoading] = useState(true);
@@ -29,13 +29,12 @@ const CommunityBoard = () => {
   //     },
   //   })
   //     .then((res) => {
-  //       setLoading(false); 
+  //       setLoading(false);
   //       console.log(res);
-      
+
   //       if (res.data.data && Array.isArray(res.data.data)) {
   //         const fetchedBoards = res.data.data.filter(article => ["자유 게시판", "자랑게시판", "운동 게시판", "반려동물 게시판"].includes(article.classification)).sort((a, b) => new Date(b.id) - new Date(a.id));;
   //                   // sort((a, b) => new Date(b.id) - new Date(a.id));
-          
 
   //         const fetchedTopics = Array.from(new Set(fetchedBoards.map((board) => board.classification)));
   //         setBoards(fetchedBoards);
@@ -49,7 +48,7 @@ const CommunityBoard = () => {
   //         console.log(boards);
   //       }
   //     })
-    
+
   //     .catch((error) => {
   //       console.log(error);
   //       console.log('전체 게시글 조회 실패');
@@ -66,7 +65,11 @@ const CommunityBoard = () => {
         {/* 각 classification에 해당하는 게시글을 분류하여 표시. */}
         {topic.map((classification, index) => (
           <SBoardArticleCol key={index}>
-            <BoardCard key={classification} classification={classification} boards={boards} />
+            <BoardCard
+              key={classification}
+              classification={classification}
+              boards={boards}
+            />
           </SBoardArticleCol>
         ))}
       </SBoardContainer>

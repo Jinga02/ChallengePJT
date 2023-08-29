@@ -13,14 +13,11 @@ const JoinListModal = ({ challengeData, closeJoinListModal }) => {
   const [joinList, setJoinList] = useState([]);
   const getJoinList = () => {
     api
-      .get(
-        `https://i9d201.p.ssafy.io/api/cert/list/${challengeData.challenge.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${challengeData.user.accessToken}`,
-          },
-        }
-      )
+      .get(`https://crithub.shop/api/cert/list/${challengeData.challenge.id}`, {
+        headers: {
+          Authorization: `Bearer ${challengeData.user.accessToken}`,
+        },
+      })
       .then((res) => {
         setJoinList(res.data.data);
         setLoading(false);

@@ -40,9 +40,7 @@ const PhotoChallengeModal = ({ challengeData, closePhotoModal }) => {
   };
   const getCertList = () => {
     api
-      .get(
-        `https://i9d201.p.ssafy.io/api/cert/list/${challengeData.challenge.id}`
-      )
+      .get(`https://crithub.shop/api/cert/list/${challengeData.challenge.id}`)
       .then((res) => {
         const certList = res.data.data[res.data.data.length - 1]; // 마지막 요소 선택
 
@@ -90,10 +88,10 @@ const PhotoChallengeModal = ({ challengeData, closePhotoModal }) => {
       "requestDto",
       new Blob([JSON.stringify(challengeData.challenge.id)], {
         type: "application/json",
-      })
+      }),
     ); // requestDto를 JSON 형식으로 추가
     api
-      .post("https://i9d201.p.ssafy.io/api/cert/img", formData, {
+      .post("https://crithub.shop/api/cert/img", formData, {
         headers: {
           Authorization: `Bearer ${challengeData.user.accessToken}`,
           "Content-Type": `multipart/form-data`,

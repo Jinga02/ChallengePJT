@@ -94,7 +94,7 @@ const MainPage = () => {
 
   const getAllShorts = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/shorts/whole", {
+      .get("https://crithub.shop/api/shorts/whole", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -111,7 +111,7 @@ const MainPage = () => {
   const getShorts = () => {
     setLoading(false);
     api
-      .get("https://i9d201.p.ssafy.io/api/shorts/main", {
+      .get("https://crithub.shop/api/shorts/main", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },

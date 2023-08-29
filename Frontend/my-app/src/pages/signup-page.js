@@ -35,7 +35,7 @@ const SignUp = () => {
       setMismatchError(e.target.value !== passwordCheck);
     },
     // 함수 기준 외부 변수만 deps[]에 작성
-    [passwordCheck]
+    [passwordCheck],
   );
   // 아이디 중복확인
   const onCheckId = (userId) => {
@@ -52,9 +52,7 @@ const SignUp = () => {
       });
     } else {
       axios
-        .post(
-          `https://i9d201.p.ssafy.io/api/auth/valid/userId?userId=${userId}`
-        )
+        .post(`https://crithub.shop/api/auth/valid/userId?userId=${userId}`)
         .then((res) => {
           if (
             res.data
@@ -106,7 +104,7 @@ const SignUp = () => {
     } else {
       axios
         .post(
-          `https://i9d201.p.ssafy.io/api/auth/valid/nickname?nickname=${nickname}`
+          `https://crithub.shop/api/auth/valid/nickname?nickname=${nickname}`,
         )
         .then((res) => {
           if (
@@ -149,7 +147,7 @@ const SignUp = () => {
       setPasswordCheck(e.target.value);
       setMismatchError(e.target.value !== password);
     },
-    [password]
+    [password],
   );
 
   // 회원가입 폼 제출
@@ -185,7 +183,7 @@ const SignUp = () => {
         setSignUpError("");
         setSignUpSuccess(false);
         axios
-          .post("https://i9d201.p.ssafy.io/api/auth/signup", {
+          .post("https://crithub.shop/api/auth/signup", {
             id,
             password,
             email,
@@ -224,7 +222,7 @@ const SignUp = () => {
           });
       }
     },
-    [email, nickname, password, passwordCheck, checkId, checkNickname]
+    [email, nickname, password, passwordCheck, checkId, checkNickname],
   );
 
   return (

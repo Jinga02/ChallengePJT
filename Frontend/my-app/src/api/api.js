@@ -1,19 +1,20 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://i9d201.p.ssafy.io/api",
+  baseURL: "https://crithub.shop/api",
 });
 
 const getNewAccessToken = async (refreshToken) => {
   try {
     const response = await axios.post(
-      "https://i9d201.p.ssafy.io/api/token/reissue",
+      "https://crithub.shop/api/token/reissue",
+
       {},
       {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
         },
-      }
+      },
     );
     const newAccessToken = response.data.token;
     console.log("newAccessToken:", newAccessToken);

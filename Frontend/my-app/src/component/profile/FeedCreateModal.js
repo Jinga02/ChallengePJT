@@ -11,7 +11,7 @@ import {
 } from "../../styles/pages/SCommunityPage";
 import { ModalOverlay } from "../../styles/SCommon";
 import Loading from "../Loading";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/feeds";
+const API_BASE_URL = "https://crithub.shop/api/feeds";
 
 const FeedCreateModal = ({ setIsCreateModalOpen, getFeeds }) => {
   const [loading, setLoading] = useState(false);
@@ -56,7 +56,7 @@ const FeedCreateModal = ({ setIsCreateModalOpen, getFeeds }) => {
 
     formData.append(
       "fileResponseDto",
-      new Blob([JSON.stringify(feedContent)], { type: "application/json" })
+      new Blob([JSON.stringify(feedContent)], { type: "application/json" }),
     );
 
     api

@@ -16,7 +16,7 @@ import { useParams } from "react-router-dom";
 import FeedModifyModal from "./FeedModifyModal";
 import Loading from "../Loading";
 
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/feeds";
+const API_BASE_URL = "https://crithub.shop/api/feeds";
 
 const FeedDetailModal = ({ feedId, setIsDetailModalOpen, getFeeds }) => {
   const [showModifyModal, setModifyModal] = useState(false);

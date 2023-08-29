@@ -13,7 +13,7 @@ import {
 import FeedCreateModal from "./FeedCreateModal";
 import FeedDetailModal from "./FeedDetailModal";
 import { api } from "../../api/api";
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/feeds";
+const API_BASE_URL = "https://crithub.shop/api/feeds";
 
 const Feed = () => {
   const user = useSelector((state) => state.users);

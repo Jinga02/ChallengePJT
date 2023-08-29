@@ -40,7 +40,7 @@ const CreateBoard = ({ boards, classification, getBoard }) => {
         const formData = new FormData();
         formData.append(
           "boardSaveRequestDto",
-          new Blob([JSON.stringify(board)], { type: "application/json" })
+          new Blob([JSON.stringify(board)], { type: "application/json" }),
         );
         if (board.content === "") {
           Swal.fire({
@@ -55,7 +55,7 @@ const CreateBoard = ({ boards, classification, getBoard }) => {
           });
         } else {
           api
-            .post(`https://i9d201.p.ssafy.io/api/boards/write`, formData, {
+            .post(`https://crithub.shop/api/boards/write`, formData, {
               headers: {
                 Authorization: `Bearer ${user.accessToken}`,
                 "Content-Type": "multipart/form-data",
@@ -99,7 +99,7 @@ const CreateBoard = ({ boards, classification, getBoard }) => {
       const formData = new FormData();
       formData.append(
         "boardSaveRequestDto",
-        new Blob([JSON.stringify(board)], { type: "application/json" })
+        new Blob([JSON.stringify(board)], { type: "application/json" }),
       );
       if (board.content === "") {
         Swal.fire({
@@ -114,7 +114,7 @@ const CreateBoard = ({ boards, classification, getBoard }) => {
         });
       } else {
         api
-          .post(`https://i9d201.p.ssafy.io/api/boards/write`, formData, {
+          .post(`https://crithub.shop/api/boards/write`, formData, {
             headers: {
               Authorization: `Bearer ${user.accessToken}`,
               "Content-Type": "multipart/form-data",

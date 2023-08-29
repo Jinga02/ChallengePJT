@@ -155,7 +155,7 @@ const CreateChallengeModal = ({ closeModal }) => {
     ); // requestDto를 JSON 형식으로 추가
 
     api
-      .post("https://i9d201.p.ssafy.io/api/challenge/create", formData, {
+      .post("https://crithub.shop/api/challenge/create", formData, {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
           "Content-Type": `multipart/form-data`,

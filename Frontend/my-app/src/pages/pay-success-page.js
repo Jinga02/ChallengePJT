@@ -10,7 +10,7 @@ import {
   PaySuccessPaymentInfo,
 } from "../styles/pages/SPayPage";
 
-const API_BASE_URL = "https://i9d201.p.ssafy.io/api/payment";
+const API_BASE_URL = "https://crithub.shop/api/payment";
 const PaySuccessPage = () => {
   useEffect(() => {
     payComplete();

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { api } from '../../api/api';
+import { api } from "../../api/api";
 import { useSelector } from "react-redux";
-import { ProfileShortsListArea, ProfileShortsList } from "../../styles/pages/SProfilePage";
+import {
+  ProfileShortsListArea,
+  ProfileShortsList,
+} from "../../styles/pages/SProfilePage";
 import ProfileMyShortsItem from "./ProfileMyShortsItem";
-import { SDividerLine } from '../../styles/pages/SMainPage';
-const API_BASE_URL = 'https://i9d201.p.ssafy.io/api/feeds';
+import { SDividerLine } from "../../styles/pages/SMainPage";
+const API_BASE_URL = "https://crithub.shop/api/feeds";
 
 const ProfileShorts = () => {
   const user = useSelector((state) => state.users);
@@ -13,7 +16,7 @@ const ProfileShorts = () => {
   // 쇼츠 정보 받아오기
   const getShorts = () => {
     api
-      .get("https://i9d201.p.ssafy.io/api/shorts/whole", {
+      .get("https://crithub.shop/api/shorts/whole", {
         headers: {
           Authorization: `Bearer ${user.accessToken}`,
         },
@@ -30,17 +33,15 @@ const ProfileShorts = () => {
     getShorts();
   }, []);
 
-
-    return (
-      <ProfileShortsListArea>
-        <h2>내가 만든 숏챌</h2>
-        <SDividerLine/>
-        <ProfileShortsList>
-          <ProfileMyShortsItem shortsByAll={shortsByAll}/>
-        </ProfileShortsList>
-      </ProfileShortsListArea>   
-    );
-  };
-
+  return (
+    <ProfileShortsListArea>
+      <h2>내가 만든 숏챌</h2>
+      <SDividerLine />
+      <ProfileShortsList>
+        <ProfileMyShortsItem shortsByAll={shortsByAll} />
+      </ProfileShortsList>
+    </ProfileShortsListArea>
+  );
+};
 
 export default ProfileShorts;
